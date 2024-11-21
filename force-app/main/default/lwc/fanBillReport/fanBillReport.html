@@ -1,0 +1,16 @@
+<template>
+    <lightning-spinner
+        if:true={_isLoadingData}
+        class="slds-align_absolute-center slds-m-around_large"
+        variant="brand">
+    </lightning-spinner>
+    <c-fan-bill-report-display 
+        bill-info-data={sortedBillInfoData}
+        is-sheet-library-loaded={isSheetLibraryLoaded}
+        id-tercero={idTercero}
+        onsortupdate={handleSortUpdate}
+        onfilterupdate={handleFilterUpdate}
+        onsearch={handleSearch}
+        ondownloadinvoice={handleDownloadInvoice}
+    ></c-fan-bill-report-display>
+</template>

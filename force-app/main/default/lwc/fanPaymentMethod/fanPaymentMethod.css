@@ -1,0 +1,12 @@
+.bold-text {
+  font-weight: var(--lwc-fontWeightBold);
+}
+
+.imgPaymentCash {
+  width: 46%;
+  max-width: 370px;
+}
+
+.imgBcoBogota {
+  height: 25px;
+}

@@ -1,0 +1,114 @@
+<template>
+    <div class="slds-var-m-top_x-large slds-var-m-bottom_medium slds-var-p-left_small">
+        <span class="slds-text-heading_large slds-text-color_default bold-text">{label.quotaReport}</span>
+    </div>
+
+    <lightning-layout multiple-rows="true" horizontal-align="spread">
+
+        <lightning-layout-item size="12" padding="around-small">
+            <div class="slds-text-heading_small brand-dark">
+                {label.creditCapacityDetail}
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="6" padding="around-small">
+            <div>
+                <span class="bold-text">{label.assignedCreditCapacity}: </span>
+                <lightning-formatted-number value={quotaDetails.assignedCreditCapacity} format-style="currency" currency-code="COP"
+                    minimum-fraction-digits="0" maximum-fraction-digits="0">
+                </lightning-formatted-number>
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="6" padding="around-small">
+            <div>
+                <span class="bold-text">{label.availableCreditCapacity}: </span>
+                <lightning-formatted-number value={quotaDetails.availableCreditCapacity} format-style="currency" currency-code="COP"
+                    minimum-fraction-digits="0" maximum-fraction-digits="0">
+                </lightning-formatted-number>
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="6" padding="around-small">
+            <div>
+                <span class="bold-text">{label.advancedBalanceFavor}: </span>
+                <lightning-formatted-number value={quotaDetails.advancedBalanceFavor} format-style="currency" currency-code="COP"
+                    minimum-fraction-digits="0" maximum-fraction-digits="0">
+                </lightning-formatted-number>
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="6" padding="around-small">
+            <div>
+                <span class="bold-text">{label.consignedValue}: </span>
+                <lightning-formatted-number value={quotaDetails.consignedValue} format-style="currency" currency-code="COP"
+                    minimum-fraction-digits="0" maximum-fraction-digits="0">
+                </lightning-formatted-number>
+            </div>
+        </lightning-layout-item>
+
+        <!-- START ACCORDIONS -->
+
+        <template for:each={storeCreditCapacities} for:item="storeCreditCapacity">
+            <lightning-layout-item size="12" key={storeCreditCapacity.store}>
+    
+                <lightning-accordion allow-multiple-sections-open>
+                    <lightning-accordion-section name={storeCreditCapacity.store} label={storeCreditCapacity.store}>
+                        <lightning-layout multiple-rows horizontal-align="spread">
+    
+                            <lightning-layout-item size="6" padding="around-small">
+                                <div class="slds-text-color_weak bold-text">
+                                    {label.expiredWallet}:
+                                </div>
+                                <div class="slds-border_bottom">
+                                    <lightning-formatted-number value={storeCreditCapacity.expiredWallet} format-style="currency" currency-code="COP"
+                                        minimum-fraction-digits="0" maximum-fraction-digits="0">
+                                    </lightning-formatted-number>
+                                </div>
+                            </lightning-layout-item>
+    
+                            <lightning-layout-item size="6" padding="around-small">
+                                <div class="slds-text-color_weak bold-text">
+                                    {label.walletTotal}:
+                                </div>
+                                <div class="slds-border_bottom">
+                                    <lightning-formatted-number value={storeCreditCapacity.walletTotal} format-style="currency" currency-code="COP"
+                                        minimum-fraction-digits="0" maximum-fraction-digits="0">
+                                    </lightning-formatted-number>
+                                </div>
+                            </lightning-layout-item>
+    
+                            <lightning-layout-item size="6" padding="around-small">
+                                <div class="slds-text-color_weak bold-text">
+                                    {label.dispatchmentOrder}:
+                                </div>
+                                <div class="slds-border_bottom">
+                                    <lightning-formatted-number value={storeCreditCapacity.dispatchmentOrder} format-style="currency" currency-code="COP"
+                                        minimum-fraction-digits="0" maximum-fraction-digits="0">
+                                    </lightning-formatted-number>
+                                </div>
+                            </lightning-layout-item>
+                            
+                            <lightning-layout-item size="6" padding="around-small">
+                                <div class="slds-text-color_weak bold-text">
+                                    {label.pendingPaymentOrders}:
+                                </div>
+                                <div class="slds-border_bottom">
+                                    <lightning-formatted-number value={storeCreditCapacity.pendingPaymentOrders} format-style="currency" currency-code="COP"
+                                        minimum-fraction-digits="0" maximum-fraction-digits="0">
+                                    </lightning-formatted-number>
+                                </div>
+                            </lightning-layout-item>
+    
+                        </lightning-layout>
+                    </lightning-accordion-section>
+    
+                </lightning-accordion>
+            </lightning-layout-item>
+        </template>
+        
+        <!-- END ACCORDIONS -->
+
+    </lightning-layout>
+
+</template>

@@ -1,0 +1,39 @@
+.gap-10 {
+    gap: 10px;
+}
+
+.swatch-outer-circle {
+    border: 1px solid #fff;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.swatch-outer-circle:hover {
+    border-color: #767676;
+}
+
+.swatch-outer-circle-selected {
+    border-color: #111 !important;
+}
+
+.swatch-outer-circle-selected .swatch-inner-circle-border {
+    cursor: auto;
+}
+
+.swatch-inner-circle-border {
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 50%;
+    cursor: pointer;
+    float: left;
+
+	/* Prevent select */
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+.swatch-inner-circle-fill {
+    border-radius: 50%;
+    height: 22px;
+    width: 22px;
+}

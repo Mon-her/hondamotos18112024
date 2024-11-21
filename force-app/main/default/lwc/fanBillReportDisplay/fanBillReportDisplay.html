@@ -1,0 +1,724 @@
+<template>
+  <lightning-layout multiple-rows>
+    <lightning-layout-item size="12" padding="around-small">
+      <div class="slds-var-m-vertical_medium">
+        <span class="slds-text-heading_large slds-text-color_default bold-text">
+          {label.invoiceConsultation}
+        </span>
+      </div>
+      <lightning-card>
+        <div class="slds-p-horizontal_small">
+          <div class="dates-div slds-m-bottom_large">
+            <div class="slds-col slds-size_3-of-12">
+              <lightning-input
+                type="date"
+                name="input1"
+                label={label.initDate}
+                value={initDate}
+                onchange={handleInputInitDateChange}
+              ></lightning-input>
+            </div>
+            <div class="slds-col slds-size_3-of-12">
+              <lightning-input
+                type="date"
+                name="input2"
+                label={label.endDate}
+                value={endDate}
+                onchange={handleInputEndDateChange}
+              ></lightning-input>
+            </div>
+            <div class="slds-col slds-size_4-of-12 buttons-div">
+              <div class="slds-m-left_x-small">
+                <lightning-button
+                  label={label.buttonLabel}
+                  onclick={onHandleSearch}
+                ></lightning-button>
+              </div>
+              <div class="slds-m-left_x-small">
+                <lightning-button
+                  label={label.buttonLabelClear}
+                  onclick={onHandleClear}
+                ></lightning-button>
+              </div>
+              <div if:true={hasBillSelected} class="slds-m-left_x-small">
+                <lightning-button
+                  label={label.paySelected}
+                  onclick={onHandlePaySelectedBills}
+                  variant="brand"
+                ></lightning-button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-table background-color-gray">
+          <table
+            class="slds-table slds-table_cell-buffer slds-table_striped slds-var-p-bottom_small slds-var-m-top_large"
+          >
+            <thead
+              class="slds-border_bottom gray-background table-background-header fixed-header"
+            >
+              <tr>
+                <th>
+                  <span
+                    title="selectToPay"
+                    class="bold-text slds-text-color_default"
+                    >{label.payOption}/{label.creditPayment}</span
+                  >
+                </th>
+                <th>
+                  <span title="toPay" class="bold-text slds-text-color_default"
+                    ></span
+                  >
+                </th>
+                <th>
+                  <a class="slds-button" onclick={onHandleSort} role="button">
+                    <span
+                      title="billId"
+                      class="bold-text slds-text-color_default"
+                    >
+                      {label.billNumber}
+                    </span>
+                    <span hidden={currentSortBy.sortByBillId}>
+                      <lightning-icon
+                        icon-name={arrowDirection}
+                        size="xx-small"
+                        alternative-text={label.sortBy}
+                        title="billId"
+                        class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      >
+                      </lightning-icon>
+                    </span>
+                  </a>
+                </th>
+                <th>
+                  <a class="slds-button" onclick={onHandleSort} role="button">
+                    <span
+                      title="buyingOrderId"
+                      class="bold-text slds-text-color_default"
+                    >
+                      {label.buyingOrderNumber}
+                    </span>
+                    <span hidden={currentSortBy.sortByBuyingOrderId}>
+                      <lightning-icon
+                        icon-name={arrowDirection}
+                        size="xx-small"
+                        alternative-text={label.sortBy}
+                        title="buyingOrderId"
+                        class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      >
+                      </lightning-icon>
+                    </span>
+                  </a>
+                </th>
+                <th>
+                  <a class="slds-button" onclick={onHandleSort} role="button">
+                    <span
+                      title="billDate"
+                      class="bold-text slds-text-color_default"
+                    >
+                      {label.billDate}
+                    </span>
+                    <span hidden={currentSortBy.sortByBillDate}>
+                      <lightning-icon
+                        icon-name={arrowDirection}
+                        size="xx-small"
+                        alternative-text={label.sortBy}
+                        title="billDate"
+                        class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      >
+                      </lightning-icon>
+                    </span>
+                  </a>
+                </th>
+                <th>
+                  <a class="slds-button" onclick={onHandleSort} role="button">
+                    <span
+                      title="expirationDate"
+                      class="bold-text slds-text-color_default"
+                      >{label.expirationDate}</span
+                    >
+                    <span hidden={currentSortBy.sortByExpirationDate}>
+                      <lightning-icon
+                        icon-name={arrowDirection}
+                        size="xx-small"
+                        alternative-text={label.sortBy}
+                        title="expirationDate"
+                        class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      >
+                      </lightning-icon>
+                    </span>
+                  </a>
+                </th>
+                <th>
+                  <a class="slds-button" onclick={onHandleSort} role="button">
+                    <span
+                      title="branchStore"
+                      class="bold-text slds-text-color_default"
+                      >{label.branchStore}</span
+                    >
+                    <span hidden={currentSortBy.sortByBranchStore}>
+                      <lightning-icon
+                        icon-name={arrowDirection}
+                        size="xx-small"
+                        alternative-text={label.sortBy}
+                        title="branchStore"
+                        class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      >
+                      </lightning-icon>
+                    </span>
+                  </a>
+                </th>
+                <th>
+                  <a class="slds-button" onclick={onHandleSort} role="button">
+                    <span
+                      title="paymentCondition"
+                      class="bold-text slds-text-color_default"
+                      >{label.paymentCondition}</span
+                    >
+                    <span hidden={currentSortBy.sortByPaymentCondition}>
+                      <lightning-icon
+                        icon-name={arrowDirection}
+                        size="xx-small"
+                        alternative-text={label.sortBy}
+                        title="paymentCondition"
+                        class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      >
+                      </lightning-icon>
+                    </span>
+                  </a>
+                </th>
+                <th>
+                  <a class="slds-button" onclick={onHandleSort} role="button">
+                    <span
+                      title="orderNumber"
+                      class="bold-text slds-text-color_default"
+                    >
+                      {label.orderNumber}
+                    </span>
+                    <span hidden={currentSortBy.sortByOrderNumber}>
+                      <lightning-icon
+                        icon-name={arrowDirection}
+                        size="xx-small"
+                        alternative-text={label.sortBy}
+                        title="orderNumber"
+                        class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      >
+                      </lightning-icon>
+                    </span>
+                  </a>
+                </th>
+                <th>
+                  <a class="slds-button" onclick={onHandleSort} role="button">
+                    <span
+                      title="netValue"
+                      class="bold-text slds-text-color_default"
+                      >{label.netValue}</span
+                    >
+                    <span hidden={currentSortBy.sortByNetValue}>
+                      <lightning-icon
+                        icon-name={arrowDirection}
+                        size="xx-small"
+                        alternative-text={label.sortBy}
+                        title="netValue"
+                        class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      >
+                      </lightning-icon>
+                    </span>
+                  </a>
+                </th>
+                <th>
+                  <span
+                    title="actions"
+                    class="bold-text slds-text-color_default"
+                    >{label.actions}</span
+                  >
+                </th>
+              </tr>
+
+              <!-- START INPUT FILTERS -->
+
+              <tr class="bold-text slds-text-color_default">
+                <th>
+                  <!--selectToPay - EMPTY SPACE -->
+                </th>
+                <th>
+                  <!--toPay - EMPTY SPACE -->
+                </th>
+                <th>
+                  <span
+                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                    title={label.searchFilter}
+                  >
+                    <svg
+                      class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      aria-hidden="true"
+                    ></svg>
+                    <span class="slds-assistive-text"
+                      >{label.searchFilter}</span
+                    >
+                    <lightning-icon
+                      icon-name="utility:filterList"
+                      size="xx-small"
+                      alternative-text={label.searchFilter}
+                      title={label.searchFilter}
+                      class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                    >
+                    </lightning-icon>
+                    <input
+                      type="text"
+                      title="billId"
+                      placeholder={label.filterHere}
+                      class="slds-input"
+                      onchange={onHandleFilter}
+                    />
+                  </span>
+                </th>
+                <th>
+                  <span
+                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                    title={label.searchFilter}
+                  >
+                    <svg
+                      class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      aria-hidden="true"
+                    ></svg>
+                    <span class="slds-assistive-text"
+                      >{label.searchFilter}</span
+                    >
+                    <lightning-icon
+                      icon-name="utility:filterList"
+                      size="xx-small"
+                      alternative-text={label.searchFilter}
+                      title={label.searchFilter}
+                      class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                    >
+                    </lightning-icon>
+                    <input
+                      type="text"
+                      title="buyingOrderId"
+                      placeholder={label.filterHere}
+                      class="slds-input"
+                      onchange={onHandleFilter}
+                    />
+                  </span>
+                </th>
+                <th>
+                  <span
+                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                    title={label.searchFilter}
+                  >
+                    <svg
+                      class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      aria-hidden="true"
+                    ></svg>
+                    <span class="slds-assistive-text"
+                      >{label.searchFilter}</span
+                    >
+                    <lightning-icon
+                      icon-name="utility:filterList"
+                      size="xx-small"
+                      alternative-text={label.searchFilter}
+                      title={label.searchFilter}
+                      class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                    >
+                    </lightning-icon>
+                    <input
+                      type="text"
+                      title="billDate"
+                      placeholder={label.filterHere}
+                      class="slds-input"
+                      onchange={onHandleFilter}
+                    />
+                  </span>
+                </th>
+                <th>
+                  <span
+                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                    title={label.searchFilter}
+                  >
+                    <svg
+                      class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      aria-hidden="true"
+                    ></svg>
+                    <span class="slds-assistive-text"
+                      >{label.searchFilter}</span
+                    >
+                    <lightning-icon
+                      icon-name="utility:filterList"
+                      size="xx-small"
+                      alternative-text={label.searchFilter}
+                      title={label.searchFilter}
+                      class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                    >
+                    </lightning-icon>
+                    <input
+                      type="text"
+                      title="expirationDate"
+                      placeholder={label.filterHere}
+                      class="slds-input"
+                      onchange={onHandleFilter}
+                    />
+                  </span>
+                </th>
+                <th>
+                  <span
+                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                    title={label.searchFilter}
+                  >
+                    <svg
+                      class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      aria-hidden="true"
+                    ></svg>
+                    <span class="slds-assistive-text"
+                      >{label.searchFilter}</span
+                    >
+                    <lightning-icon
+                      icon-name="utility:filterList"
+                      size="xx-small"
+                      alternative-text={label.searchFilter}
+                      title={label.searchFilter}
+                      class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                    >
+                    </lightning-icon>
+                    <input
+                      type="text"
+                      title="branchStore"
+                      placeholder={label.filterHere}
+                      class="slds-input"
+                      onchange={onHandleFilter}
+                    />
+                  </span>
+                </th>
+                <th>
+                  <span
+                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                    title={label.searchFilter}
+                  >
+                    <svg
+                      class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      aria-hidden="true"
+                    ></svg>
+                    <span class="slds-assistive-text"
+                      >{label.searchFilter}</span
+                    >
+                    <lightning-icon
+                      icon-name="utility:filterList"
+                      size="xx-small"
+                      alternative-text={label.searchFilter}
+                      title={label.searchFilter}
+                      class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                    >
+                    </lightning-icon>
+                    <input
+                      type="text"
+                      title="paymentCondition"
+                      placeholder={label.filterHere}
+                      class="slds-input"
+                      onchange={onHandleFilter}
+                    />
+                  </span>
+                </th>
+                <th>
+                  <span
+                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                    title={label.searchFilter}
+                  >
+                    <svg
+                      class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      aria-hidden="true"
+                    ></svg>
+                    <span class="slds-assistive-text"
+                      >{label.searchFilter}</span
+                    >
+                    <lightning-icon
+                      icon-name="utility:filterList"
+                      size="xx-small"
+                      alternative-text={label.searchFilter}
+                      title={label.searchFilter}
+                      class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                    >
+                    </lightning-icon>
+                    <input
+                      type="text"
+                      title="orderNumber"
+                      placeholder={label.filterHere}
+                      class="slds-input"
+                      onchange={onHandleFilter}
+                    />
+                  </span>
+                </th>
+                <th>
+                  <span
+                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                    title={label.searchFilter}
+                  >
+                    <svg
+                      class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                      aria-hidden="true"
+                    ></svg>
+                    <span class="slds-assistive-text"
+                      >{label.searchFilter}</span
+                    >
+                    <lightning-icon
+                      icon-name="utility:filterList"
+                      size="xx-small"
+                      alternative-text={label.searchFilter}
+                      title={label.searchFilter}
+                      class="slds-input__icon slds-input__icon_left slds-icon-text-default"
+                    >
+                    </lightning-icon>
+                    <input
+                      type="text"
+                      title="netValue"
+                      placeholder={label.filterHere}
+                      class="slds-input"
+                      onchange={onHandleFilter}
+                    />
+                  </span>
+                </th>
+                <th>
+                  <!-- EMPTY SPACE -->
+                </th>
+              </tr>
+              <!-- END INPUT FILTERS -->
+            </thead>
+
+            <tbody>
+              <template for:each={billInfoData} for:item="billInfo">
+                <tr key={billInfo.billId}>
+                  <template lwc:if={billInfo.paymentGreaterThanZero}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        data-name="billToPay"
+                        value={billInfo.billId}
+                        onclick={handleBillSelection}
+                        class="slds-checkbox"
+                      />
+                    </td>
+                  </template>
+                  <template lwc:else>
+                    <td>
+                      <!-- EMPTY SPACE -->
+                    </td>
+                  </template>
+                  <template lwc:if={billInfo.paymentGreaterThanZero}>
+                    <td>
+                      <lightning-button-icon
+                        icon-name="action:update"
+                        alternative-text={label.payOption}
+                        name={billInfo.billId}
+                        tooltip={label.payOption}
+                        onclick={handlePaymentClick}
+                        role="button"
+                        size="large"
+                        variant="bare"
+                        class="slds-var-m-horizontal_xxx-small"
+                      >
+                      </lightning-button-icon>
+                    </td>
+                  </template>
+                  <template lwc:else>
+                    <td>
+                      <!-- EMPTY SPACE -->
+                    </td>
+                  </template>
+                  <td>
+                    <div>{billInfo.billId}</div>
+                  </td>
+                  <td>
+                    <div>{billInfo.buyingOrderId}</div>
+                  </td>
+                  <td>
+                    <div>{billInfo.billDate}</div>
+                  </td>
+                  <td>
+                    <div>{billInfo.expirationDate}</div>
+                  </td>
+                  <td>
+                    <div>{billInfo.branchStore}</div>
+                  </td>
+                  <td>
+                    <div>{billInfo.paymentCondition}</div>
+                  </td>
+                  <td>
+                    <div>{billInfo.orderNumber}</div>
+                  </td>
+                  <td class="text-right">
+                    <lightning-formatted-number
+                      value={billInfo.netValue}
+                      format-style="currency"
+                      currency-code="COP"
+                      currency-display-as="symbol"
+                      minimum-fraction-digits="0"
+                      maximum-fraction-digits="0"
+                    >
+                    </lightning-formatted-number>
+                  </td>
+                  <td class="slds-text-align_center">
+                    <lightning-button-icon
+                      if:false={billInfo.isAvailableToDownload}
+                      class="slds-var-m-horizontal_xxx-small"
+                      name={billInfo.billId}
+                      tooltip={label.download}
+                      icon-name="utility:download"
+                      alternative-text={label.download}
+                      role="button"
+                      size="large"
+                      variant="bare"
+                      onclick={handleDownloadClick}
+                      disabled={isDownloadBtnDisabled}
+                    ></lightning-button-icon>
+                    <lightning-icon
+                      if:true={billInfo.isAvailableToDownload}
+                      icon-name="utility:spinner"
+                      title={label.inProgress}
+                      size="small"
+                    ></lightning-icon>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </lightning-card>
+    </lightning-layout-item>
+  </lightning-layout>
+
+  <template if:true={displayPaymentMethodModal}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <lightning-card title={label.paymentConfirmation}>
+          <lightning-button
+            variant="destructive-text"
+            onclick={handleClosePaymentMethodModal}
+            label={label.cancel}
+            slot="actions"
+          >
+          </lightning-button>
+          <div
+            class="slds-var-p-horizontal_large slds-var-p-bottom_large scrollBarContainer"
+          >
+            <div class="slds-var-m-bottom_small">{label.billsToPay}</div>
+            <ul class="slds-var-m-left_large slds-var-m-bottom_small">
+              <template for:each={billsToPay.billId} for:item="billId">
+                <li key={billId}>{billId}</li>
+              </template>
+            </ul>
+            <div class="slds-var-m-bottom_small">{amountToPayLabel}</div>
+            <div
+              class="slds-grid slds-grid_vertical-align-center slds-wrap slds-var-m-bottom_small"
+            >
+              <div
+                class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+              >
+                {label.selectPayOption}
+              </div>
+              <div
+                class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_6-of-12"
+              >
+                <form>
+                  <fieldset class="slds-form-element button-pay-option">
+                    <div class="slds-grid">
+                      <div class="slds-col slds-p-right_x-small">
+                        <label class="slds-radio__label" for="totalPay">
+                          <div class="slds-box slds-box_x-small">
+                            <span class="slds-var-p-horizontal_x-small">
+                              <input
+                                type="radio"
+                                id="totalPay"
+                                name="totalPay"
+                                value="total"
+                                onclick={handleClickOptionToPay}
+                                checked={isTotalSelected}
+                              />
+                            </span>
+                            <span
+                              class="slds-form-element__label slds-text-title_bold"
+                              >{label.total}</span
+                            >
+                          </div>
+                        </label>
+                      </div>
+                      <div class="slds-col">
+                        <label class="slds-radio__label" for="creditPay">
+                          <div class="slds-box slds-box_x-small">
+                            <span class="slds-var-p-horizontal_x-small">
+                              <input
+                                type="radio"
+                                id="creditPay"
+                                name="creditPay"
+                                value="credit"
+                                onclick={handleClickOptionToPay}
+                                checked={isCreditSelected}
+                              />
+                            </span>
+                            <span
+                              class="slds-form-element__label slds-text-title_bold"
+                            >
+                              {label.credit}</span
+                            >
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+            <template lwc:if={isCreditSelected}>
+              <div
+                class="slds-grid slds-grid_vertical-align-center slds-wrap slds-var-m-bottom_small"
+              >
+                <div
+                  class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                >
+                  <div class="align-vertical-center">{label.creditToPay}</div>
+                </div>
+                <div
+                  class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_6-of-12"
+                >
+                  <div class="button-pay-option">
+                    <lightning-input
+                      type="number"
+                      name="creditPayField"
+                      value={creditToPay}
+                      onchange={handleChangeCreditToPay}
+                      min="1.00"
+                      max={maxAmountToPay}
+                      formatter="currency"
+                      step="0.01"
+                      placeholder="$0.00"
+                      variant="label-hidden"
+                      required
+                    ></lightning-input>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <div class="slds-var-m-bottom_small">{label.continuePayment}</div>
+
+            <c-fan-payment-method
+              id-tercero={idTercero}
+              operation-center-bill-data={billDataDetail.operationCenter}
+              document-type={billDataDetail.documentType}
+              document-number={billDataDetail.documentNumber}
+              amount-to-pay={billDataDetail.amountToPay}
+              disabled-pay-button={isNotValidToPay}
+            ></c-fan-payment-method>
+          </div>
+          <!-- <div slot="footer">
+          </div> -->
+        </lightning-card>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

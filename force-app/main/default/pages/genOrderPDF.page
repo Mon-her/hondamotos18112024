@@ -1,0 +1,13 @@
+<apex:page showHeader="false"
+  standardController="Order"
+  extensions="GenOrderPDF"
+>
+  <apex:form >
+    <apex:pageBlock >
+      <apex:iframe src="{!vfpQuoteTemplateURL}"
+        scrolling="true"
+        id="theIframe"
+      />
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

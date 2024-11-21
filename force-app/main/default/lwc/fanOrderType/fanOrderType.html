@@ -1,0 +1,55 @@
+<template>
+    <lightning-spinner
+        if:true={loading}
+        alternative-text="Loading"
+        variant="brand">
+    </lightning-spinner>
+    <lightning-card>
+        <div class="slds-grid slds-wrap slds-grid_align-space">
+            <div class="slds-grid slds-grid_vertical-align-center slds-var-p-around_small">
+                <div class="slds-var-p-around_small">
+                    {label.orderType}
+                </div>
+                <div class="slds-var-p-around_small">
+                    <lightning-combobox
+                        name="OrderType"
+                        label={label.orderType}
+                        value={orderTypeValue}
+                        placeholder="Seleccione..."
+                        options={optionsTipoPedido}
+                        onchange={handleChangeTipoPedido}
+                        variant="label-hidden"
+                        disabled={noItemsInCart}>
+                    </lightning-combobox>
+                </div>
+            </div>
+
+            <div if:true={showCodigoVIN} class="slds-grid slds-grid_vertical-align-center slds-var-p-around_small">
+                <div class="slds-var-p-around_small">
+                    {label.codigoVIN}
+                </div>
+                <div class="slds-var-p-around_small">
+                    <input class="slds-input" name="codigoVIN" type="text" value={codigoVIN} onbeforeinput={validateCodigoVINInput} onblur={handleChangeCodidoVIN}>
+                </div>
+            </div>
+
+            <div class="slds-grid slds-grid_vertical-align-center slds-var-p-around_small">
+                <div class="slds-var-p-around_small">
+                    {label.paymentOption}
+                </div>
+                <div class="slds-var-p-around_small">
+                    <lightning-combobox
+                        name="PaymentOption"
+                        label={label.paymentOption}
+                        value={paymentConditionValue}
+                        placeholder="Seleccione..."
+                        options={getPaymentConditions}
+                        onchange={handleChangeCondicionPago}
+                        variant="label-hidden"
+                        disabled={isPaymentConditionDisabled}
+                    ></lightning-combobox>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

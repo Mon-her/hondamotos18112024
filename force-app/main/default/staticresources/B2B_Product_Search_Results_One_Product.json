@@ -1,0 +1,24 @@
+{
+	"hasErrors": false,
+	"results": [
+		{
+			"statusCode": 200,
+			"result": {
+				"products": [
+					{
+						"defaultImage": null,
+						"error": {},
+						"fields": {
+							"StockKeepingUnit": "999AAA000111"
+						},
+						"id": "01tB0000000VYU2IAO",
+						"prices": null,
+						"sku": "999AAA000111",
+						"success": true
+					}
+				],
+				"total": 1
+			}
+		}
+	]
+}

@@ -1,0 +1,26 @@
+:host {
+    --background-color-gray: #f3f3f3;
+}
+
+.bold-text {
+    font-weight : bold;
+}
+
+.background-color-gray {
+    background-color: var(--background-color-gray);
+}
+
+.table-background-header thead th {
+    background-color: var(--background-color-gray);
+}
+
+.fixed-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.scroll-table {
+    max-height: 550px;
+    overflow-y: scroll;
+}

@@ -1,0 +1,37 @@
+<apex:page showHeader="false"
+  standardController="Quote"
+  extensions="GenQuotePDF"
+>
+  <apex:form >
+    <apex:pageBlock >
+      <apex:iframe src="{!vfpQuoteTemplateURL}"
+        scrolling="true"
+        id="theIframe"
+      />
+
+      <apex:pageBlockButtons >
+        <apex:outputPanel rendered="{!isQuoteDiscountApproved}">
+          <apex:outputPanel rendered="{!isOpportunityAutos}">
+
+            <apex:outputPanel rendered="{!isOpportunityAutosNuevos || isOpportunityAutosRenting}">
+              <apex:commandButton action="{!sendToNodriza}"
+              value="Link cotiza tu Honda"
+            />
+              </apex:outputPanel>
+            
+            <apex:commandButton action="{!sendEmail}" value="Enviar Email" />
+            <apex:commandButton action="{!saveQuoteDocument}"
+              value="Guardar PDF"
+            />
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!!isOpportunityAutos}">
+            <apex:commandButton action="{!sendEmail}" value="Enviar Email" />
+            <apex:commandButton action="{!saveQuoteDocument}"
+              value="Guardar PDF"
+            />
+          </apex:outputPanel>
+        </apex:outputPanel>
+      </apex:pageBlockButtons>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

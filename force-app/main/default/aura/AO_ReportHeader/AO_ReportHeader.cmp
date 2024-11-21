@@ -1,0 +1,28 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="cntRefdosTotales" type="Integer" default="0"/>
+    
+    <div class="slds-page-header">
+      <div class="slds-page-header__row">
+        <div class="slds-page-header__col-title">
+          <div class="slds-media">
+            <div class="slds-media__figure">
+              <span class="slds-icon_container slds-icon-standard-opportunity" title="opportunity">
+                <lightning:icon iconName="action:priority" alternativeText="Approved" title="Approved" />        
+                <span class="slds-assistive-text">opportunity</span>
+              </span>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-page-header__name">
+                <div class="slds-page-header__name-title">
+                  <h1>
+                    <span class="slds-page-header__title slds-truncate" title="Rohde Corp - 80,000 Widgets">Referidos por cuentas y contactos</span>
+                  </h1>
+                </div>
+              </div>
+              <p class="slds-page-header__name-meta">Total referidos: {!v.cntRefdosTotales} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</aura:component>

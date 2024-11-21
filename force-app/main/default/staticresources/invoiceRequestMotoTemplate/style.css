@@ -1,0 +1,213 @@
+@page { 
+	size: letter portrait;
+	
+	margin-top: 0px;
+	margin-bottom: 0px;	
+	margin-left: 0px; 
+	margin-right: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 10px;
+    font-family:Arial Unicode MS;
+    position: relative;
+}
+
+.section{
+    border: 1px solid black;
+}
+
+.section table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#logo{
+    width: 155px;
+}
+.section1{
+    text-transform: uppercase;
+    border: 0px solid white;
+}
+.section1 .row1 td{
+    font-size: 14pt;
+    font-weight: bold;
+}
+.section1 .row1 .col2{
+    text-align: right;
+    padding-right: 105px;
+    font-size: 12pt;
+}
+.section1 .row2 td,
+.section1 .row3 td {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+
+.section2 {
+    text-transform: uppercase;
+    border: 0px solid white;
+}
+.section2 td {
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: right;
+}
+.section2 td .line {
+    display: inline-block;
+    width: 100px;
+    border-bottom: 1px solid black;
+}
+
+.section3, .section4, .section5, .section6, .section7{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.section3 th{
+    text-transform: uppercase;
+    font-size: 9pt;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.section3 th.col1 {
+    text-align: left;
+    width: 15%;
+}
+.section3 th.col2 {
+    text-align: center;
+    width: 35%;
+}
+.section3 th.col3 {
+    text-align: center;
+    width: 30%;
+}
+.section3 th.col4 {
+    text-align: left;
+    width: 10%;
+}
+.section3 th.col5 {
+    text-align: left;
+    width: 10%;
+}
+.section3 td{
+    height: 30px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.section4{
+    border: 0px solid white;
+}
+.section4 th{
+    text-transform: uppercase;
+    font-size: 10pt;
+    font-weight: bold;
+    background: #fdeae2;
+    width: 50%;
+    border: 1px solid black;
+}
+.section4 td{
+    border: 1px solid black;
+    font-size: 9pt;
+    height: 50px;
+    vertical-align: baseline;
+}
+.section4 thead .col1,
+.section4 thead .col2 {
+    text-align: center;
+    font-size: 8pt;
+}
+.section4 .nit{
+    text-align: center;
+}
+
+
+.section5 th{
+    text-transform: uppercase;
+    font-size: 8pt;
+    font-weight: bold;
+    text-align: center;
+    width: 50%;
+}
+.section5 td{
+    width: 25%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    text-align: left;
+    font-size: 10pt;
+}
+.section5 td .currency{ 
+    width: 2%;
+    display: inline-block;
+    padding-right: 2px;
+}
+.section5 td.col2,
+.section5 th{
+    border-right: 1px solid black;
+}
+.section5 td.col2 .line,
+.section5 td.col4 .line{ 
+    width: 85%;
+    display: inline-block;
+    border-bottom: 1px solid black;
+    text-align: right;
+}
+.section5 td .parentesis1,
+.section5 td .parentesis2{ 
+    width: 2%;
+    display: inline-block;
+}
+.section5 .row6 .col1{
+    font-weight: bold;
+}
+.section5 .row9 td.col2{
+    text-align: center;
+    font-size: 9pt;
+}
+.section5 .row9 td.col2 .line{
+    display: block;
+    border-bottom: 1px solid black;
+}
+
+.section6{
+    position: relative;
+}
+.section6 .text{
+    position: absolute;
+    font-size: 10pt;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 17px;
+}
+.section6 td {
+    height: 17px;
+    border-bottom: 1px dotted black;
+}
+
+
+.section7 th {
+    text-transform: uppercase;
+    font-size: 10pt;
+    font-weight: bold;
+    background: #fdeae2;
+    width: 50%;
+    border: 1px solid black;
+}
+.section7 td {
+    text-transform: uppercase;
+    font-size: 9pt;
+    height: 50px;
+    vertical-align: bottom;
+    text-align: center;
+    border-right: 1px solid black;
+}
+.section7 .col1,
+.section7 .col2 {
+    text-align: center;
+    font-size: 8pt;
+}
+

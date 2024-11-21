@@ -1,0 +1,135 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <template if:true={showLoadingSpinner}>
+        <lightning-spinner alternative-text="Retrieving data..." size="medium"></lightning-spinner>
+    <!-- sldsValidatorIgnoreNextLine -->
+    </template>
+   
+    <div class="pageSpinnerWrap">
+      <template if:true={showLoadingSpinner}>
+        <lightning-spinner alternative-text="Cargando..."></lightning-spinner>
+      </template>
+    </div>
+
+    <!--div class="slds-p-around_x-small">
+        <lightning-input label="Número de Documento" value={noDocumento} onchange={handleNoDocumentoChange}></lightning-input>
+        <lightning-input label="Placa" value={placa} onchange={handlePlacaChange}></lightning-input>
+        <lightning-button label="Ver Historial" onclick={handleGetHistorial}></lightning-button>
+        <lightning-button label="Cerrar" onclick={handleCerrar}></lightning-button>
+
+    </div>
+
+    <template if:true = {data}>  
+                  
+        <div style="height: 300px;">  
+
+            <lightning-datatable key-field="vin"  
+                                 data={data}  
+                                 columns={columns}  
+                                 hide-checkbox-column="true"  
+                                 show-row-number-column="true"  
+                                 >  
+            </lightning-datatable>  
+
+        </div>                   
+
+    </template-->  
+
+    <lightning-card>
+        <header>
+          <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_12-of-12">
+              <span class="slds-text-heading_medium title">Filtros</span>
+            </div>
+          </div>
+        </header>
+    
+        <div class="c-container">
+            
+          <div class="slds-grid slds-wrap slds-p-top_small slds-grid_vertical-align-center filtrosParent">
+            <div class="slds-size_1-of-1 slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_4-of-12 slds-p-horizontal_x-small">
+                  <lightning-input label="No. Documento" value={noDocumento} onchange={handleNoDocumentoChange}></lightning-input>
+            </div>
+
+            <div class="slds-size_1-of-1 slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_4-of-12 slds-p-horizontal_x-small">
+              <lightning-input label="Placa" value={placa} onchange={handlePlacaChange}></lightning-input>
+            </div>
+  
+            <div class="slds-size_1-of-1 slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_4-of-12 slds-p-horizontal_x-small slds-text-align_center">
+              <div class="buttonSection">
+                <lightning-button  variant="brand" label="Ver Historial" title="Hoja de vida de la motocicleta"
+                  onclick={handleGetHistorial} class="slds-m-left_x-small searchButton">
+                </lightning-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </lightning-card>
+    
+      <div class="wrapper">
+        <lightning-card>
+          <header>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_12-of-12">
+                <span class="slds-text-heading_medium title">Historial</span>
+              </div>
+            </div>
+          </header>
+    
+          <template if:true={data}>
+            <lightning-accordion class="filter-accordion" allow-multiple-sections-open
+              onsectiontoggle={handleToggleSection}>
+              <lightning-accordion-section name="filters" label="Filtrar resultados">
+                <div id="tableFilterDiv" class="tableFilterDiv">
+                  <lightning-card>
+                    <header>
+                      <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_12-of-12">
+                          <span class="slds-text-heading_small title"></span>
+                        </div>
+                      </div>
+                    </header>
+
+                    <lightning-datatable show-row-number-column key-field="Id" data={dataFilterRows}
+                      columns={subfilterColumns} oncellchange={handleSubFilterCellChange} onsave={onSubFilterSave}
+                      oncancel={onSubFilterCancel} hide-checkbox-column wrap-text-max-lines="2">
+                    </lightning-datatable>
+                  </lightning-card>
+                </div>
+              </lightning-accordion-section>
+            </lightning-accordion>
+           
+            <div class="tableWrap">
+              <lightning-card>
+                <header>
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_9-of-12">
+                      <span class="slds-text-heading_small title">Resultados: {data.length}</span>&nbsp;
+    
+                      <template if:true={isFilterApplied}>
+                        .&nbsp;<span class="slds-text-heading_small title">Resultados filtrados: {filteredResultCount}.
+                        </span>&nbsp;
+                      </template>
+    
+                    </div>
+
+                    <div class="slds-col slds-size_3-of-12">
+                      <lightning-button class="slds-float_right" variant="brand" label="Exportar" title="Descargar archivo CSV"
+                        onclick={exportarDatos}></lightning-button>
+                    </div>
+                  </div>
+                </header>
+                <div style="height: 400px;">
+                    <lightning-datatable 
+                    column-widths-mode="auto" 
+                    show-row-number-column key-field="Id" data={filteredResults} columns={columns}
+                    hide-checkbox-column wrap-text-max-lines="2"
+                    >
+                  </lightning-datatable>
+                </div>
+              </lightning-card>
+            </div>
+          </template>
+        </lightning-card>
+      </div>
+</template>

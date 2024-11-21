@@ -1,0 +1,47 @@
+<template>
+	<div class="summary-panel slds-p-around_medium">
+		<div class="slds-m-bottom_medium">
+			<h1 class="summary-header">{cartTotalLabel}</h1>
+		</div>
+		<table class="summary-table slds-m-bottom_medium">
+			<tbody>
+				<tr>
+					<td>{grossLabel}</td>
+					<td>$</td>
+					<td><lightning-formatted-number value={cartSummary.grossValue} minimum-fraction-digits="2" maximum-fraction-digits="2"></lightning-formatted-number></td>
+				</tr>
+				<tr>
+					<td>{discountsLabel}</td>
+					<td>$</td>
+					<td><lightning-formatted-number value={cartSummary.discounts} minimum-fraction-digits="2" maximum-fraction-digits="2"></lightning-formatted-number></td>
+				</tr>
+				<tr>
+					<td>{subtotalLabel}</td>
+					<td>$</td>
+					<td><lightning-formatted-number value={cartSummary.subtotal} minimum-fraction-digits="2" maximum-fraction-digits="2"></lightning-formatted-number></td>
+				</tr>
+				<tr>
+					<td>{freightLabel}</td>
+					<td></td>
+					<td>{shipValueLabel}</td>
+				</tr>
+				<tr>
+					<td>{IVALabel}</td>
+					<td>$</td>
+					<td><lightning-formatted-number value={cartSummary.IVA} minimum-fraction-digits="2" maximum-fraction-digits="2"></lightning-formatted-number></td>
+				</tr>
+				<template if:true={isValueToFinanceDisplayable}>
+					<tr>
+						<td>{valueToFinanceLabel}</td>
+						<td>$</td>
+						<td><lightning-formatted-number value={cartSummary.valueToFinance} minimum-fraction-digits="2" maximum-fraction-digits="2"></lightning-formatted-number></td>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+		<div class="slds-grid slds-grid_align-spread">
+			<span class="total-to-pay-label">{totalToPayLabel}</span>
+			<lightning-formatted-number class="slds-text-heading_large total-to-pay-value" value={cartSummary.totalToPay} format-style="currency"></lightning-formatted-number>
+		</div>
+	</div>
+</template>

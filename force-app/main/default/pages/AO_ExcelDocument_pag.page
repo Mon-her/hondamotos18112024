@@ -1,0 +1,33 @@
+<apex:page controller="AO_tableroReferidos_ctr"   contentType="application/vnd.ms-excel#SalesForceExport.xls" cache="true" ><!-- contentType="application/vnd.ms-excel#SalesForceExport.xls" cache="true">-->
+	 <style type="text/css">
+        .style {  border:0.8px solid black;}
+    </style>
+    <head>
+		<meta http-equiv="Content-Type" content="text/HTML;charset=UTF-8" />
+	</head>  	 
+	<apex:pageBlock title="Referidos">               
+		<apex:pageBlockTable value="{!lstReferidosExcel}" var="myAccount"  styleClass="style">
+            <apex:column value="{!myAccount.wTipo}" style="text-align:left, border-style: solid; border-width: thin;"> <apex:facet name="header">Tipo registro</apex:facet> </apex:column>			
+            <apex:column value="{!myAccount.wAgencia}" style="text-align:left, border-style: solid; border-width: thin;"> <apex:facet name="header">Agencia</apex:facet> </apex:column>
+ 			<apex:column value="{!myAccount.wAsesorComercial}" style="text-align:left"> <apex:facet name="header">Asesor comercial</apex:facet> </apex:column>
+            <apex:column value="{!myAccount.wFechaCreacion}" style="text-align:left"> <apex:facet name="header">Fecha de creación del contacto ó cuenta</apex:facet> </apex:column>
+			<apex:column value="{!myAccount.wQuienRefiere}" style="text-align:left"> <apex:facet name="header">Quien refiere es(CH-CNH)</apex:facet> </apex:column>
+            <apex:column value="{!myAccount.wCedulaReferidor}" style="text-align:left"> <apex:facet name="header">No. Cedula del Referidor</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wNombreReferidor}" style="text-align:left"> <apex:facet name="header">Nombre del referidor</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wMailReferidor}" style="text-align:left"> <apex:facet name="header">Mail del referidor</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wPhoneReferidor}" style="text-align:left"> <apex:facet name="header">Teléfono del referidor</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wCedulaReferido}" style="text-align:left"> <apex:facet name="header">Cedula REFERIDO</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wNombreReferido}" style="text-align:left"> <apex:facet name="header">Nombre REFERIDO (Ya sea como contacto ó como cuenta)</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wTelefonoReferido}" style="text-align:left"> <apex:facet name="header">Teléfono REFERIDO</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wNoCotizacion}" style="text-align:left"> <apex:facet name="header">No. Cotización(Nuevo, usado ó Renting)</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wTipoCotizacion}" style="text-align:left"> <apex:facet name="header">Tipo de cotización</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wLineaInteres}" style="text-align:left"> <apex:facet name="header">Línea de interés</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wFechaEstimadaCompra}" style="text-align:left"> <apex:facet name="header">Fecha estimada de compra</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wEstadoProspeccion}" style="text-align:left"> <apex:facet name="header">Estado de prospección</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wFechaFactura}" style="text-align:left"> <apex:facet name="header">Fecha de factura</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wVIN}" style="text-align:left"> <apex:facet name="header">VIN</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wPlaca}" style="text-align:left"> <apex:facet name="header">Placa</apex:facet> </apex:column>            
+            <apex:column value="{!myAccount.wNoFactura}" style="text-align:left"> <apex:facet name="header">#Factura</apex:facet> </apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+</apex:page>

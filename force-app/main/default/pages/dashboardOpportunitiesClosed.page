@@ -1,0 +1,157 @@
+<apex:page controller="DatosReporteOportunidadesVentas"
+  standardStylesheets="false"
+  showHeader="false"
+  sidebar="false"
+  docType="html-5.0"
+>
+  <style type="text/css">
+    body {
+      background-color: #091b3e;
+      color: white;
+      font-family: "SalesforceSans-Regular", Arial, sans-serif;
+    }
+    #dashboardOpportunityComponent {
+    }
+    #dashboardOpportunityComponent .header {
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+    #dashboardOpportunityComponent .tbl {
+    }
+
+    #dashboardOpportunityComponent .tbl .tr {
+      display: flex;
+    }
+
+    #dashboardOpportunityComponent .tbl .tr .td {
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    #dashboardOpportunityComponent .tbl2 {
+    }
+
+    #dashboardOpportunityComponent .tbl2 .tr {
+    }
+
+    #dashboardOpportunityComponent .tbl2 .tr .td {
+    }
+
+    #dashboardOpportunityComponent .tbl2 .tr .td .number {
+      font-size: 2rem;
+    }
+    #dashboardOpportunityComponent .tbl2 .tr .td .percent {
+      font-size: 2rem;
+    }
+    #dashboardOpportunityComponent .tbl2 .tr .td .percent::after {
+    }
+
+    #dashboardOpportunityComponent .tbl .tr .td:nth-child(1) .tbl2,
+    #dashboardOpportunityComponent .tbl .tr .td:nth-child(2) .tbl2 {
+      border-right: 3px solid white;
+    }
+
+    .linkbar{
+      color: white;
+    }
+    .linkbar a{
+      color: white;
+    }
+    .linkbar a:visited{
+      color: white;
+    }
+    #metaReporteOppProducto{
+      float: right;
+    }
+    #metaReporteOpp{
+      float: left;
+    }
+  </style>
+
+  <!-- <c:dashboardOppComponent componentType="quota" /> -->
+
+  <div id="dashboardOpportunityComponent">
+    <!-- <div class="header">
+      <h1>Meta de Oportunidades</h1>
+  </div> -->
+    <div class="tbl">
+      <div class="tr">
+        <div class="td">
+          <div class="tbl2">
+            <div class="tr">
+              <div class="td">Oportunidades acumuladas</div>
+            </div>
+            <div class="tr">
+              <div class="td">
+                <span class="number">
+                  <apex:outputText value="{0,number,#,###}">
+                    <apex:param value="{!ventasOportunidades[0]}" />
+                  </apex:outputText>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="td">
+          <div class="tbl2">
+            <div class="tr">
+              <div class="td">Oportunidades meta</div>
+            </div>
+            <div class="tr">
+              <div class="td">
+                <span class="number">
+                  <apex:outputText value="{0,number,#,###}">
+                    <apex:param value="{!ventasOportunidades[1]}" />
+                  </apex:outputText>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="td">
+          <div class="tbl2">
+            <div class="tr">
+              <div class="td">Cumplimiento</div>
+            </div>
+            <div class="tr">
+              <div class="td">
+                <span class="percent">
+                  <apex:outputText value="{0,number,###,##0}">
+                    <apex:param value="{!ventasOportunidades[3]}" />
+                  </apex:outputText>%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="linkbar">
+
+      <apex:outputPanel rendered="{!metaReporteOpp != null}" >
+        <div id="metaReporteOpp">
+          <apex:outputLink value="/{!URLFOR(metaReporteOpp)}">
+          Ver Reporte
+        </apex:outputLink>
+        </div>
+      </apex:outputPanel>
+
+      <apex:outputPanel rendered="{!metaReporteOppProducto != null}" >
+        <div id="metaReporteOppProducto">
+          <apex:outputLink value="/{!URLFOR(metaReporteOppProducto)}">
+            Ver Reporte con Productos
+          </apex:outputLink>
+        </div>
+      </apex:outputPanel>
+      
+      <!-- <analytics:reportChart reportId="00O1F000001ByjYUAS"  size="large" ></analytics:reportChart> -->
+    </div>
+
+    <div style="display:none">
+      {!oppIds}
+    </div>
+
+  </div>
+</apex:page>

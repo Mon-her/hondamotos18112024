@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title={label.TituloGrafico} icon-name="utility:chart">
+        <lightning-button label="Ver Informe" onclick={verReporte} slot="actions"></lightning-button>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div if:true={opis} class="slds-col--padded slds-size--1-of-1">
+                <canvas class="gauge" lwc:dom="manual"></canvas>
+            </div>
+            <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                Graphic Not loaded yet, please wait for a while bro
+            </div>
+            <!--div class="slds-col--padded slds-size--1-of-1">
+                Footer
+            </div-->
+        </div>
+    </lightning-card>
+</template>

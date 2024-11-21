@@ -1,0 +1,17 @@
+<template>
+    
+    <lightning-card title={label.TituloGrafico} icon-name="utility:chart">
+        <lightning-button label="Ver Informe" onclick={verReporte} slot="actions"></lightning-button>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div if:true={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                <canvas class="chart" lwc:dom="manual"></canvas>
+            </div>
+            <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                Graphic Not loaded yet, please wait for a while, please bro, after a while call the admin if not loaded yet
+            </div>
+            <div if:true={totalUsuarios} class="slds-col--padded slds-size--1-of-1">
+                Total de Asesores a Cargo : {totalUsuarios}
+            </div>
+        </div>
+    </lightning-card>
+</template>

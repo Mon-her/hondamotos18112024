@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>45.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Esta página visualforce  presenta el formato de cotización para autos de renting. Se visualiza cuando se oprime el botón de vista previa de un registro de cotización. El capo de tipo de cotización debe estar en Renting.</description>
+    <label>AO_cotizacionAutosRenting_pag</label>
+</ApexPage>

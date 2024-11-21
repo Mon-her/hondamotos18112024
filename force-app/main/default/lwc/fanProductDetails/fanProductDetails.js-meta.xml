@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>B2B Sample Product Details</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="recordId"
+                type="String"
+                label="Record Id"
+                description="Automatically bind the page's record id to the component variable"
+                default="{!recordId}"
+            />
+            <property
+                name="effectiveAccountId"
+                type="String"
+                label="Effective Account Id"
+                description="The ID of the account under which the user is acting (BETA)"
+                default="{!CurrentUser.effectiveAccountId}"
+            />
+            <property
+                name="customDisplayFields"
+                type="String"
+                label="Campos de visualización personalizados (separados por comas y sensibles a mayúsculas y minúsculas)"
+                description="Los campos separados por comas que se mostrarán en la página de detalles del producto"
+            />
+            <property
+                name="skuLabel"
+                type="String"
+                label="Etiqueta para la referencia"
+                default="Referencia"
+            />
+            <property
+                name="isShowBranchPicker"
+                type="Boolean"
+                label="Mostrar selector de surcusal"
+                default="False"
+            />
+            <property
+                name="branchPickerLabel"
+                type="String"
+                label="Etiqueta para el selector de surcusal"
+                default="Surcusal"
+            />
+            <property
+                name="isShowColorPicker"
+                type="Boolean"
+                label="Mostrar selector de color"
+                default="False"
+            />
+            <property
+                name="colorPickerLabel"
+                type="String"
+                label="Etiqueta para el selector de color"
+                default="Color"
+            />
+            <property
+                name="publicPriceLabel"
+                type="String"
+                label="Etiqueta para el precio público"
+                default="Precio Público"
+            />
+            <property
+                name="isShowSpotPrice"
+                type="Boolean"
+                label="Mostar precio contado"
+                default="False"
+            />
+            <property
+                name="spotPriceLabel"
+                type="String"
+                label="Etiqueta para el precio contado"
+                default="Precio Contado"
+            />
+            <property
+                name="isShowCreditPrice"
+                type="Boolean"
+                label="Mostrar precio crédito"
+                default="False"
+            />
+            <property
+                name="creditPriceLabel"
+                type="String"
+                label="Etiqueta para el precio crédito"
+                default="Precio Crédito"
+            />
+            <property
+                name="isShowDealerPrice"
+                type="Boolean"
+                label="Mostrar precio distribuidor"
+                default="False"
+            />
+            <property
+                name="dealerPriceLabel"
+                type="String"
+                label="Etiqueta para el precio distribuidor"
+                default="Precio Distribuidor"
+            />
+            <property
+                name="inventoryLabel"
+                type="String"
+                label="Etiqueta para el inventario"
+                default="Inventario"
+            />
+            <property
+                name="backorderLabel"
+                type="String"
+                label="Etiqueta para el backorder"
+                default="Aceptar Backorder"
+            />
+            <property
+                name="backorder"
+                type="Boolean"
+                label="Aceptar backorder"
+                default="False"
+            />
+            <property
+                name="tieredDiscountsLabel"
+                type="String"
+                label="Etiqueta para precios descalonados"
+                default="Precios Escalonados"
+            />
+            <property
+                name="isShowTieredDiscounts"
+                type="Boolean"
+                label="Mostrar precios escalonados"
+                default="False"
+            />
+            <property
+                name="quantityLabel"
+                type="String"
+                label="Etiqueta para la cantidad"
+                default="CANT."
+            />
+            <property
+                name="quantityAvailableLabel"
+                type="String"
+                label="Etiqueta para la cantidad disponible"
+                default="Cantidad Disponible"
+            />
+            <property
+                name="addToCartLabel"
+                type="String"
+                label="Etiqueta para el boton agregar al carrito"
+                default="ADD TO CART"
+            />
+            <property
+                name="addToListLabel"
+                type="String"
+                label="Etiqueta para el boton agregar a lista"
+                default="ADD TO LIST"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

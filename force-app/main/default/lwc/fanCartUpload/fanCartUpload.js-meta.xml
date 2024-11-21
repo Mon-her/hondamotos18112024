@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>B2B Cart Upload</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="componentTitle" label="Título del componente" type="String" description="Título que se mostrará para el componente" default="Cart Upload" required="true"/>
+            <property name="effectiveAccountId" type="String" label="ID de cuenta efectiva" description="El ID de la cuenta bajo la cual el usuario está actuando" default="{!CurrentUser.effectiveAccountId}"/>
+
+            <property name="contentId" type="String" label="ID del contenido de ayuda" description="El ID del contenido administrado que desea mostrar en el cuadro de diálogo de ayuda"/>
+            <property name="contentType" type="String" label="Tipo de contenido administrado para la ayuda" description="El tipo de contenido administrado que se muestra en el cuadro de diálogo de ayuda (por ejemplo, noticias)" />
+
+            <property name="defaultBackorder" type="Boolean" label="Backorder predeterminado" description="Actualmente es de uso exclusivo para la tienda Motos" default="True" />
+
+            <property name="isOrderTemplateDownloadButtonVisible" type="Boolean" label="Mostrar botón de descargar plantilla de pedido" description="Aquí se define cuando mostrar el botón de descarga de la plantilla de pedido" default="False" />
+            <property name="orderTemplateDownloadButtonLabel" type="String" label="Etiqueta para el botón de descarga de la plantilla de pedido" default="Descargar plantilla preterminada" />
+            <property name="orderTemplateKey" type="ContentReference" label="Seleccione la plantilla de pedido" description="Plantilla de pedido a descargar" filter="cms_document" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

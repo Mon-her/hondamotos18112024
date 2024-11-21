@@ -1,0 +1,111 @@
+<template>
+    <div if:true={isTransactionStatusInvalid}>
+        <div class="slds-notify slds-notify_alert slds-alert_warning" role="alert">
+            <h2>{labels.paymentError}</h2>
+        </div>
+    </div>
+
+    <header class="slds-p-around_x-small slds-text-title_caps">
+        <h2>{labels.paymentMethod}</h2>
+    </header>
+
+    <div class="slds-p-around_x-small">
+        <h3>{labels.paymentInfoLabel}</h3>
+    </div>
+
+    <!-- Payment Options -->
+    <div class="slds-var-m-bottom_xx-small">
+        <div class="slds-box">
+            <input
+                type="radio"
+                id="card-payment"
+                name="payment-type-option"
+                value={payment.CARD}
+                onclick={handlePaymentMethodSelected}
+                checked={isCardPaymentSelected} />
+            <label
+                class="slds-radio__label slds-var-p-horizontal_x-small"
+                for="card-payment">
+                <span class="slds-form-element__label slds-text-title_bold">{labels.creditCard}</span>
+            </label>
+        </div>
+
+        <div class="slds-box slds-var-m-top_x-small">
+            <input
+                type="radio"
+                id="PSE-payment"
+                name="payment-type-option"
+                value={payment.PSE}
+                onclick={handlePaymentMethodSelected}
+                checked={isPsePaymentSelected} />
+            <label
+                class="slds-radio__label slds-var-p-horizontal_x-small"
+                for="PSE-payment">
+                <span class="slds-form-element__label slds-text-title_bold">{labels.paymentWithPSE}</span>
+            </label>
+        </div>
+
+        <div if:false={hideCashPaymentOption}>
+            <div  class="slds-box slds-var-m-top_x-small">
+                <input
+                    type="radio"
+                    id="RED_AVAL-payment"
+                    name="payment-type-option"
+                    value={payment.RED_AVAL}
+                    onclick={handlePaymentMethodSelected}
+                    checked={isRedAvalPaymentSelected} />
+                <label
+                    class="slds-radio__label slds-var-p-horizontal_x-small"
+                    for="RED_AVAL-payment">
+                    <span class="slds-form-element__label slds-text-title_bold">{labels.paymentWithRedAval}</span>
+                    <img class="imgPaymentCash" src={imageFotPaymentCast} alt="Cash payment (RedAval Image)">
+                </label>
+            </div>
+    
+            <!-- <div class="slds-box slds-var-m-top_x-small">
+                <input
+                type="radio"
+                id="BCO_BOGOTA_OFC-payment"
+                name="payment-type-option"
+                value={payment.BCO_BOGOTA_OFC}
+                onclick={handlePaymentMethodSelected}
+                checked={isBcoBogotaPaymentSelected}
+              />
+              <label
+                class="slds-radio__label slds-var-p-horizontal_x-small"
+                for="BCO_BOGOTA_OFC-payment"
+              >
+                <span class="slds-form-element__label slds-text-title_bold"
+                  >{labels.paymentWithBancoBogota}</span
+                >
+                <img
+                  class="imgBcoBogota"
+                  src={imageForPaymentCastBcoBogota}
+                  alt="Cash payment (Banco de Bogotá Image)"
+                />
+              </label>
+            </div> -->
+        </div>
+    </div>
+
+
+    <c-fan-payzen-form
+        amount-to-pay={amountToPay}
+        cart-id={cartId}
+        document-number={documentNumber}
+        document-type={documentType}
+        is-loading={isLoading}
+        id-tercero={idTercero}
+        operation-center-bill-data={operationCenterBillData}
+        payment-method={selectedPaymentMethod}
+        url-return={urlReturn}
+    ></c-fan-payzen-form>
+
+    <!-- Navigation button -->
+    <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-end slds-var-p-vertical_xx-small">
+        <div class="slds-text-color_default bold-text slds-var-m-bottom_x-small">{labels.paymentLegend}</div>
+        <div class="slds-var-p-horizontal_medium">
+            <button class="slds-button slds-button_brand" disabled={disabledPayButton} onclick={handlePaymentButton}>{labels.pay}</button>
+        </div>
+    </div>
+</template>

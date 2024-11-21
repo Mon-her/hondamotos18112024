@@ -1,0 +1,1238 @@
+<apex:page controller="OrderPDFController"
+  renderAs="pdf"
+  standardStylesheets="false"
+  showHeader="false"
+  applyHtmlTag="false"
+  applyBodyTag="false"
+  sidebar="false"
+  docType="html-5.0"
+>
+  <apex:stylesheet value="{!URLFOR($Resource.requestTemplate,'style.css')}" />
+  <link href="../staticresources/requestTemplate/style.css" rel="stylesheet" />
+
+  <html lang="es">
+    <body>
+      <div class="section section1">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="4">
+                <img
+                  src="{!URLFOR($Resource.requestTemplate,'LogoMR.png')}"
+                  id="logo"
+                />
+              </td>
+              <td class="col2" colspan="2">
+                <span class="text">PEDIDO No:</span>
+              </td>
+              <td class="col3" colspan="2">
+                <span class="text">{!order.OrderNumber}</span>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span
+                  >{!miembroDeConcesionario.Concesionario__r.Agencia__c} /
+                  {!miembroDeConcesionario.Concesionario__r.Name}</span
+                >
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1"></td>
+              <td class="col2"></td>
+              <td class="col3" colspan="2">
+                <span class="text">VEHÍCULO NUEVO</span>
+              </td>
+              <td class="col5">
+                <span class="box">
+                  <apex:outputPanel rendered="{!if(opportunity.Tipo_de_Oportunidad__c == 'Nuevos', true, false )}"
+                  >
+                    X
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!if(opportunity.Tipo_de_Oportunidad__c != 'Nuevos', true, false )}"
+                  >
+                    &nbsp;
+                  </apex:outputPanel>
+                </span>
+              </td>
+              <td class="col6" colspan="3">
+                <span class="text">VEHÍCULO USADO</span>
+
+                <span class="box">
+                  <apex:outputPanel rendered="{!if(opportunity.Tipo_de_Oportunidad__c == 'Usados', true, false )}"
+                  >
+                    X
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!if(opportunity.Tipo_de_Oportunidad__c != 'Usados', true, false )}"
+                  >
+                    &nbsp;
+                  </apex:outputPanel>
+                </span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1"></td>
+              <td class="col2" colspan="3">
+                <span>NOMBRE ASESOR COMERCIAL:</span>
+              </td>
+              <td class="col3" colspan="4">
+                <span class="text">{!owner.Name}</span>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1">
+                <table class="datetable">
+                  <tr class="row1">
+                    <td col="col1" colspan="3">
+                      <span class="text">FECHA</span>
+                    </td>
+                  </tr>
+                  <tr class="row2">
+                    <td col="col1">
+                      <span class="text">
+                        <apex:outputText value="{0,date,dd}">
+                          <apex:param value="{!order.CreatedDate}" />
+                        </apex:outputText>
+                      </span>
+                    </td>
+                    <td col="col2">
+                      <span class="text">
+                        <apex:outputText value="{0,date,MM}">
+                          <apex:param value="{!order.CreatedDate}" />
+                        </apex:outputText>
+                      </span>
+                    </td>
+                    <td col="col3">
+                      <span class="text">
+                        <apex:outputText value="{0,date,yyyy}">
+                          <apex:param value="{!order.CreatedDate}" />
+                        </apex:outputText>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td class="col2" colspan="7">
+                <!-- <span class="line"></span> -->
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1" colspan="8">
+                <span class="text">1. DATOS DEL COMPRADOR</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section2">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="4">
+                <span class="text bold"
+                  >Nombre / Razón Social (1er apellido / 2do apellido /
+                  Nombre)</span
+                >
+                <div class="value">{!opportunity.Account.Name}</div>
+              </td>
+              <td class="col2" colspan="4">
+                <span class="text">Identificación</span>
+                <div class="value">
+                  {!opportunity.Account.AM_Numero_de_documento__c}
+                </div>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">
+                <span class="text">Dirección Residencia</span>
+                <div class="value">
+                  {!opportunity.Account.MC_Direccion_completa__c}
+                </div>
+              </td>
+              <td class="col2">
+                <span class="text">Ciudad</span>
+                <div class="value">
+                  {!opportunity.Account.AM_Ciudad__r.Name}
+                </div>
+              </td>
+              <td class="col3" colspan="2">
+                <span class="text">Teléfono Residencia</span>
+                <div class="value">{!opportunity.Account.Phone}</div>
+              </td>
+              <td class="col5" colspan="4">
+                <span class="text">No. Celular</span>
+                <div class="value">
+                  {!opportunity.Account.PersonMobilePhone}
+                </div>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="2">
+                <span class="text">E-mail</span>
+                <div class="value">{!opportunity.Account.PersonEmail}</div>
+              </td>
+              <td class="col2" colspan="2">
+                <span class="text">Cliente Honda</span>
+                <div>
+                  <span>SI</span>
+                  <span class="box">
+                    <apex:outputPanel rendered="{!if(opportunity.Tipo_de_cliente__c == 'Cliente Honda', true, false )}"
+                    >
+                      X
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(opportunity.Tipo_de_cliente__c != 'Cliente Honda', true, false )}"
+                    >
+                      &nbsp;
+                    </apex:outputPanel>
+                  </span>
+                  <span>NO</span>
+                  <span class="box">
+                    <apex:outputPanel rendered="{!if(opportunity.Tipo_de_cliente__c != 'Cliente Honda', true, false )}"
+                    >
+                      X
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(opportunity.Tipo_de_cliente__c == 'Cliente Honda', true, false )}"
+                    >
+                      &nbsp;
+                    </apex:outputPanel>
+                  </span>
+                </div>
+              </td>
+              <td class="col5" colspan="4">
+                <span class="text">Teléfono Oficina</span>
+                <div class="value">XXXXXXXXXX</div>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" colspan="4">
+                <span class="text bold"
+                  >Facturar a nombre de: (Nombre / Razón social 1er apellido /
+                  2do apellido / Nombre)</span
+                >
+                <div class="value">
+                  {!opportunity.Facturar_a_nombre_de__r.Name}
+                </div>
+              </td>
+              <td class="col2" colspan="4">
+                <span class="text" colspan="4">Identificación</span>
+                <div class="value">
+                  {!opportunity.Numero_de_identificacion_FactANomb__c}
+                </div>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1">
+                <span class="text">Dirección Residencia</span>
+                <div class="value">{!opportunity.Direccion_FactANomb__c}</div>
+              </td>
+              <td class="col2">
+                <span class="text">Ciudad</span>
+                <div class="value">{!opportunity.Ciudad_FactANomb__c}</div>
+              </td>
+              <td class="col3" colspan="2">
+                <span class="text">Teléfono Residencia</span>
+                <div class="value">{!opportunity.Telefono_FactANomb__c}</div>
+              </td>
+              <td class="col4" colspan="4">
+                <span class="4">No. Celular</span>
+                <div class="value">{!opportunity.Celular_FactANomb__c}</div>
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1" colspan="4">
+                <span class="text">E-mail</span>
+                <div class="value">
+                  {!opportunity.Correo_Electronico_FactANomb__c}
+                </div>
+              </td>
+              <td class="col2" colspan="4">
+                <span class="text">Teléfono Oficina</span>
+                <div class="value">
+                  {!opportunity.Telefono_oficina_FactANomb__c}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section3">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="title"
+                  >PERSONA PÚBLICA O POLÍTICAMENTE EXPUESTA</span
+                >
+                <span class="text normal"
+                  >(Marque una X donde corresponda)</span
+                >
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span class="text">¿Maneja recursos públicos?</span>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="8">
+                <span class="text">¿Tiene un cargo de poder público?</span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" colspan="8">
+                <span class="text">¿Goza de reconocimiento público?</span>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1" colspan="8">
+                <span class="text">2. DATOS DEL VEHÍCULO</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section4">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1">
+                <span class="text">Marca</span>
+                <div class="value">{!orderItem.Product2.Marca__c}</div>
+              </td>
+              <td class="col2">
+                <span class="text">Línea</span>
+                <div class="value">{!orderItem.Product2.Linea_version__c}</div>
+              </td>
+              <td class="col3">
+                <span class="text">VIN interno del vehículo</span>
+                <div class="value">XXXXXXXXXX</div>
+              </td>
+              <td class="col4">
+                <span class="text">Modelo</span>
+                <div class="value">{!orderItem.Product2.Modelo_Ao__c}</div>
+              </td>
+              <td class="col5">
+                <span class="text">Cilindraje</span>
+                <div class="value">{!orderItem.Product2.Cilindraje__c}</div>
+              </td>
+              <td class="col6">
+                <span class="text">Caja</span>
+                <div class="value">{!orderItem.Product2.Tipo_de_caja__c}</div>
+              </td>
+              <td class="col7">
+                <span class="text">Placa</span>
+                <div class="value">{!orderItem.Product2.Placa__c}</div>
+              </td>
+              <td class="col8">
+                <span class="text">Kilometraje (Vehículo Usado)</span>
+                <div class="value">{!orderItem.Product2.Kilometraje__c}</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="col1" colspan="2">
+                <span class="text">Color</span>
+                <div class="value">{!orderItem.Product2.Color__c}</div>
+              </td>
+              <td class="col1" colspan="6">
+                <span class="text"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text header"
+                  >3. DATOS VEHÍCULO RECIBIDO COMO PARTE DE PAGO</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section5">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1">
+                <span class="text">Marca</span>
+                <div class="value">{!orderItem.Marca__c}</div>
+              </td>
+              <td class="col2">
+                <span class="text">Modelo</span>
+                <div class="value">{!orderItem.Modelo__c}</div>
+              </td>
+              <td class="col3">
+                <span class="text">Línea</span>
+                <div class="value">{!orderItem.Linea__c}</div>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Caja</span>
+                <div class="value">{!orderItem.Caja__c}</div>
+              </td>
+              <td class="col7">
+                <span class="text">Placa</span>
+                <div class="value">{!orderItem.Placa__c}</div>
+              </td>
+              <td class="col8">
+                <span class="text">Kilometraje</span>
+                <div class="value">{!orderItem.Kilometraje__c}</div>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">
+                <span class="text">Color</span>
+                <div class="value">{!orderItem.Color__c}</div>
+              </td>
+              <td class="col2" colspan="2">
+                <span class="text" colspan="2">Tipo Carrocería</span>
+                <div class="value">{!orderItem.Tipo_Carrocera__c}</div>
+              </td>
+              <td class="col3" colspan="3">
+                <span class="text">Avalúo</span>
+                <div class="value">{!orderItem.Avaluo__c}</div>
+              </td>
+              <td class="col4" colspan="2">
+                <span class="text">Sitio de matrícula</span>
+                <div class="value">{!orderItem.Sitio_de_matrcula__c}</div>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="6">
+                <span class="text">Avaluado por</span>
+                <div class="value">{!orderItem.Avaluado_por__c}</div>
+              </td>
+              <td class="col2" colspan="2">
+                <span class="text">Contrato</span>
+                <div class="value">{!orderItem.Contrato__c}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header header6">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td colspan="2">
+                <span class="text header">4. CONDICIONES DEL NEGOCIO</span>
+              </td>
+              <td>
+                <span class="text"></span>
+              </td>
+              <td colspan="5">
+                <span class="text header">CONDICIONES DE PAGO</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section6">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1">
+                <span class="text">Valor Vehículo</span>
+              </td>
+              <td class="col2">
+                <span class="text">$</span>
+                <span class="value">{!orderItem.Valor_Vehculo__c}</span>
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Anticipo</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value">{!orderItem.Anticipo__c}</span>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">
+                <span class="text">IVA _________ %</span>
+              </td>
+              <td class="col2">
+                <span class="text">$</span>
+                <span class="value">{!orderItem.Iva__c}</span>
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Desembolso entidad financiera</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value"
+                  >{!orderItem.Desembolso_entidad_financiera__c}</span
+                >
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1">
+                <span class="text">Subtotal (1)</span>
+              </td>
+              <td class="col2">
+                <span class="text">$</span>
+                <span class="value">XXXXXXXXXX</span>
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Cheque posfechado avalado</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value"
+                  >{!orderItem.Cheque_posfechado_avalado__c}</span
+                >
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1">
+                <span class="text">Otros Gastos</span>
+              </td>
+              <td class="col2">
+                <span class="text">$</span>
+                <span class="value">{!orderItem.Otros_Gastos__c}</span>
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Saldo contra entrega</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value">{!orderItem.Saldo_contra_entrega__c}</span>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1">
+                <span class="text"></span>
+              </td>
+              <td class="col2">
+                <!-- <span class="text">$</span>
+              <span class="value">XXXXXXXXXX</span> -->
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Recompra</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value">{!orderItem.Recompra__c}</span>
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1">
+                <span class="text"></span>
+              </td>
+              <td class="col2">
+                <!-- <span class="text">$</span>
+              <span class="value">XXXXXXXXXX</span> -->
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text"></span>
+              </td>
+              <td class="col5" colspan="2">
+                <!-- <span class="text">$</span>
+              <span class="value">XXXXXXXXXX</span> -->
+              </td>
+            </tr>
+            <tr class="row7">
+              <td class="col1">
+                <span class="text">Total a pagar</span>
+              </td>
+              <td class="col2">
+                <span class="text">$</span>
+                <span class="value">{!orderItem.Total_a_Pagar__c}</span>
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Total</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value">{!orderItem.Total__c}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text header"
+                  >5. AUTORIZACIÓN DE MATRÍCULA O TRASPASO</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section7">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >Según las especificaciones anteriores, solicito que el
+                  vehículo nuevo sea matriculado en la ciudad o municipio
+                  de_____________, con las placas terminadas con el numero ___ o
+                  ___.
+                </span>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >Mediante la firma del presente pedido EL CLIENTE autoriza a
+                  FANALCA S.A. para proceder con los trámites de matrícula del
+                  vehículo nuevo o traspaso del vehículo usado, ante la oficina
+                  de transito.</span
+                >
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="3"></td>
+              <td class="col2" colspan="5">
+                <span class="line"></span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" colspan="3"></td>
+              <td class="col2" colspan="5">
+                <span class="text bold"
+                  >FIRMA COMPRADOR (PERSONA NATURAL / PERSONA JURÍDICA)</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text header">6. OBSERVACIONES</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section8">
+        <table>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                {!LEFT(opportunity.Observaciones__c, 90)}
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                {!RIGHT(LEFT(opportunity.Observaciones__c, 180), 90)}
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="8">
+                {!RIGHT(opportunity.Observaciones__c, 89)}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header pedido">
+        <span>CLÁUSULAS DEL PEDIDO</span>
+      </div>
+
+      <div class="section section9">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >1. EL CLIENTE manifiesta que desea comprar un vehículo cuyas
+                  características generales se encuentran en la parte delantera
+                  de esta solicitud.</span
+                >
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >2. El comprador conoce y acepta que tratándose de vehículos
+                  usados, se otorga una garantía por 12 meses o 20.000
+                  Kilómetros más a partir de la fecha de entrega del mismo,
+                  únicamente sobre el motor del vehículo, el cual consta de
+                  (Bloque, cigüeñal, bielas, pistones, y el conjunto mecánico de
+                  la culata), sobre las demás partes del vehículo, no se otorga
+                  garantía.
+                </span>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >3. Tratándose de la venta de vehículos usados, el comprador
+                  entiende y acepta que está en la libertad de realizar un
+                  peritaje al vehículo usado con una firma externa con amplio
+                  conocimiento técnico, antes de realizar el traspaso.
+                </span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >4. Si el cliente renuncia a realizar un peritaje externo,
+                  acepta comprar el vehículo en las condiciones en las que se
+                  encuentra.
+                </span>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >El cliente le hizo peritaje al vehículo con una firma
+                  externa:
+                </span>
+                <span class="text">SI</span> <span class="box">&nbsp;</span>
+                <span class="text">NO</span> <span class="box">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >2. EL VENDEDOR por motivos de fuerza mayor o caso fortuito,
+                  podrá variar la fecha de entrega del vehículo.
+                </span>
+              </td>
+            </tr>
+            <tr class="row7">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >3. Todos los cheques deben ser girados a favor de EL
+                  VENDEDOR, debidamente cruzado y EL CLIENTE debe exigir su
+                  respectivo recibo oficial de caja. Únicamente la caja general
+                  está autorizada para expedir los recibos de caja
+                  correspondiente. EL VENDEDOR no se hace responsable por
+                  efectivo, cheque o fondos que no estén respaldados por el
+                  recibo de caja oficial.
+                </span>
+              </td>
+            </tr>
+            <tr class="row8">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >4. El vehículo se entregará una vez esté pagado en su
+                  totalidad y matriculado o traspasado ante la respectiva
+                  oficina de tránsito.
+                </span>
+              </td>
+            </tr>
+            <tr class="row9">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >5. La matrícula del vehículo será diligenciada directamente
+                  por EL VENDEDOR y los gastos que ésta ocasione, incluyendo los
+                  honorarios del tramitador, serán por cuenta de EL CLIENTE.
+                </span>
+              </td>
+            </tr>
+            <tr class="row10">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >6. Si se reciben pagos por mayor valor del vehículo, FANALCA
+                  S.A. cobrará el 4 x 1000 al CLIENTE para proceder a reintegrar
+                  el excedente del dinero.
+                </span>
+              </td>
+            </tr>
+            <tr class="row11">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >7. Si la venta no se efectúa por razones imputables al
+                  cliente, EL VENDEDOR deberá retener a título de indemnización
+                  por incumplimiento el 5% del valor total del vehículo que
+                  quedará de propiedad de EL VENDEDOR. Este valor compensa con
+                  los gastos financieros y trámites en que ha incurrido EL
+                  VENDEDOR, al efectuar el pedido al proveedor y aumentar su
+                  inventario de vehículos.
+                </span>
+              </td>
+            </tr>
+            <tr class="row12">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >6. Si la venta no se efectúa por razones imputables al
+                  cliente, FANALCA S.A. cobrará el 4 x 1000 al CLIENTE para
+                  proceder a reintegrar el dinero que haya pagado por el
+                  vehículo nuevo o usado.
+                </span>
+              </td>
+            </tr>
+            <tr class="row13">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >8. El pedido tendrá vigencia hasta el último día calendario
+                  del mes en que haya sido firmado.
+                </span>
+              </td>
+            </tr>
+            <tr class="row14">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >9. Esta oferta se entenderá como aceptada en el momento de la
+                  firma del presente documento.
+                </span>
+              </td>
+            </tr>
+            <tr class="row15">
+              <td class="col1" colspan="8">
+                <span class="text"></span>
+              </td>
+            </tr>
+            <tr class="row16">
+              <td class="col1" colspan="2">
+                <span class="text bold"
+                  >FIRMA COMPRADOR ( Persona Natural / Persona Jurídica)</span
+                >
+              </td>
+              <td class="col2">
+                <span class="text"></span>
+              </td>
+              <td class="col3" colspan="5">
+                <span class="text bold"
+                  >FIRMA VENDEDOR: Gerente Agencia / Jefe Comercial</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section10">
+        <table>
+          <tbody>
+            <tr class="row1">
+              <td class="col1">
+                <span class="text header"
+                  >DECLARACIÓN VOLUNTARIA DE ORIGEN DE FONDOS</span
+                >
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">
+                <span class="text"
+                  >Yo, <span class="dashed-line clientname"></span> identificado
+                  con C.C. No. <span class="dashed-line clientid"></span> de
+                  <span class="dashed-line de"></span>
+                </span>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1">
+                <span class="text"
+                  >obrando en mi calidad de Representante Legal de la Sociedad
+                  <span class="dashed-line legalsociety"></span
+                ></span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1">
+                <span class="text"
+                  >o en mi propio nombre, de manera voluntaria y dando certeza
+                  de que todo lo aquí consignado es cierto, realizo la siguiente
+                  declaración de origen de fondos, con el propósito de dar
+                  cumplimiento a lo señalado en las disposiciones vigentes para
+                  control y prevención del lavado de activos:
+                </span>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1">
+                <span class="text"
+                  >1. Mis recursos o los recursos de la empresa que represento
+                  provienen de las siguientes fuentes (detalle ocupación,
+                  oficio, profesión, actividad, etc.):
+                </span>
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1">
+                <span class="dashed-line full">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row7">
+              <td class="col1">
+                <span class="dashed-line full">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row8">
+              <td class="col1">
+                <span class="text"
+                  >2. Declaro que éstos recursos NO provienen de ninguna
+                  actividad ilícita de las contempladas en el código penal
+                  colombiano o en otra norma que lo modifique o adicione.
+                </span>
+              </td>
+            </tr>
+            <tr class="row9">
+              <td class="col1">
+                <span class="text"
+                  >3. No admitiré que terceros efectúen depósitos a mis cuentas,
+                  ni recibiré dineros provenientes de actividades ilícitas de
+                  las contempladas en el Código Penal Colombiano o en cualquier
+                  norma que lo modifique o adiciones, ni efectuaré transacciones
+                  destinadas a tales actividades o a favor de personas
+                  relacionadas con las mismas.
+                </span>
+              </td>
+            </tr>
+            <tr class="row10">
+              <td class="col1">
+                <span class="text"
+                  >4. Exonero a FANALCA S.A. de toda responsabilidad que se
+                  derive de información errónea, falsa, inexacta que yo hubiese
+                  proporcionado en este documento.
+                </span>
+              </td>
+            </tr>
+            <tr class="row11">
+              <td class="col1">
+                <span class="text header">PROTECCIÓN DE DATOS PERSONALES</span>
+              </td>
+            </tr>
+            <tr class="row12">
+              <td class="col1">
+                <span class="text"
+                  >Autorizo de manera previa y expresa, a FANALCA S.A. (como
+                  ensamblador y distribuidor exclusivo de motocicletas HONDA en
+                  Colombia, e importador y distribuidor exclusivo de automóviles
+                  HONDA en Colombia) o a los terceros que esta contrate, quienes
+                  actuaran en condición de encargados de los datos personales a:
+                  tratar, usar, custodiar, archivar, recopilar, consultar,
+                  analizar, verificar, reportar, suministrar, suprimir,
+                  compartir, transmitir y transferir mis datos personales con
+                  fines estadísticos, comerciales, publicitarios, de mercadeo,
+                  manejo financiero, contable, gestión de cobranza pre-jurídica
+                  y jurídica, así como para contactarme a través de cualquier
+                  medio de contacto proporcionado por mí, para el ofrecimiento
+                  de productos y servicios, promociones y campañas de servicio,
+                  todo de conformidad con lo dispuesto en la ley 1581 de 2012 y
+                  demás normas vigentes. Manifiesto que he sido informado del
+                  uso que se le dará a mis datos personales, y que es de
+                  carácter facultativo responder preguntas que versen sobre
+                  Datos Sensibles o sobre menores de edad. Que esta información
+                  podrá ser transmitida a terceros encargados o responsables del
+                  manejo de datos personales o transferida a terceros países que
+                  cumplan los requisitos mínimos sobre protección de datos
+                  establecidos por la ley para su tratamiento y que así lo he
+                  aceptado libre y espontáneamente. Igualmente, manifiesto que
+                  la información proporcionada es completa, veraz, exacta,
+                  comprobable y que en cualquier momento podré actualizarla,
+                  rectificarla, conocerla o solicitar su supresión con arreglo a
+                  la normatividad vigente aplicable.
+                </span>
+              </td>
+            </tr>
+            <tr class="row13">
+              <td class="col1">
+                <span class="text"
+                  >Para conocer la Política para la administración de datos
+                  personales de Fanalca S.A., ingrese al siguiente link:
+                  https://autos.honda.com.co/politicas-de-privacidad
+                </span>
+              </td>
+            </tr>
+            <tr class="row14">
+              <td class="col1">
+                <span class="text header"
+                  >PREVENCIÓN DE ACTIVIDADES ILÍCITAS</span
+                >
+              </td>
+            </tr>
+            <tr class="row15">
+              <td class="col1">
+                <span class="text"
+                  >Autorizo a FANALCA S.A. para cancelar el contrato y/o
+                  relación comercial que mantenga conmigo y/o la sociedad que
+                  represento en el caso de comprobarse cualquier infracción de
+                  las normas legales tendientes al control de lavado de activos,
+                  de acuerdo con la Legislación Colombiana vigente y eximo a
+                  FANALCA S.A. de toda responsabilidad que se derive por
+                  información errónea, falsa o inexacta que hubiera
+                  proporcionado en este documento.
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section11">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text header">AUTORIZACIÓN DE FACTURACIÓN</span>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >A la fecha he realizado un abono de ____________ que
+                  representa el ______% del valor del vehículo, confirmando de
+                  esta manera mi interés por culminar el proceso de compra. Por
+                  lo anterior, autorizo desde este momento y de manera expresa,
+                  permanente e irrevocable a realizar la factura y trámites de
+                  matricula del vehículo aquí referenciado.</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section12">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >En constancia de haber leído, entendido y aceptado lo
+                  anterior, firmo en (ciudad y fecha):
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section13">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="3">
+                <span class="text bold"
+                  >FIRMA COMPRADOR (Persona Natural / Persona Jurídica)</span
+                >
+              </td>
+              <td class="col2" colspan="5">
+                <span class="box huella">Huella</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </body>
+  </html>
+</apex:page>

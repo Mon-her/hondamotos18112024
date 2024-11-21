@@ -1,0 +1,22 @@
+<template>
+    <template if:true={showLoadingSpinner}>
+        <lightning-spinner alternative-text="Updating..." size="medium"></lightning-spinner>
+    </template>
+    <lightning-quick-action-panel header="Cambiar Propietario">
+     <lightning-record-edit-form record-id={recordId}
+                                    object-api-name={objectApiName}>
+            <lightning-output-field field-name="Name"></lightning-output-field>
+            <lightning-input-field readonly="true" field-name="OwnerId"></lightning-input-field>
+            <!--lightning-output-field field-name="Owner.Profile.Name"></lightning-output-field-->
+            <label for="fieldid">Seleccione su nuevo usuario:</label>
+            <lightning-input-field onchange={handleChangedAutosOwner} variant="label-hidden" id="fieldid" field-name="PrimerUsAut__c" ></lightning-input-field>
+            <br/>
+            <p>Las Tareas, Oportunidades Abiertas y Relaciones de cuentas que sean relacionadas a esta cuenta se cambiaran al usuario seleccionado.</p>
+            
+        </lightning-record-edit-form>
+        <div slot="footer">
+            <lightning-button variant="neutral" label="Cancelar" onclick={handleCancel}></lightning-button>
+            <lightning-button variant="brand" class="slds-m-left_x-small" label="Enviar" type="submit" onclick={handleSubmitButton}></lightning-button>
+          </div>
+    </lightning-quick-action-panel>
+</template>

@@ -1,0 +1,22 @@
+<aura:component controller="AO_FollowingTaskAlert_ctr" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" >
+  
+    <aura:attribute name="dateInput" type="String" />  
+    <aura:attribute name="statusInput" type="String" />  
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div class="slds-section slds-is-open">
+      <h3 class="slds-section__title">
+        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">     
+          <span class="slds-truncate" title="Section Title">Próximo seguimiento</span>
+        </button>
+      </h3>
+      <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+          <div class="slds-grid slds-gutters">
+              <div class="slds-col">
+                <span><p> <lightning:input aura:id="idNextDate" type="date" name="input1" onchange="{!c.onChangeInput}" value="{!v.dateInput}" label="Fecha del próximo seguimiento" /> </p>      
+       			</span>
+              </div>            
+          </div>     
+      </div>
+    </div>
+</aura:component>

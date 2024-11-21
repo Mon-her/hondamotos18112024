@@ -1,0 +1,36 @@
+<template>
+    <div class="slds-grid slds-grid_align-center slds-grid_vertical-align-center container-height">
+        <div
+            if:true={isImageChangeable}
+            class="slds-var-m-right_xx-small">
+            <lightning-button-icon
+                icon-name="utility:chevronleft"
+                onclick={goToPrevious}
+                variant="bare"
+                size="large"
+                alternative-text="Back"
+            ></lightning-button-icon>
+        </div>
+
+        <div if:true={currentImage}>
+            <a
+                class={pointerType}
+                tabindex="0"
+                onclick={handleNavigation}>
+                <img src={currentImage.url} alt={currentImage.title}/>
+            </a>
+        </div>
+
+        <div
+            if:true={isImageChangeable}
+            class="slds-var-m-left_xxx-small">
+            <lightning-button-icon
+                icon-name="utility:chevronright"
+                onclick={goToNext}
+                variant="bare"
+                size="large"
+                alternative-text="Next"
+            ></lightning-button-icon>
+        </div>
+    </div>
+</template>

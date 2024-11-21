@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Validación del Estado de la Orden</masterLabel>
+    <description>De acuerdo al estado de la orden, el mensaje de validación será mostrado.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="orderSummaryId"
+                label="Id del resumen de orden"
+                type="String"
+                default="{!recordId}"/>
+            <property
+                name="orderStatus"
+                label="Estado de la orden y el mensaje a mostrar"
+                type="String"
+                description="Formato estado1:mensaje1;estado2:mensase2. Ejemplo -> Pending:BLOQUEADO POR CUPO;Locked:BLOQUEADO POR MORA"
+                default="Pending:SU PEDIDO SE ENCUENTRA BLOQUEADO POR CUPO;Locked:SU PEDIDO SE ENCUENTRA BLOQUEADO POR MORA;Waiting for payment:CashPaymentTemplate"/>
+            <property
+                name="backgroundColor"
+                label="Color de fondo"
+                type="Color"
+                default="#FF8C82"/>
+            <property
+                name="fontColor"
+                label="Color de fuente"
+                type="Color"
+                default="#851304"/>
+            <property
+                name="fontSize"
+                label="Tamaño de fuente"
+                type="Integer"
+                min="12"
+                default="15"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

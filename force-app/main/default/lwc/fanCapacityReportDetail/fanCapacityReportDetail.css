@@ -1,0 +1,7 @@
+.bold-text {
+    font-weight : bold;
+}
+
+.brand-dark {
+    color: var(--lwc-brandDark);
+}

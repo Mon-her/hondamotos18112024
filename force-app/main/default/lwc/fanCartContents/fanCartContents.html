@@ -1,0 +1,171 @@
+<template>
+    <!-- Cart Header-->
+    <template if:false={itHasStock}>
+        <h3 class="slds-m-bottom_small"> {labels.contadoPaymentWarning} </h3>
+    </template>
+
+    <template if:true={isAnticipo}>
+        <h3 class="slds-m-bottom_small"> {labels.anticipoPaymentWarning} </h3>
+    </template>
+
+
+    <template if:true={isCartItemListIndeterminate}>
+        <lightning-spinner
+            alternative-text={labels.loadingCartItems}
+            class="slds-is-relative slds-align_absolute-center slds-m-around_large"
+            variant="brand"
+        >
+        </lightning-spinner>
+    </template>
+    <template if:false={isCartItemListIndeterminate}>
+    
+    <header class="slds-p-bottom_large">
+        <div class="slds-grid slds-size_1-of-3">
+            <h1>{cartHeader}</h1>
+        </div>
+        <div class="slds-grid slds-size_2-of-3 slds-grid_align-end slds-wrap">
+            <lightning-button
+                class="footer-action slds-align-middle slds-m-top_xx-small"
+                variant="brand"
+                label={labels.selectAllWithBackorder}
+                onclick={handleSelectAllWithBackorder}
+                disabled={disabledSelectAllWithBackorder}
+            >
+            </lightning-button>
+            <lightning-button
+                class="footer-action slds-align-middle slds-m-left_xxx-small  slds-m-top_xx-small"
+                variant="brand"
+                label={labels.unselectAllWithBackorder}
+                onclick={handleUnselectAllWithBackorder}
+                disabled={disabledUnselectAllWithBackorder}
+            >
+            </lightning-button>
+            <template if:true={showSortOption}>
+                <lightning-combobox
+                    if:false={isCartEmpty}
+                    class="sort-menu slds-p-left_small"
+                    label={labels.sortBy}
+                    value={sortParam}
+                    options={sortOptions}
+                    onchange={handleChangeSortSelection}>
+                </lightning-combobox>
+            </template>
+        </div>
+    </header>
+
+    <!-- Active Cart with Cart Items -->
+    <template if:false={isCartClosed}>
+        <c-fan-cart-items
+            cart-items={cartItems}
+            currency-code={currencyCode}
+            onquantitychanged={handleQuantityChanged}
+            onbackorderchanged={handleBackorderChanged}
+            onsinglecartitemdelete={handleCartItemDelete}
+            product-title-option={productTitleOption}
+            group-by-branch={groupByBranch}
+            is-dealer-price-visible={isDealerPriceVisible}
+            show-color={showColor}
+        >
+        </c-fan-cart-items>
+        <lightning-spinner
+            if:true={isCartItemListIndeterminate}
+            alternative-text={labels.loadingCartItems}
+            class="slds-is-relative slds-align_absolute-center slds-m-around_large"
+            variant="brand"
+        >
+        </lightning-spinner>
+        <div
+            if:true={isCartEmpty}
+            class="slds-text-align_center slds-text-color_weak slds-p-top_xx-large"
+        >
+            <h3 class="slds-text-heading_medium">
+                {labels.emptyCartHeader}
+            </h3>
+            <p class="slds-text-body_regular slds-p-top_small">
+                {labels.emptyCartBody}
+            </p>
+        </div>
+        <footer class="slds-p-around_small slds-grid slds-grid_align-spread">
+            <template if:false={isCartEmpty}>
+                <lightning-button
+                    class="footer-action"
+                    variant="base"
+                    label={labels.addAllToWishlist}
+                    onclick={showWishlistModal}
+                >
+                </lightning-button>
+                <div>
+                    <lightning-spinner
+                        if:true={loadingMoreCartItems}
+                        alternative-text={labels.loadingCartItems}
+                        class="slds-is-relative slds-align_absolute-center slds-m-around_large"
+                        variant="brand"
+                    >
+                    </lightning-spinner>
+                </div>
+                <lightning-button
+                    class="footer-action"
+                    variant="base"
+                    label={labels.clearCart}
+                    onclick={handleClearCartButtonClicked}
+                >
+                </lightning-button>
+            </template>
+        </footer>
+    </template>
+
+    <template if:true={addAllToWishlistModal}>
+      <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open"
+        aria-labelledby="modal-wishlist-heading" aria-modal="true" aria-describedby="modal-wishlist-content">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <h2 id="modal-wishlist-heading" class="slds-modal__title slds-hyphenate"> {labels.addAllToWishlist} </h2>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-wishlist-content" style="overflow: initial;">
+            <div>
+              <input type="radio" id="create-list" name="wishlist" onclick={validateSelect} value="create" data-id="create-list-btn" checked>
+              <label for="create-list"> {labels.createWishlist} </label>
+              <div class="slds-m-around_medium">
+                <div class="slds-form-element__control">
+                    <lightning-input
+                    type="text"
+                    data-id="create-list-input" 
+                    name="wishlist-name" 
+                    id="create-list-input"
+                    value={labels.defaultWishlistName}
+                    label={labels.wishlistName}
+                    message-when-value-missing={labels.wishlistNameMissingValue}
+                    onchange={handleWishlistNameChange}
+                    required>
+                    </lightning-input>
+                </div>
+              </div>
+            </div>
+            <div if:false={isEmptyWishlists}>
+              <input type="radio" id="add-to-list" name="wishlist" onclick={validateSelect} value="select" data-id="select-list-btn">
+              <label for="add-to-list"> {labels.addToExistingWishlist} </label>
+              <div class="slds-m-around_medium">
+                <div class="slds-form-element__control">
+                    <lightning-combobox
+                                data-id="select-wishlist" 
+                                name="select-wishlist"
+                                label={labels.selectWishlist}
+                                placeholder={labels.selectWishlistPlaceholder}
+                                options={wishlists}
+                                onchange={handleWishlistOptionChange}
+                                disabled>
+                    </lightning-combobox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={hideWishlistModal}> {labels.cancel} </button>
+            <button class="slds-button slds-button_brand" onclick={saveAllToWishlist} disabled={disableSaveAllToWishlist}> {labels.save} </button>
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
+</template>

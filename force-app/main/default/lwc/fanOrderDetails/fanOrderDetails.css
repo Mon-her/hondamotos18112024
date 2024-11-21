@@ -1,0 +1,17 @@
+:host {
+	--fan-order-details-totals-color-text: #000000;;
+	--fan-order-details-totals-font-weight: 900;
+}
+
+.shipping-addresses-details {
+	color: var(--fan-order-details-totals-color-text);
+	font-weight: var(--fan-order-details-totals-font-weight);
+}
+
+.totals-table {
+	width: auto;
+}
+
+.totals-table td+td {
+	padding-left: var(--lwc-varSpacingHorizontalXxLarge);
+}

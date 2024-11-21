@@ -1,0 +1,10 @@
+<apex:page showHeader="false" standardController="AM_Oportunidad__c" extensions="RM_SendQuote_ctr">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:iframe src="{!strURL}" scrolling="true" id="theIframe"/>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!sendEmail}" value="Enviar"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

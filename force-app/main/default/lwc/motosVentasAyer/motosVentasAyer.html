@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Oportunidades de ayer" icon-name="standard:report">
+        <!--lightning-button label="Ver Datos" onclick={verDatos} slot="actions"></lightning-button-->
+        <lightning-button label="Ver Informe" onclick={verReporte} slot="actions"></lightning-button>
+        <!--div if:true={totalVentasMesPasado} class="slds-text-align_center slds-text-heading_large"-->
+        <div class="slds-text-align_center slds-text-heading_large">    
+                {totalVentasAyer}
+        </div>
+    </lightning-card>
+</template>

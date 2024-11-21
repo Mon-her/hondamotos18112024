@@ -1,0 +1,83 @@
+@page { 
+	size: 21.59cm 30.56cm;
+	
+	margin-top: 2px;
+	margin-bottom: 2px;
+		
+	@top-left {
+		content: element(header_left);
+	}
+	
+	@top-center {
+		content: element(header_center);
+	}
+	
+	@top-right {
+		content: element(header_right);
+	}
+	
+	@bottom-left {
+		content: element(footer_left);
+	}
+	
+	@bottom-center {
+		content: element(footer_center);
+	}
+	
+	@bottom-right {
+		content: element(footer_right);
+	}
+}
+
+.header_left {
+	text-align: left;
+    position: running(header_left);
+}
+
+.header_center{
+	text-align: center;
+	position: running(header_center);
+}
+
+.header_right {
+	text-align: right;
+	position: running(header_right);
+}
+
+.footer_left {
+	text-align: left;
+	position: running(footer_left);
+}
+
+.footer_center {
+	text-align: center;
+	position: running(footer_center);
+}
+
+.footer_right {
+	text-align: right;
+	position: running(footer_right);
+}
+
+.pageNumber:before {
+	content: counter(page); 
+}
+
+.pageCount:before {
+	content: counter(pages);  
+}
+body
+{
+	font-family: tahoma;  
+	font-size: 12px;
+}
+
+.textoImportante 
+{
+	font-weight: bold;
+}
+
+.soloInformacion
+{
+	font-size: 10px;
+}

@@ -1,0 +1,540 @@
+<apex:page controller="QuotePDFController"
+  renderAs="pdf"
+  standardStylesheets="false"
+  showHeader="false"
+  applyHtmlTag="false"
+  applyBodyTag="false"
+  sidebar="false"
+  docType="html-5.0"
+  action="{!updateProducts}"
+>
+  <apex:stylesheet value="{!URLFOR($Resource.quoteMotoTemplate1,'style.css')}"
+  />
+
+  <apex:variable value="{!0}" var="quotePDFDetailsCount" />
+  <apex:repeat var="count" value="{!quotePDFDetails}">
+    <apex:variable var="quotePDFDetailsCount"
+      value="{!quotePDFDetailsCount+1}"
+    />
+  </apex:repeat>
+
+
+
+
+
+  <html lang="es">
+    <head>
+        <style>
+        .myLogo {
+            position: absolute;
+            top: 723px;
+            width: 199px;
+            left: 60px;
+        }
+        </style>
+    </head>
+    <body class="bodies{!quotePDFDetailsCount}">
+      <apex:repeat value="{!quotePDFDetails}" var="quotePDFDetail">
+        <div class="dbody dbody{!quotePDFDetail.index}">
+          <img
+            src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset9.png')}"
+            class="id-cotiz_motosAsset9"
+          />
+
+          <img
+            src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset4.png')}"
+            class="id-cotiz_motosAsset4"
+          />
+          <img
+            src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset5.png')}"
+            class="id-cotiz_motosAsset5"
+          />
+          <img
+            src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset6.png')}"
+            class="id-cotiz_motosAsset6"
+          />
+
+          <img
+            src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset8.png')}"
+            class="id-cotiz_motosAsset8"
+          />
+
+          <div class="id-fechaqnum">
+            <div>
+              <span class="datenum">Fecha: </span>
+
+              <span class="datenum">
+                <apex:outputText value="{0,date,dd}">
+                  <apex:param value="{!quotePDFDetail.quoteLineItem.Quote.CreatedDate}"
+                  />
+                </apex:outputText>
+              </span>
+              <span class="datesep">/</span>
+              <span class="datenum">
+                <apex:outputText value="{0,date,MM}">
+                  <apex:param value="{!quotePDFDetail.quoteLineItem.Quote.CreatedDate}"
+                  />
+                </apex:outputText>
+              </span>
+              <span class="datesep">/</span>
+              <span class="datenum">
+                <apex:outputText value="{0,date,yyyy}">
+                  <apex:param value="{!quotePDFDetail.quoteLineItem.Quote.CreatedDate}"
+                  />
+                </apex:outputText>
+              </span>
+
+              <span class="id-qnum">
+                <span class="datesep">#</span>
+                <span class="datenum"
+                  >{!quotePDFDetail.quoteLineItem.Quote.QuoteNumber}</span
+                >
+              </span>
+            </div>
+          </div>
+          <div class="id-dearblock">
+            <div class="id-dear">Estimado(a):</div>
+            <div class="id-dearn">
+              {!quotePDFDetail.quoteLineItem.Quote.Account.Name}
+            </div>
+            <div class="id-dearm">
+              Bienvenido(a) a Honda, la marca donde los sueños se hacen
+              realidad, agradecemos tu confianza e interés por querer ser parte
+              de nuestra gran familia.
+            </div>
+          </div>
+
+          <span class="id-cotiz_motosAsset1-wrap">
+            <apex:image value="{!quotePDFDetail.quoteLineItem.Product2.DisplayUrl}"
+            />
+          </span>
+
+          <img
+            src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset2.jpg')}"
+            class="id-cotiz_motosAsset2"
+          />
+
+          <div class="spec-columns-wrap id-block2">
+            <div class="spec-columns">
+              <table>
+                <tr>
+                  <td class="col col1">
+                    <div class="title">Beneficios</div>
+
+                    <table>
+                      <apex:repeat value="{!quotePDFDetail.listOfBenefits}"
+                        var="benefitString"
+                      >
+                        <tr>
+                          <td>                             
+                            <span class="icon">
+                              <img
+                                src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset7.png')}"
+                                style="width: 30px"
+                              />
+                            </span>
+                          </td>
+                          <td>
+                            <span class="text"> {!benefitString} </span>
+                          </td>
+                        </tr>
+                      </apex:repeat>
+                    </table>
+                  </td>
+                  <td class="col col2">
+                    <div class="title">Especificaciones</div>
+
+                    <table>
+                      <tr>
+                        <td>
+                          <p class="key">Motor:</p>
+                        </td>
+                        <td>
+                          <span class="text">
+                            {!quotePDFDetail.quoteLineItem.Product2.Motor__c}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Cilindraje:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            {!quotePDFDetail.quoteLineItem.Product2.Cilindraje__c}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Arranque:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            {!quotePDFDetail.quoteLineItem.Product2.Arranque__c}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Dimensiones:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            {!quotePDFDetail.quoteLineItem.Product2.Dimensiones__c}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Peso en seco:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            {!quotePDFDetail.quoteLineItem.Product2.Peso_en_seco__c}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Certificación:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            {!quotePDFDetail.quoteLineItem.Product2.Certificacion__c}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Potencia máx:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            {!quotePDFDetail.quoteLineItem.Product2.Potencia_max__c}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Transmisión:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            {!quotePDFDetail.quoteLineItem.Product2.Transmision__c}
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td class="col col3">
+                    <div class="title">
+                      Información cotización
+                      <div class="subtitle">Oferta económica</div>
+                    </div>
+
+                    <table>
+                      <tr>
+                        <td>
+                          <p class="key">Precio con impuesto:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            <apex:outputText value="{0,number,#,###}"
+                              >$
+                              <apex:param value="{!ROUND(quotePDFDetail.quoteLineItem.UnitPrice * quotePDFDetail.quoteLineItem.Quantity,0)}"
+                              />
+                            </apex:outputText>
+                          </p>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <apex:outputPanel rendered="{!if(ROUND(quotePDFDetail.precioAntesDeDescuento, 0) > 0 , true, false )}"
+                          >
+                            <p class="key">
+                              *Descuento aplicado antes de impuestos:
+                            </p>
+                          </apex:outputPanel>
+                        </td>
+                        <td>
+                          <apex:outputPanel rendered="{!if(ROUND(quotePDFDetail.precioAntesDeDescuento, 0) > 0 , true, false )}"
+                          >
+                            <p class="text">
+                              <apex:outputText value="{0,number,#,###}"
+                                >$
+                                <apex:param value="{! ROUND(quotePDFDetail.precioAntesDeDescuento, 0) }"
+                                />
+                              </apex:outputText>
+                            </p>
+                          </apex:outputPanel>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <p class="key">Valor SOAT:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            <apex:outputText value="{0,number,#,###}"
+                              >$
+                              <apex:param value="{! ROUND(quotePDFDetail.quoteLineItem.Valor_soat__c, 0) }"
+                              />
+                            </apex:outputText>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Casco:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            <apex:outputText value="{0,number,#,###}"
+                              >$
+                              <apex:param value="{! ROUND(quotePDFDetail.quoteLineItem.Casco__c, 0) }"
+                              />
+                            </apex:outputText>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Accesorios:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            <apex:outputText value="{0,number,#,###}"
+                              >$
+                              <apex:param value="{! ROUND(quotePDFDetail.quoteLineItem.Accesorios__c, 0)}"
+                              />
+                            </apex:outputText>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Valor Matrícula:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            <apex:outputText value="{0,number,#,###}"
+                              >$
+                              <apex:param value="{! ROUND(quotePDFDetail.quoteLineItem.Valor_matrcula__c, 0)}"
+                              />
+                            </apex:outputText>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">**Valor seguro todo riesgo:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            <apex:outputText value="{0,number,#,###}"
+                              >$
+                              <apex:param value="{! ROUND(quotePDFDetail.quoteLineItem.Valor_seguro_robo__c, 0)}"
+                              />
+                            </apex:outputText>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Cantidad:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            {!Floor(quotePDFDetail.quoteLineItem.Quantity)}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="key">Total a pagar:</p>
+                        </td>
+                        <td>
+                          <p class="text">
+                            <apex:outputText value="{0,number,#,###}"
+                              >$
+                              <apex:param value="{! ROUND(quotePDFDetail.quoteLineItem.Total_a_Pagar__c, 0)}"
+                              />
+                            </apex:outputText>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="id-cotiz_motosAsset10wrap">
+            <img
+              src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset10.png')}"
+              class="id-cotiz_motosAsset10"
+            />
+            <p class="text">{!quotePDFDetail.quoteLineItem.Product2.Name}</p>
+          </div>
+
+          <div class="spec-columns-wrap id-block3">
+            <div class="spec-columns">
+              <table>
+                <tr>
+                  <td class="col col1"></td>
+                  <td class="col col2">
+                    <p class="id-especificaciones-footer">
+                      *Las especificaciones técnicas pueden cambiar sin previo
+                      aviso.
+                    </p>
+                  </td>
+                  <td class="col col3">
+                    <p class="oferta-footer">
+                      * Descuento aplicado al valor del producto antes de
+                      impuestos. ** El seguro de robo es opcional
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>     
+        <apex:variable var="v" value="" rendered="{!quotePDFDetail.blnGarantia1}">         
+            <img
+                src="{!URLFOR($Resource.AO_Garantia1)}"
+                class="id-cotiz_motosAsset3"
+              />  
+        </apex:variable>
+        
+        <apex:variable var="v" value="" rendered="{!quotePDFDetail.blnGarantia2}"   >
+            <img
+                    src="{!URLFOR($Resource.AO_Garantia2)}"
+                    class="id-cotiz_motosAsset3" style ="top: 702px;"
+                  />
+        </apex:variable>
+        <apex:variable var="v" value="" rendered="{!quotePDFDetail.blnGarantia3}">
+            <img
+                    src="{!URLFOR($Resource.AO_Garantia3)}"
+                    class="id-cotiz_motosAsset3" style ="top: 702px;"
+                  />
+        </apex:variable>    
+        <apex:variable var="v" value="" rendered="{!quotePDFDetail.blnGarantia4}">
+            <img
+                    src="{!URLFOR($Resource.AO_Garantia4)}"
+                    class="id-cotiz_motosAsset3" style ="top: 702px;"
+                  />
+        </apex:variable>    
+        
+        
+                  
+        <!-- AO 14/11/2021 CHANGE THE GUARANTEE IMAGE IN ORDER TO SHOW DYNAMICALLY THE GUARANTEE ACCORDING WITH THE PRODUCT   rendered="{!NOT(ISBLANK(TheField__c))
+          <img
+            src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset3.jpg')}"
+            class="id-cotiz_motosAsset3"
+          />  
+          -->
+          
+          <div class="id-asesor-footer">
+            <div>
+              * Consulta con tu asesor los planes de financiación que tenemos
+              para ti a través de nuestros aliados.
+            </div>
+          </div>
+          <div class="id-observaciones-wrap">
+            <p class="text">{!quotePDFDetail.quoteLineItem.Observaciones__c}</p>
+          </div>
+          <div class="id-se-entrega-con">
+            <span class="title">Las motocicleta se entrega con: </span>
+
+            <apex:repeat value="{!quotePDFDetail.listOfDeliveries}"
+              var="deliveryItemString"
+            >
+              • {!deliveryItemString}
+            </apex:repeat>
+          </div>
+
+          <div class="id-honda-sueno-wrap">
+            <div class="id-honda-sueno">
+              En Honda hacemos realidad tu sueño ofreciendo siempre un servicio
+              de atención especializado en todo el territorio nacional a través
+              de nuestras salas de venta, talleres autorizados y distribuidores
+              de repuestos.
+            </div>
+          </div>
+
+          <div class="id-contactanos-wrap">
+            <div class="title">
+              <span>CONTÁCTANOS</span>
+              <img
+                src="{!URLFOR($Resource.quoteMotoTemplate1,'cotiz_motosAsset11.png')}"
+                class="id-cotiz_motosAsset11"
+              />
+            </div>
+
+            <div class="id-contactanos-table">
+              <div class="col1 col">
+                <table>
+                  <tr>
+                    <td>
+                      <p class="key">Nuestro Asesor:</p>
+                    </td>
+                    <td>
+                      <p class="text">
+                        {!quotePDFDetail.quoteLineItem.Quote.Opportunity.Owner.Name},
+                        estará atento a resolver sus inquietudes.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p class="key">Teléfono:</p>
+                    </td>
+                    <td>
+                      <p class="text">
+                        {!quotePDFDetail.quoteLineItem.Quote.Opportunity.Owner.MobilePhone}
+                        <span class="datesep">/</span>
+                        {!miembroDeConcesionario.Concesionario__r.Telefono__c}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p class="key">Dirección:</p>
+                    </td>
+                    <td>
+                      <p class="text">
+                        {!miembroDeConcesionario.Concesionario__r.Direccion_de_agencia__c}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p class="key">Email:</p>
+                    </td>
+                    <td>
+                      <p class="text">
+                        {!quotePDFDetail.quoteLineItem.Quote.Opportunity.Owner.Email}
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col2 col">
+                <div>Cotización válida hasta</div>
+                <div>
+                  <apex:outputText value="{0,date,yyyy-MM-dd}">
+                    <apex:param value="{!quoteExpirationDate}" />
+                  </apex:outputText>
+                </div>
+                <div>Aplican condiciones y restricciones.</div><div>*El precio de los productos puede cambiar sin previo aviso</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:repeat>
+    </body>
+  </html>
+</apex:page>

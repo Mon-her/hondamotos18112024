@@ -1,0 +1,39 @@
+<aura:component controller="AO_tableroReferidos_ctr" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <lightning:navigation aura:id="navService"/>
+    <aura:attribute name="pageReference" type="Object"/>
+    <aura:attribute name="url" type="String"/> 
+    <aura:attribute name="referidosTotales" type="Integer" default="0"/> 
+    <aura:attribute name="showDtl" type="Boolean" default="false"/>
+    <aura:attribute name="startDate" 	type="Date" />
+    <aura:attribute name="finalDate" 	type="Date" />
+    <aura:attribute name="cntReferidosTotales" type="Integer" default="0"/>
+     <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="9"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>    
+        
+    <article class="slds-card">
+      <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <div class="slds-media__figure">           
+               <lightning:icon iconName="action:new_event" alternativeText="Approved" title="Approved" />  
+          </div>
+          <div class="slds-media__body">
+            <h2 class="slds-card__header-title">
+              <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                <span>Referidos Contactos + Cuentas </span>
+              </a>
+            </h2>
+          </div>      
+        </header>
+      </div>      
+      <div class="slds-card__body slds-card__body_inner">  
+          <div class="colorNumber">{!v.cntReferidosTotales}</div>
+      </div>
+      <footer class="slds-card__footer">         
+        <a class="slds-card__footer-action" href="javascript:void(0)" onclick="{!c.handleClick}">Ver detalle
+          <span class="slds-assistive-text">Accounts</span>
+        </a>          
+      </footer>
+    </article>	  
+   	<!--<c:AO_tableroReferidos  cntReferidosTotales ="{!v.referidosTotales}" showDetails ="{!v.showDtl}" />-->
+</aura:component>

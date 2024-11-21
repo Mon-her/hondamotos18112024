@@ -1,0 +1,130 @@
+<template>
+    <ul>
+        <template for:each={_items} for:item="lineItem">
+            <li
+                key={lineItem.cartItem.cartItemId}
+                class="slds-p-vertical_medium"
+            >
+                <figure>
+                    <a
+                        tabindex="-1"
+                        href={lineItem.productUrl}
+                        data-productid={lineItem.cartItem.productDetails.productId}
+                        onclick={handleProductDetailNavigation}
+                    >
+                        <img
+                            src={lineItem.productImageUrl}
+                            alt={lineItem.productImageAlternativeText}
+                            data-productid={lineItem.cartItem.productDetails.productId}
+                        />
+                    </a>
+                </figure>
+                <div class="details slds-has-flexi-truncate">
+                    <h3
+                        class="item-name slds-text-heading_medium slds-p-bottom_small slds-truncate"
+                        title={lineItem.cartItem.productDetails.name}
+                    >
+                        <a
+                            href={lineItem.productUrl}
+                            data-productid={lineItem.cartItem.productDetails.productId}
+                            onclick={handleProductDetailNavigation}
+                            tabindex="0"
+                        >
+                            {lineItem.cartItem.productDetails.name}
+                        </a>
+                    </h3>
+                    <div class="line-item-properties">
+                        <dl class="product-fields">
+                            <dt class="slds-truncate">{labels.sku}</dt>
+                            <dd
+                                class="slds-truncate"
+                                title={lineItem.cartItem.productDetails.fields.Referencia__c}
+                            >
+                                {lineItem.cartItem.productDetails.fields.Referencia__c}
+                            </dd>
+                            <dt class="slds-truncate">{labels.publicPrice}</dt>
+                            <dd class="slds-truncate">
+                                <lightning-formatted-number
+                                    format-style="currency"
+                                    currency-code={currencyCode}
+                                    currency-display-as="symbol"
+                                    maximum-fraction-digits="2"
+                                    value={lineItem.cartItem.listPrice}
+                                ></lightning-formatted-number>
+                            </dd>
+                            <template if:true={isDealerPriceVisible}>
+                                <dt class="slds-truncate">{labels.dealerPrice}</dt>
+                                <!-- Placeholder -->
+                                <dd class="slds-truncate">
+                                    <lightning-formatted-number
+                                        format-style="currency"
+                                        currency-code={currencyCode}
+                                        currency-display-as="symbol"
+                                        maximum-fraction-digits="2"
+                                        value={lineItem.cartItem.salesPrice}
+                                    ></lightning-formatted-number>
+                                </dd>
+                            </template>
+                            <dt class="slds-truncate">{labels.discountedPrice}</dt>
+                            <!-- Placeholder -->
+                            <dd class="slds-truncate">
+                                <lightning-formatted-number
+                                    format-style="currency"
+                                    currency-code={currencyCode}
+                                    currency-display-as="symbol"
+                                    maximum-fraction-digits="2"
+                                    value={lineItem.cartItem.unitAdjustedPrice}
+                                ></lightning-formatted-number>
+                            </dd>
+                            <!-- Placeholder -->
+                            <template if:true={showColor}>
+                                <dt class="slds-truncate">{labels.color}</dt>
+                                <dd>
+                                    <template if:true={lineItem.cartItem.productDetails.variationAttributes.fan_Color__c}>{lineItem.cartItem.productDetails.variationAttributes.fan_Color__c.value}</template>
+                                </dd>
+                            </template>
+                            <dt class="slds-truncate">{labels.backorder}</dt>
+                            <dd>
+                                <input type="checkbox" data-item-id={lineItem.cartItem.cartItemId} onchange={handleBackorderCheckbox} checked={lineItem.cartItem.backorder} >
+                            </dd>
+                        </dl>
+                        <div class="quantity-price-remove">
+                            <c-fan-quantity-handler
+                                class="slds-grid slds-grid_vertical-align-center quantity-font-size quantity-handler"
+                                item-id={lineItem.cartItem.cartItemId}
+                                max="100000"
+                                min="1"
+                                value={lineItem.cartItem.quantity}
+                                label={labels.abbreviatedQuantity}
+                                onquantitychanged={handleQuantityChange}>
+                            </c-fan-quantity-handler>
+                            <div
+                                class="slds-grid slds-grid_vertical-align-center slds-p-horizontal_medium slds-has-flexi-truncate"
+                            >
+                                <lightning-formatted-number
+                                    format-style="currency"
+                                    currency-code={currencyCode}
+                                    class="negotiated-price slds-truncate slds-text-heading_large"
+                                    currency-display-as="symbol"
+                                    maximum-fraction-digits="2"
+                                    value={lineItem.cartItem.totalPrice}
+                                >
+                                </lightning-formatted-number>
+                            </div>
+                            <div class="slds-p-around_xx-small remove">
+                                <lightning-button-icon
+                                    icon-name="utility:close"
+                                    variant="bare"
+                                    alternative-text="remove"
+                                    onclick={handleDeleteCartItem}
+                                    data-cartitemid={lineItem.cartItem.cartItemId}
+                                >
+                                </lightning-button-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </template>
+    </ul>
+</template>

@@ -1,0 +1,77 @@
+<template>
+    <div class="slds-size_4-of-4" if:true={hasProductsToShow}>
+        <div class="slds-text-align_center">
+
+            <h2 class="slds-text-heading_large" style="text-align: left;">{componentType}</h2>
+            <div class="slds-carousel">
+                <div class="slds-carousel__stage" style="overflow: visible;">
+
+                    <lightning-layout vertical-align="center" class="x-large">
+
+                        <lightning-layout-item size="1" if:true={showCarouselChevron}>
+                            <lightning-button-icon icon-name="utility:chevronleft" onclick={leftButton} variant="brand"
+                                alternative-text="Settings"></lightning-button-icon>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size={layoutSize} padding="around-small">
+                            <lightning-layout if:true={areDetailsVisible} style="overflow-x: hidden;">
+
+                                <template for:each={productList} for:item="product">
+
+                                    <div key={product.productSKU} class={maxProductShowRelated}>
+                                        <div id={product.productSKU} class="slds-carousel__panel" role="tabpanel"
+                                            aria-hidden="false" aria-labelledby="indicator-id-82">
+                                            <a class="slds-text-link_reset" tabindex="0">
+                                                <div class="slds-carousel__image">
+                                                    <img src={product.productImg} alt="Visit App Exchange"
+                                                        id={product.Id} onclick={onRedirectProduct} />
+                                                </div>
+                                            </a>
+                                            <div class="slds-carousel__content carousel-item" style="overflow: visible;">
+                                                <h2 class="slds-text-heading_medium title-space full-height" title={product.productSKU}
+                                                    if:true={showSkuProduct}>
+                                                    {product.productSKU}</h2>
+                                                <p if:true={showProductName} title={product.productName} class="text-uppercase full-height">
+                                                    {product.productName}</p>
+                                                <p if:true={showYearModel} title={product.productYear} class="slds-text-heading_small slds-m-top_xx-small">{product.productYear}</p>
+                                                <p class="slds-carousel__content-title" if:true={showPrice}>
+                                                    <lightning-formatted-number value={product.productPrice}
+                                                        format-style="currency"></lightning-formatted-number>
+                                                </p>
+                                                <div class="slds-size_2-of-2 slds-m-top_x-small" if:true={showAddToCart}>
+                                                    <div class="slds-text-align_center">
+                                                        <lightning-button id={product.Id} variant="brand"
+                                                            label={addToCartLabel} title={addToCartLabel}
+                                                            class="slds-m-left_x-small" onclick={addToCart}>
+                                                        </lightning-button>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-size_2-of-2 slds-m-top_x-small" if:true={showViewOptions}>
+                                                    <div class="slds-text-align_center">
+                                                        <lightning-button id={product.Id} variant="brand"
+                                                            label={viewOptionsLabel} title={viewOptionsLabel}
+                                                            class="slds-m-left_x-small" onclick={onRedirectProduct}>
+                                                        </lightning-button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </template>
+                            </lightning-layout>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="1" if:true={showCarouselChevron}>
+                            <lightning-button-icon icon-name="utility:chevronright" onclick={rightButton}
+                                variant="brand" alternative-text="Settings"></lightning-button-icon>
+                        </lightning-layout-item>
+
+                    </lightning-layout>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

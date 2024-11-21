@@ -1,0 +1,1395 @@
+<apex:page controller="OrderPDFController"
+  renderAs="pdf"
+  standardStylesheets="false"
+  showHeader="false"
+  applyHtmlTag="false"
+  applyBodyTag="false"
+  sidebar="false"
+  docType="html-5.0"
+>
+  <apex:stylesheet value="{!URLFOR($Resource.requestTemplate,'style.css')}" />
+  <link href="../staticresources/requestTemplate/style.css" rel="stylesheet" />
+    
+  <html lang="es">
+    <body>
+      <div class="section section1">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="4">
+                <img
+                  src="{!URLFOR($Resource.requestTemplate,'LogoMR.png')}"
+                  id="logo"
+                  width="59"
+                  height="40"
+                />
+              </td>
+              <td class="col2" colspan="2">
+                <span class="text">PEDIDO No:</span>
+              </td>
+              <td class="col3" colspan="2">
+                <span class="text">{!order.OrderNumber}</span>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span
+                  >{!miembroDeConcesionario.Concesionario__r.Agencia__c} /
+                  {!miembroDeConcesionario.Concesionario__r.Name}</span
+                >
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1"></td>
+              <td class="col2"></td>
+              <td class="col3" colspan="2">
+                <span class="text">VEHÍCULO NUEVO</span>
+              </td>
+              <td class="col5">
+                <span class="box">
+                  <apex:outputPanel rendered="{!if(order.opportunity.Tipo_de_Oportunidad__c == 'Nuevos', true, false )}"
+                  >
+                    X
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!if(order.opportunity.Tipo_de_Oportunidad__c != 'Nuevos', true, false )}"
+                  >
+                    &nbsp;
+                  </apex:outputPanel>
+                </span>
+              </td>
+              <td class="col6" colspan="3">
+                <span class="text">VEHÍCULO USADO</span>
+
+                <span class="box">
+                  <apex:outputPanel rendered="{!if(order.opportunity.Tipo_de_Oportunidad__c == 'Usados', true, false )}"
+                  >
+                    X
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!if(order.opportunity.Tipo_de_Oportunidad__c != 'Usados', true, false )}"
+                  >
+                    &nbsp;
+                  </apex:outputPanel>
+                </span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1">
+                <table class="datetable">
+                  <tr class="row1">
+                    <td col="col1" colspan="3">
+                      <span class="text">FECHA</span>
+                    </td>
+                  </tr>
+                  <tr class="row2">
+                    <td col="col1">
+                      <span class="text">
+                        <apex:outputText value="{0,date,dd}">
+                          <apex:param value="{!order.CreatedDate}" />
+                        </apex:outputText>
+                      </span>
+                    </td>
+                    <td col="col2">
+                      <span class="text">
+                        <apex:outputText value="{0,date,MM}">
+                          <apex:param value="{!order.CreatedDate}" />
+                        </apex:outputText>
+                      </span>
+                    </td>
+                    <td col="col3">
+                      <span class="text">
+                        <apex:outputText value="{0,date,yyyy}">
+                          <apex:param value="{!order.CreatedDate}" />
+                        </apex:outputText>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td class="col2" colspan="3">
+                <span>NOMBRE ASESOR COMERCIAL:</span>
+              </td>
+              <td class="col3" colspan="4">
+                <!--span class="text">{!runningUser.Name}</span-->
+                <span class="text">{!if(order.opportunity.Tipo_de_Oportunidad__c == 'Nuevos' || order.opportunity.Tipo_de_Oportunidad__c == 'Usados', order.opportunity.Owner.Name, order.opportunity.CreatedBy.Name )}</span>
+              </td>
+            </tr>
+            <!-- <tr class="row5">
+              <td class="col1">
+              </td>
+              <td class="col2" colspan="7">
+              </td>
+            </tr> -->
+            <tr class="row6">
+              <td class="col1" colspan="8">
+                <span class="text">1. DATOS DEL COMPRADOR</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section2">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="4">
+                <span class="text bold"
+                  >Nombre / Razón Social (1er apellido / 2do apellido /
+                  Nombre)</span
+                >
+                <div class="value">{!nombreCompletoComprador}</div>
+              </td>
+              <td class="col2" colspan="4">
+                <span class="text">Identificación</span>
+                <div class="value">
+                  {!order.Opportunity.Account.AM_Numero_de_documento__c}
+                </div>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">
+                <span class="text">Dirección Residencia</span>
+                <div class="value">
+                  {!order.Opportunity.Account.AM_Direccion__c}
+                </div>
+              </td>
+              <td class="col2">
+                <span class="text">Ciudad</span>
+                <div class="value">
+                  {!order.Opportunity.Account.AM_Ciudad__r.Name}
+                </div>
+              </td>
+              <td class="col3" colspan="2">
+                <span class="text">Teléfono Residencia</span>
+                <div class="value">{!compradorTelefonoResidencia}</div>
+              </td>
+              <td class="col5" colspan="4">
+                <span class="text">No. Celular</span>
+                <div class="value">
+                  {!compradorTelefonoCelular}
+                </div>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="2">
+                <span class="text">E-mail</span>
+                <div class="value">{!compradorEmail}</div>
+              </td>
+              <td class="col2" colspan="2">
+                <span class="text">Cliente Honda</span>
+                <div>
+                  <span>SI</span>
+                  <span class="box">
+                    <apex:outputPanel rendered="{!if(order.opportunity.Tipo_de_cliente__c == 'Cliente Honda', true, false )}"
+                    >
+                      X
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(order.opportunity.Tipo_de_cliente__c == 'Cliente Honda', false, true )}"
+                    >
+                      &nbsp;
+                    </apex:outputPanel>
+                  </span>
+                  <span>NO</span>
+                  <span class="box">
+                    <apex:outputPanel rendered="{!if(order.opportunity.Tipo_de_cliente__c == 'Cliente Honda', false, true )}"
+                    >
+                      X
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(order.opportunity.Tipo_de_cliente__c == 'Cliente Honda', true, false )}"
+                    >
+                      &nbsp;
+                    </apex:outputPanel>
+                  </span>
+                </div>
+              </td>
+              <td class="col5" colspan="4">
+                <span class="text">Teléfono Oficina</span>
+                <div class="value">{!compradorTelefonoOficina}</div>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" colspan="4">
+                <span class="text"
+                  >Facturar a nombre de: (Nombre / Razón social 1er apellido /
+                  2do apellido / Nombre)</span
+                >
+                <div class="value">{!nombreCompletoFacturaANombreDe}</div>
+              </td>
+              <td class="col2" colspan="4">
+                <span class="text" colspan="4">Identificación</span>
+                <div class="value">
+                  {!order.Opportunity.Facturar_a_nombre_de__r.AM_Numero_de_documento__c}
+                </div>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1">
+                <span class="text">Dirección Residencia</span>
+                <div class="value">
+                  {!order.Opportunity.Facturar_a_nombre_de__r.AM_Direccion__c}
+                </div>
+              </td>
+              <td class="col2">
+                <span class="text">Ciudad</span>
+                <div class="value">
+                  {!order.Opportunity.Facturar_a_nombre_de__r.AM_Ciudad__r.Name}
+                </div>
+              </td>
+              <td class="col3" colspan="2">
+                <span class="text">Teléfono Residencia</span>
+                <div class="value">
+                  {!facturaAnombreTelefonoResidencia}
+                </div>
+              </td>
+              <td class="col4" colspan="4">
+                <span class="4">No. Celular</span>
+                <div class="value">
+                  {!facturaAnombreTelefonoCelular}
+                </div>
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1" colspan="4">
+                <span class="text">E-mail</span>
+                <div class="value">
+                  {!facturaAnombreEmail}
+                </div>
+              </td>
+              <td class="col2" colspan="4">
+                <span class="text">Teléfono Oficina</span>
+                <div class="value">
+                  {!facturaAnombreTelefonoOficina}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section3">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="title"
+                  >PERSONA PÚBLICA O POLÍTICAMENTE EXPUESTA</span
+                >
+                <span class="text normal"
+                  >(Marque una X donde corresponda)</span
+                >
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span class="text">¿Maneja recursos públicos?</span>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="8">
+                <span class="text">¿Tiene un cargo de poder público?</span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" colspan="8">
+                <span class="text">¿Goza de reconocimiento público?</span>
+              </td>
+            </tr> -->
+            <tr class="row5">
+              <td class="col1" colspan="8">
+                <span class="text">2. DATOS DEL VEHÍCULO</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section4">
+        <table  style='font-size:83%'>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" >
+                <span class="text">Marca</span>
+                <div class="value">
+                  {!opportunityLineItem.Product2.Marca__c}<!--{if(order.opportunity.Tipo_de_Oportunidad__c != 'Usados', opportunityLineItem.Product2.Marca__c, opportunityLineItem.Product2.Marca_usado__c )}-->
+                </div>
+              </td>
+              <td class="col2" width="130px">
+                <span class="text">{!$Label.AFOG_referenciaComercial}</span>
+                <div class="value">
+                  {!opportunityLineItem.Product2.Name} <!--{if(order.opportunity.Tipo_de_Oportunidad__c != 'Usados', opportunityLineItem.Product2.Linea_version__c, opportunityLineItem.Product2.Linea_usado__c )}-->
+                </div>
+              </td>
+              <td class="col3" colspan="2">
+                <span class="text">Modelo</span>
+                <div class="value">
+                  {!opportunityLineItem.Product2.Ano_modelo__c}<!--{if(order.opportunity.Tipo_de_Oportunidad__c != 'Usados', opportunityLineItem.Product2.Modelo_Ao__c, opportunityLineItem.Product2.Ano_modelo_usado__c )}-->
+                </div>
+              </td>
+              <td class="col4" colspan="2">
+                <span class="text">VIN interno del vehículo</span>
+                <div class="value">
+                  <!--{!order.Opportunity.VIN__c}-->
+                </div>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">Placa</span>
+                <div class="value">
+                 <!-- {!order.Opportunity.Placa__c}-->
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="col1">
+                <span class="text">Kilometraje (Vehículo Usado)</span>
+                <div class="value">
+                  {!opportunityLineItem.Product2.Kilometraje__c}
+                </div>
+              </td>
+              <td class="col2">
+                <span class="text">Cilindraje</span>
+                <div class="value">
+                  {!opportunityLineItem.Product2.Cilindraje__c}<!--{if(order.opportunity.Tipo_de_Oportunidad__c != 'Usados', opportunityLineItem.Product2.Cilindraje__c, opportunityLineItem.Product2.Cilindraje_usado__c )} -->
+                </div>
+              </td>
+              <td class="col1" colspan="2">
+                <span class="text">Color</span>
+                <div class="value">
+                  {!opportunityLineItem.Product2.Color__c}
+                </div>
+              </td>
+              <td class="col6">
+                <span class="text">Caja</span>
+                <div class="value">{!opportunityLineItem.Product2.Caja__c}</div>
+              </td>
+              <td class="col1" colspan="3">
+                <span class="text">Aplica Garantía Vehículo Usado</span>
+
+                <div>
+                  <span>SI</span>
+                  <span class="box">
+                    <apex:outputPanel rendered="{!if(garantiaDeUsados == 'SI', true, false )}"
+                    >
+                      X
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(garantiaDeUsados == 'NO' || garantiaDeUsados == '', true, false )}"
+                    >
+                      &nbsp;
+                    </apex:outputPanel>
+                  </span>
+                  <span>NO</span>
+                  <span class="box">
+                    <apex:outputPanel rendered="{!if(garantiaDeUsados == 'NO', true, false )}"
+                    >
+                      X
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!if(garantiaDeUsados == 'SI' || garantiaDeUsados == '', true, false )}"
+                    >
+                      &nbsp;
+                    </apex:outputPanel>
+                  </span>
+                </div>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="section section4-t">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1" style="line-height: 50%;">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >Tratándose de la venta de vehículos usados, el comprador entiende y acepta que está en la libertad de realizar un peritaje al vehículo usado con una firma externa con amplio conocimiento técnico, antes de realizar el traspaso. 
+                  Si el cliente renuncia a realizar un peritaje externo, acepta comprar el vehículo en las condiciones en las que se encuentra.
+                  </span
+                >
+              </td>
+            </tr>
+            <tr class="row3" style="line-height: 50%;">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >El cliente le hizo peritaje al vehículo con una firma externa:
+                  
+                  <span class="text">SI</span> <span class="box">&nbsp;</span>
+                  <span class="text">NO</span> <span class="box">&nbsp;</span>
+                  </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text header"
+                  >3. DATOS VEHÍCULO RECIBIDO COMO PARTE DE PAGO</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section5">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" width="130px">
+                <span class="text">Marca</span>
+                <div class="value">{!order.Opportunity.Marca_retoma__c}</div>
+              </td>
+              <td class="col3" width="130px">
+                <span class="text">Línea</span>
+                <div class="value">{!order.Opportunity.Linea_retoma__c}</div>
+              </td>
+              <td class="col2" width="130px">
+                <span class="text">Modelo</span>
+                <div class="value">{!order.Opportunity.Modelo_retoma__c}</div>
+              </td>
+              <td class="col4" colspan="3" >
+                <span class="text">Caja</span>
+                <div class="value">{!order.Opportunity.Caja_retoma__c}</div>
+              </td>
+              <td class="col7" width="130px">
+                <span class="text">Placa</span>
+                <div class="value">{!order.Opportunity.Placa_retoma__c}</div>
+              </td>
+              <td class="col8">
+                <span class="text">Kilometraje</span>
+                <div class="value">{!order.Opportunity.Kilometraje_retoma__c}</div>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">
+                <span class="text">Color</span>
+                <div class="value">{!order.Opportunity.Color_retoma__c}</div>
+              </td>
+              <td class="col2" colspan="2">
+                <span class="text" colspan="2">Tipo Carrocería</span>
+                <div class="value">
+                  {!order.Opportunity.Tipo_de_carroceria_retoma__c}
+                </div>
+              </td>
+              <td class="col3" colspan="3">
+                <span class="text">Avalúo</span>
+                <div class="value">{!order.Opportunity.Avaluo_retoma__c}</div>
+              </td>
+              <td class="col4" colspan="2">
+                <span class="text">Sitio de matrícula</span>
+                <div class="value">
+                  {!order.Opportunity.Sitio_de_matricula_retoma__c}
+                </div>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="6">
+                <span class="text">Avaluado por</span>
+                <div class="value">{!order.Opportunity.Avaluado_por_retoma__c}</div>
+              </td>
+              <td class="col2" colspan="2">
+                <span class="text">Contrato</span>
+                <div class="value">{!order.Opportunity.Contrato_retoma__c}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header header6">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td colspan="2">
+                <span class="text header">4. CONDICIONES DEL NEGOCIO</span>
+              </td>
+              <td>
+                <span class="text"></span>
+              </td>
+              <td colspan="5">
+                <span class="text header">CONDICIONES DE PAGO</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section6">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1"  width="25%">
+                <span class="text">Valor Vehículo</span>
+              </td>
+              <td class="col2"  width="25%">
+                <span class="text">$</span>
+                <span class="value"
+                  ></span
+                >
+              </td>
+              <td class="col3"  width="2%">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3"  width="25%">
+                <span class="text">Anticipo</span>
+              </td>
+              <td class="col5" colspan="2"  width="25%">
+                <span class="text">$</span>
+                <span class="value">
+                  <!-- {!opportunityLineItem.Anticipo__c} -->
+                </span>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">
+                <span class="text">IVA _________ %</span>
+              </td>
+              <td class="col2">
+                <span class="text">$</span>
+                <span class="value">&nbsp;</span>
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Crédito financiera / otros</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value"
+                  >
+                  <!-- {!opportunityLineItem.Desembolso_entidad_financiera__c} -->
+                  </span
+                >
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1">
+                <span class="text">Impoconsumo</span>
+              </td>
+              <td class="col2">
+                <span class="text">$</span>
+                <span class="value"
+                  >&nbsp;</span
+                >
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Cheque posfechado avalado</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value"
+                  >
+                  <!-- {!opportunityLineItem.Cheque_posfechado_avalado__c} -->
+                  </span
+                >
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1">
+                <span class="text">Valor total vehículo incluido impuestos</span>
+              </td>
+              <td class="col2" style='font-size:100%;font-weight:bold;'>
+                <span class="text">               
+                <apex:outputText value="{0,number,#,###}">$
+                   <apex:param value="{! ROUND(order.opportunity.Amount, 0)}"/>
+                </apex:outputText></span>
+                <span class="value"
+                  ></span>
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Contado</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value"
+                  >
+                  <!-- {!opportunityLineItem.Saldo_contra_entrega__c} -->
+                  </span
+                >
+              </td>
+            </tr>
+            <tr class="row5">              
+              <td class="col2" colspan="2" rowspan="3" >
+                {!$Label.AFOG_ClausulaPrecios}         
+              </td>
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Vehículo usado en parte de pago</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value">
+                  <!-- {!opportunityLineItem.Recompra__c} -->
+                </span>
+              </td>
+            </tr>
+            <!--  <tr class="row6">
+                <td class="col1">
+                  <span class="text"></span>
+                </td>
+                <td class="col2">               
+                </td>
+                <td class="col3">
+                  <span class="text"></span>
+                </td>
+                <td class="col4" colspan="3">
+                  <span class="text"></span>
+                </td>
+                <td class="col5" colspan="2">
+                
+                </td>
+              </tr>
+            -->
+            <tr class="row7">
+           <!--   <td class="col1">
+                <span class="text"></span>
+              </td>
+              <td class="col2">
+                <span class="text"></span>
+                <span class="value">                   
+                </span>
+              </td>-->
+              <td class="col3">
+                <span class="text"></span>
+              </td>
+              <td class="col4" colspan="3">
+                <span class="text">Total</span>
+              </td>
+              <td class="col5" colspan="2">
+                <span class="text">$</span>
+                <span class="value">
+                  <!-- {!opportunityLineItem.Total__c} -->
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text header"
+                  >5. AUTORIZACIÓN DE MATRÍCULA O TRASPASO</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section7">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8" style="line-height: 70%;">
+                <span class="text"
+                  >Según las especificaciones anteriores, solicito que el
+                  vehículo nuevo sea matriculado en la ciudad o municipio
+                  de____________________________, con las placas 
+                  
+                  terminadas con el numero ______________________________ o
+                  ______________________________.
+                </span>              
+              </td>
+              <br/>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8" style="line-height: 50%;">
+                <span class="text"
+                  >Mediante la firma del presente pedido EL CLIENTE autoriza a
+                  FANALCA S.A. para proceder con los trámites de matrícula del
+                  vehículo nuevo o traspaso del vehículo usado, ante la oficina
+                  de transito.</span
+                >
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="3"></td>
+              <td class="col2" colspan="5">
+                <span class="line"></span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" colspan="3"></td>
+              <td class="col2" colspan="5">
+                <span class="text bold"
+                  >FIRMA COMPRADOR (Persona Natural / Persona Jurídica)</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text header">6. OBSERVACIONES</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section8">
+        <table  style='font-size:83%'>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                {!LEFT(order.opportunity.Observaciones__c, 90)}
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                {!RIGHT(LEFT(order.opportunity.Observaciones__c, 180), 90)}
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="8">
+                {!RIGHT(order.opportunity.Observaciones__c, 89)}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section-politica">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row1">
+              <td class="th1" colspan="8">
+                <span class="bold">PERSONA PÚBLICA O POLÍTICAMENTE EXPUESTA</span>
+                <span>(Marque una X donde corresponda)</span>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="3">
+                <span class="text"
+                  >¿Maneja recursos públicos?
+                </span>
+              </td>
+              <td class="col2" colspan="1">
+                <table  style='font-size:83%'>
+                  <tr>
+                    <td>
+                      <span class="box"></span> SÍ
+                    </td>
+                    <td>
+                      <span class="box"></span> NO
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td class="col3" colspan="4" rowspan="3">
+                <div class="wrapper">
+                  <span>
+                    *Si alguna de sus respuestas fue afirmativa por favor diligenciar los siguientes campos
+                  </span>
+                  <table class="inner1"  style='font-size:83%'>
+                    <thead>
+                      <td class="th1">Entidad</td>
+                      <td class="th2">Cargo</td>
+                      <td class="th3">Fecha de desvinculación (si aplica)</td>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="3">
+                <span class="text"
+                  >¿Tiene cargo de poder público?
+                </span>
+              </td>
+              <td class="col2" colspan="1">
+                <table>
+                  <tr>
+                    <td>
+                      <span class="box"></span> SÍ
+                    </td>
+                    <td>
+                      <span class="box"></span> NO
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="3">
+                <span class="text"
+                  >¿Goza de reconocimiento público?
+                </span>
+              </td>
+              <td class="col2" colspan="1">
+                <table>
+                  <tr>
+                    <td>
+                      <span class="box"></span> SÍ
+                    </td>
+                    <td>
+                      <span class="box"></span> NO
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section header pedido">
+        <table  style='font-size:83%'>
+          <tr class="row1">
+            <td class="col1">
+              <img
+                  src="{!URLFOR($Resource.requestTemplate,'LogoMR.png')}"
+                  id="logo"
+                  width="59"
+                  height="40"
+                />
+            </td>
+            <td class="col2">
+              <span>CLÁUSULAS DEL PEDIDO</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section section9">
+        <table style='font-size:83%; text-align: justify' >
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  ></span><div>
+                    <span class="text">
+                      {!$Label.AFOG_clausula_1}
+                     </span>
+                  </div>
+                 
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >
+                  {!$Label.AFOG_clausula_2}
+                </span>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_3}
+                </span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_4}  
+                </span>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_5} </span>
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_6}</span>
+              </td>
+            </tr>
+            <tr class="row7">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_7} 
+                </span>
+              </td>
+            </tr>
+            <tr class="row8">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_8}
+                </span>
+              </td>
+            </tr>
+            <tr class="row9">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_9}
+                </span>
+              </td>
+            </tr>
+            <tr class="row10">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_10}
+                </span>
+              </td>
+            </tr>
+            <tr class="row11">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_11} 
+                </span>
+              </td>
+            </tr>
+            <tr class="row12">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_12}
+                </span>
+              </td>
+            </tr>
+            <tr class="row13">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_13} 
+                </span>
+              </td>
+            </tr>
+            <tr class="row14">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_14} 
+                </span>
+              </td>
+            </tr>
+            <tr class="row15">
+              <td class="col1" colspan="8" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_clausula_15} 
+                </span>
+              </td>
+            </tr>
+            <tr class="row16">
+              <td class="col1" colspan="2">
+                <br/>
+                <span class="text bold" style="position:relative; top:15px;"
+                  >&nbsp;&nbsp;&nbsp;FIRMA COMPRADOR ( Persona Natural / Persona Jurídica)&nbsp;&nbsp;&nbsp;</span
+                >
+              </td>
+              <td class="col2">
+                <span class="text"></span>
+              </td>
+              <td class="col3" colspan="5">
+                <br/>
+                <span class="text bold"  style="position:relative; top:15px;"
+                  >&nbsp;&nbsp;&nbsp;FIRMA VENDEDOR: Gerente Agencia / Jefe Comercial&nbsp;&nbsp;&nbsp;</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section10">
+        <table style='font-size:83%; text-align: justify'>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text header header1"
+                  >DECLARACIÓN VOLUNTARIA DE ORIGEN DE FONDOS</span
+                >
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">
+                <span class="text"
+                  >Yo, <span class="dashed-line clientname"></span> identificado
+                  con C.C. No. <span class="dashed-line clientid"></span> de
+                  <span class="dashed-line clientde"></span>
+                </span>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >obrando en mi calidad de Representante Legal de la Sociedad
+                  <span class="dashed-line legalsociety"></span
+                ></span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >o en mi propio nombre, de manera voluntaria y dando certeza
+                  de que todo lo aquí consignado es cierto, realizo la siguiente
+                  declaración de origen de fondos, con el propósito de dar
+                  cumplimiento a lo señalado en las disposiciones vigentes para
+                  control y prevención del lavado de activos:
+                </span>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >1. Mis recursos o los recursos de la empresa que represento
+                  provienen de las siguientes fuentes (detalle ocupación,
+                  oficio, profesión, actividad, etc.):
+                </span>
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1" style="line-height: 63%;">
+                <span class="dashed-line full">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row7">
+              <td class="col1" style="line-height: 63%;">
+                <span class="dashed-line full">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row8">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >2. Declaro que éstos recursos NO provienen de ninguna
+                  actividad ilícita de las contempladas en el código penal
+                  colombiano o en otra norma que lo modifique o adicione.
+                </span>
+              </td>
+            </tr>
+            <tr class="row9">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >3. No admitiré que terceros efectúen depósitos a mis cuentas,
+                  ni recibiré dineros provenientes de actividades ilícitas de
+                  las contempladas en el Código Penal Colombiano o en cualquier
+                  norma que lo modifique o adicione, ni efectuaré transacciones
+                  destinadas a tales actividades o a favor de personas
+                  relacionadas con las mismas.
+                </span>
+              </td>
+            </tr>
+            <tr class="row10">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >4. Exonero a FANALCA S.A. de toda responsabilidad que se
+                  derive de información errónea, falsa, inexacta que yo hubiese
+                  proporcionado en este documento.
+                </span>
+              </td>
+            </tr>
+            <tr class="row11">
+              <td class="col1">
+                <span class="text header header2">{!$Label.AFOG_TituloActividades}</span>
+              </td>
+            </tr>
+            <tr class="row12">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"> {!$Label.AFOG_ActividadesIlicidas}</span>
+              </td>
+            </tr>
+            <tr class="row13">
+              <td class="col1">
+                <span class="text header header2">PROTECCIÓN DE DATOS PERSONALES</span>
+              </td>
+            </tr>
+            <tr class="row12">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_DatosPersonales1}{!$Label.AFOG_DatosPersonales2}</span>
+              </td>
+            </tr>
+            <tr class="row14">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >Para conocer la Política para la administración de datos
+                  personales de Fanalca S.A., ingrese al siguiente link:
+                  <a href="https://autos.honda.com.co/politicas-de-privacidad">https://autos.honda.com.co/politicas-de-privacidad</a>
+                </span>
+              </td>
+            </tr>
+            <tr class="row15">
+              <td class="col1">
+                <span class="text header header3"
+                  >{!$Label.AFOG_TituloPeticiones}</span
+                >
+              </td>
+            </tr>
+            <tr class="row15">
+              <td class="col1" style="line-height: 63%;">
+                <span class="text"
+                  >{!$Label.AFOG_TextoPeticionesQuejas}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- <div class="section section11">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="8">
+                <span class="text header">AUTORIZACIÓN DE FACTURACIÓN</span>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >A la fecha he realizado un abono de ____________ que
+                  representa el ______% del valor del vehículo, confirmando de
+                  esta manera mi interés por culminar el proceso de compra. Por
+                  lo anterior, autorizo desde este momento y de manera expresa,
+                  permanente e irrevocable a realizar la factura y trámites de
+                  matricula del vehículo aquí referenciado.</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div> -->
+
+      <div class="section section12">
+        <table  style='font-size:83%'>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row2">
+              <td class="col1" colspan="8">
+                <span class="text"
+                  >En constancia de haber leído, entendido y aceptado lo
+                  anterior, firmo en (ciudad y fecha): ________________________________________________________
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section13">
+        <table>
+          <thead>
+            <tr class="row0">
+              <td class="th1"></td>
+              <td class="th2"></td>
+              <td class="th3"></td>
+              <td class="th4"></td>
+              <td class="th5"></td>
+              <td class="th6"></td>
+              <td class="th7"></td>
+              <td class="th8"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1" colspan="3">
+                <span class="text bold"
+                  >FIRMA COMPRADOR (Persona Natural / Persona Jurídica)</span
+                >
+              </td>
+              <td class="col2" colspan="5">
+                <span class="box huella">Huella</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section-revision">
+        <div class="left-code">FL-CA-0001</div>
+        <div class="right-code">2021-02-22 Rev. 012</div>
+      </div>
+    </body>
+  </html>
+</apex:page>

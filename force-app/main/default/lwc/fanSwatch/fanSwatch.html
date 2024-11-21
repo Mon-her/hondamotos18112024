@@ -1,0 +1,19 @@
+<template>
+    <div class="gap-10 slds-grid slds-wrap slds-var-m-top_xxx-small">
+        <template for:each={swatches} for:item="swatch">
+            <div
+                class={swatch.class}
+                key={swatch.id}
+                ><span
+                    class="swatch-inner-circle-border"
+                    data-id={swatch.id}
+                    onclick={handleSwatchClick}
+                    ><img
+                        title={swatch.title}
+                        src={swatch.url}
+                        class="swatch-inner-circle-fill">
+                </span>
+            </div>
+        </template>
+    </div>
+</template>

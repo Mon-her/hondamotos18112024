@@ -1,0 +1,68 @@
+<aura:component controller="AO_tableroReferidos_ctr" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:isUrlAddressable" access="global" >	
+ 
+    
+      <!--Declare Attributes-->
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="9"/>
+    <aura:attribute name="isLastPage" type="Boolean" default="false"/>
+    <aura:attribute name="dataSize" type="Integer" default="0"/>
+    <aura:attribute name="cntReferidosTotales" type="Integer" default="0"/>
+    <aura:attribute name="cntContactos" type="Integer" default="0"/>
+    <aura:attribute name="cntCuentas" type="Integer" default="0"/>
+    <aura:attribute name="cntRenting" type="Integer" default="0"/>
+    <aura:attribute name="cntNuevos" type="Integer" default="0"/>
+    <aura:attribute name="cntUsados" type="Integer" default="0"/>
+    <aura:attribute name="showDetails" type="Boolean" default="true"/> 
+    <aura:attribute name="startDate" 	type="Date" />
+    <aura:attribute name="finalDate" 	type="Date" />
+    <aura:handler name="change" value="{!v.startDate}" action="{!c.onValueChange}" />    
+    <aura:handler name="change" value="{!v.finalDate}" action="{!c.onValueChange}" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:if isTrue="{!v.showDetails}">
+        <!--Declare Event Handlers-->  
+      <article class="slds-card"> 
+       
+          <c:AO_ReportHeader cntRefdosTotales="{!v.cntReferidosTotales}"/>
+          <!--<lightning:button variant="brand" label="Actualizar página" title="Brand action" onclick="{! c.refresh }" />-->
+          <div class="slds-m-around_xx-large">
+              <div class="slds-clearfix">             
+                  <div >
+                        <c:AO_scoreResult  cContactos ="{!v.cntContactos}" cCuentas="{!v.cntCuentas}" cNuevos="{!v.cntNuevos}" cUsados="{!v.cntUsados}" cRenting="{!v.cntRenting}"   /> 
+                  </div>
+              </div>  
+              <div class="slds-grid slds-wrap">        
+                  <div class="slds-col slds-size_3-of-12">
+                      <span>  <lightning:input type="date" name="input4" label="Fecha inicio " value="{!v.startDate}" placeholder="type here..."/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                      <span>  </span>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                      <span>  <lightning:input type="date" name="input4" label="Fecha fin" value="{!v.finalDate}" placeholder="type here..."/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                      <span>  </span>
+                    </div>  
+                  <div class="slds-col slds-size_2-of-12"> 
+                    <lightning:button variant="brand" label="Actualizar página" title="Brand action" onclick="{! c.refresh }" iconName="utility:refresh"/>
+                  </div>
+                  <div class="slds-col slds-size_2-of-12">                    
+                      <span>    <lightning:button class="slds-button slds-button_brand" label="Descargar Excel" iconName="utility:download" onclick="{!c.VfpageCall}"  /></span> <!--name="{!employee.Id}"-->                    
+                    </div>
+              </div>
+              <div class="gg">
+                <lightning:datatable aura:id = "accDT"
+                                    columns = "{!v.columns}"                             
+                                    data = "{!v.data}"
+                                    keyField = "Id"
+                                    minColumnWidth="200"   
+                                    onrowselection="false"
+                                    />    
+              </div>           
+          </div> 
+        
+      </article>  
+    </aura:if>
+</aura:component>

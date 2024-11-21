@@ -1,0 +1,47 @@
+<template>
+	<header class="slds-var-p-around_x-small slds-text-title_caps">
+		<h2>{titleHeader}</h2>
+	</header>
+	<div class="slds-box">
+		<div class="slds-text-body_regular slds-var-p-vertical_x-small row">
+			{subtotalHeader}
+			<lightning-formatted-number
+				value={subtotal}
+				format-style="currency"
+			></lightning-formatted-number>
+		</div>
+		<div class="slds-text-body_regular slds-var-p-vertical_x-small row">
+			{shippingHeader}
+			<lightning-formatted-number
+				value={freight}
+				format-style="currency"
+			></lightning-formatted-number>
+		</div>
+		<div class="slds-text-body_regular slds-var-p-vertical_x-small row">
+			{taxHeader}
+			<lightning-formatted-number
+				value={estimatedTaxes}
+				format-style="currency"
+			></lightning-formatted-number>
+		</div>
+		<div class="total-price">
+			<div class="slds-border_top slds-var-p-vertical_x-small row">
+				{totalHeader}
+				<lightning-formatted-number
+					value={total}
+					format-style="currency"
+				></lightning-formatted-number>
+			</div>
+		</div>
+	</div>
+	<template if:true={isButtonVisible}>
+		<div class="slds-p-top_medium slds-p-bottom_x-large">		
+			<lightning-button
+				class="slds-button slds-m-left_x-small slds-float_right "
+				variant="brand"
+				label="Siguiente"
+				onclick={handleNext}
+			></lightning-button>
+		</div>
+	</template>
+</template>

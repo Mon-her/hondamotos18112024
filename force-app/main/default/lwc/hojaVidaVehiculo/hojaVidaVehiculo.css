@@ -1,0 +1,32 @@
+/** START: styling card header **/
+c-hoja-vida-vehiculo lightning-card article.slds-card {
+	border: 1px solid #e8e8e8 !important;
+	margin-bottom: 10px;
+  }
+  c-hoja-vida-vehiculo lightning-card article.slds-card .slds-card__header {
+	display: none;
+  }
+  c-hoja-vida-vehiculo lightning-card article.slds-card .slds-card__body {
+	margin-top: 0px;
+  }
+  c-hoja-vida-vehiculo lightning-card header {
+	/* margin-bottom: 10px; */
+	background-color: #e8e8e8;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+  }
+  c-hoja-vida-vehiculo lightning-card header .title {
+	font-weight: 400;
+  }
+  /** END: styling card header **/
+
+/** hiding save button from filter panel **/
+.tableFilterDiv button.slds-button.slds-button_brand.save-btn {
+  display: none;
+}
+
+/** hiding row number text for filter table **/
+.tableFilterDiv table tr td:nth-child(1){
+  visibility: hidden;
+}

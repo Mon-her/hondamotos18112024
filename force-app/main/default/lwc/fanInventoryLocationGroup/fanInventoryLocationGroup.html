@@ -1,0 +1,99 @@
+<template>
+
+    <lightning-card>
+        <lightning-spinner alternative-text="Loading" size="large" if:true={isGettingStock}></lightning-spinner>
+        <div class="slds-p-horizontal_small" style="width: 100%;">
+            <div class="slds-grid slds-wrap" style="width: 100%; ">
+
+                <div class="slds-col slds-size_12-of-12" if:true={showNoSKUMessage}>
+                    <div class="slds-notify slds-notify_alert slds-alert_warning" role="alert">
+                        <span class="slds-assistive-text">warning</span>
+                        <h2>{labels.textSKUNoMessage}</h2>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_12-of-12">
+                    <span>
+                        <lightning-input name="SKU" label={labels.textSKUText} value={stockUnit} onchange={onChangeSKU}>
+                        </lightning-input>
+                    </span>
+                </div>
+                <br>
+                <div class="slds-col slds-size_12-of-12" style="text-align: left;padding-top: 10px;" if:true={isStoreMotos}>
+                    <label class="slds-form-element__label slds-no-flex">{labels.branchStore}</label>
+                    <lightning-combobox
+                        placeholder={labels.selectPlaceHolder}
+                        value={selectedBranch}
+                        options={branchOptions}
+                        variant="label-hidden"
+                        onchange={handleBranchChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_12-of-12" style="text-align: right;padding-top: 10px;">
+                    <lightning-button label={labels.buttonLabel} onclick={getAvailability}></lightning-button>
+                </div>
+
+                <div class="slds-col slds-size_12-of-12" if:true={hasResult}>
+
+                    <lightning-tabset>
+                        <lightning-tab label={labels.tabNameLabel}>
+
+                            <lightning-input type="text" label={labels.textFilterLabel} onchange={updateSearch}>
+                            </lightning-input>
+                            </br>
+                            <c-fan-inventory-location-group-custom-datatable key-field="id" hide-checkbox-column
+                                data={dataLocationFilter} columns={columns} sorted-by={sortBy}
+                                sorted-direction={sortDirection} onsort={onHandleSort}
+                                onhassubstitutecustombuttonevent={handleHasSubstituteCustomButtonEvent}>
+                            </c-fan-inventory-location-group-custom-datatable>
+
+
+                        </lightning-tab>
+
+                    </lightning-tabset>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+    <template if:true={showModalRelatedProduct}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+            class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={handleCloseModalRelatedProduct}>
+                    <lightning-icon variant="inverse" icon-name="utility:close" alternative-text="Close Modal" title="Close"></lightning-icon>
+                </button>
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{labels.stockSearchLabel}</h1>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <template if:true={isDataProductsRelated}>
+                        <lightning-tabset>
+                            <lightning-tab label={labels.tabNameLabel}>
+                                <lightning-input type="text" label={labels.textFilterLabel} onchange={updateSearchModalRelatedProduct}>
+                                </lightning-input>
+                                </br>
+                                <lightning-datatable key-field="id" hide-checkbox-column
+                                    data={dataProductsRelatedFilter} columns={columnsLocationGroupRelatedProduct} sorted-by={sortBy}
+                                    sorted-direction={sortDirection} onsort={onHandleSortModalRelatedProduct}>
+                                </lightning-datatable>
+                            </lightning-tab>
+                        </lightning-tabset>
+                    </template>
+                    <template if:false={isDataProductsRelated}>
+                        <div class="demo-only demo-only_viewport" style="height:6rem;position:relative">
+                            <div role="status" class="slds-spinner slds-spinner_medium">
+                              <span class="slds-assistive-text">Loading</span>
+                              <div class="slds-spinner__dot-a"></div>
+                              <div class="slds-spinner__dot-b"></div>
+                            </div>
+                          </div>
+                    </template>
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={handleCloseModalRelatedProduct} aria-label="Cancel and close">{labels.close}</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>29.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Página para imprimir la cotización a contado. Esta página tiene la misma estructura de la plantilla de correo electrónico para cotización a contado.</description>
+    <label>Imprimir cotización contado</label>
+</ApexPage>

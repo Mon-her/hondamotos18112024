@@ -1,0 +1,311 @@
+<template>
+    <lightning-spinner
+        if:true={loading}
+        alternative-text="Loading product information..."
+        size="medium"
+        variant="brand"
+    ></lightning-spinner>
+    <lightning-breadcrumbs class="slds-p-bottom_medium">
+        <template for:each={_resolvedCategoryPath} for:item="level">
+            <lightning-breadcrumb
+                key={level.name}
+                label={level.name}
+                href={level.url}
+            >
+            </lightning-breadcrumb>
+        </template>
+    </lightning-breadcrumbs>
+    <div class="slds-grid slds-wrap slds-medium-nowrap slds-large-nowrap">
+        <!-- Carousel gallery -->
+        <div class="slds-col slds-p-around_small">
+            <div class="slds-grid slds-grid_align-center">
+                <div class="gallery-container slds-grid slds-grid_vertical">
+                    <!-- Product Image -->
+                    <div class="product-image-container slds-grid slds-p-around_xx-small slds-show_small slds-border_top slds-border_right slds-border_bottom slds-border_left">
+                        <figure class="slds-align_absolute-center full-height">
+                            <button class="slds-button full-height" data-src={image.url} onclick={zoomImage} disabled={isZoomable}>
+                                <img src={image.url} data-src={image.url} alt={image.alternativeText}/>
+                            </button>
+                        </figure>
+                    </div>
+                    <!-- Carousel for small screen size or greater -->
+                    <template if:true={isShowCarousel}>
+                        <div class="product-images-carousel-gallery slds-show_small slds-p-vertical_small">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
+                                <lightning-button-icon icon-name="utility:chevronleft" variant="container" data-name="previousPage" onclick={changeCarouselPage} disabled={disablePreviousPageBtn}></lightning-button-icon>
+                                <ul class="slds-grid">
+                                    <template for:each={carouselImages} for:item="image">
+                                        <li if:true={image.show}  key={image.id} class="slds-p-around_xx-small">
+                                            <button if:true={image.active} class="slds-button slds-box slds-box_x-small product-image-button-carousel active-carousel-image" data-id={image.id} onclick={changeProductImage}>
+                                                <img src={image.url} data-id={image.id}/>
+                                            </button>
+                                            <button if:false={image.active} class="slds-button slds-box slds-box_x-small product-image-button-carousel" data-id={image.id} onclick={changeProductImage}>
+                                                <img src={image.url} data-id={image.id}/>
+                                            </button>
+                                        </li>
+                                    </template>
+                                </ul>
+                                <lightning-button-icon icon-name="utility:chevronright" variant="container" data-name="nextPage" onclick={changeCarouselPage} disabled={disableNextPageBtn}></lightning-button-icon>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- Product image and carousel for x small screen size -->
+                    <div class="slds-p-vertical_small slds-hide_small">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-space">
+                            <lightning-button-icon if:true={canChangeImageCarousel} class="slds-p-around_xx-small" size="large" icon-name="utility:chevronleft" variant="bare" data-name="previousImage" onclick={changeCarouselImage}></lightning-button-icon>
+                            <div class="slds-shrink-none slds-p-around_xx-small slds-border_top slds-border_right slds-border_bottom slds-border_left" style="width: 200px; height: 200px;">
+                                <figure class="slds-align_absolute-center full-height">
+                                    <button class="slds-button full-height" data-src={image.url} onclick={zoomImage} disabled={isZoomable}>
+                                        <img src={image.url} data-src={image.url}/>
+                                    </button>
+                                </figure>
+                            </div>
+                            <lightning-button-icon if:true={canChangeImageCarousel} class="slds-p-around_xx-small" size="large" icon-name="utility:chevronright" variant="bare" data-name="nextImage" onclick={changeCarouselImage}></lightning-button-icon>
+                        </div>
+                        <div if:true={image.id} class="slds-grid slds-grid_align-center">
+                            <ul>
+                                <template for:each={carouselImages} for:item="image">
+                                    <li key={image.id} class="slds-carousel__indicator slds-m-horizontal_xx-small">
+                                        <span if:true={image.active} class="slds-carousel__indicator-action slds-is-active" style="width: 6px; height: 6px"></span>
+                                        <span if:false={image.active} class="slds-carousel__indicator-action" style="width: 6px; height: 6px"></span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Product Information -->
+        <div class="slds-col slds-p-around_small">
+            <div class="slds-p-around_xx-small">
+                <div class="heading">
+                    <div class="slds-text-heading_medium"><strong>{skuLabel} {reference}</strong></div>
+                    <div class="slds-p-top_x-small">{name}</div>
+                    <div class="slds-p-top_x-small slds-m-bottom_x-large">{yearModel}</div>
+
+                    <div if:true={isShowBranchPicker} class="slds-grid slds-grid_vertical-align-center slds-var-p-top_x-small slds-var-m-bottom_small">
+                        <label class="slds-var-m-right_x-small" for="branchPicker">{branchPickerLabel}</label>
+                        <lightning-combobox
+                            class="slds-grow"
+                            id="branchPicker"
+                            placeholder={label.selectPlaceHolder}
+                            value={selectedAddressCode}
+                            options={branchOptions}
+                            variant="label-hidden"
+                            onchange={handleAddressChange}
+                        ></lightning-combobox>
+                    </div>
+
+                    <div if:true={isShowColorPicker} class="slds-var-p-top_x-small slds-var-m-bottom_small" hidden={isSimpleProduct}>
+                        <label class="slds-var-m-right_x-small" for="colorPicker">{colorPickerLabel}</label>
+                        <c-fan-swatch
+                            id="colorPicker"
+                            swatches={colorOptions}
+                            selected-id={recordId}
+                            onchange={handleProductColorChange}>
+                        </c-fan-swatch>
+                    </div>
+
+                    <template if:false={isVariationParent}>
+                        <div class="slds-p-top_x-small">
+                            <label class="slds-m-right_x-small" for="publicPrice">{publicPriceLabel}</label>
+                            <strong><lightning-formatted-number value={price.listPrice} maximum-fraction-digits="2" format-style="currency" currency-code={price.currency}></lightning-formatted-number></strong>
+                        </div>
+                        <div if:true={isShowSpotPrice} class="slds-p-top_x-small">
+                            <label class="slds-m-right_x-small" for="spotPrice">{spotPriceLabel}</label>
+                            <strong><lightning-formatted-number value={price.unitPrice} maximum-fraction-digits="2" format-style="currency" currency-code={price.currency}></lightning-formatted-number></strong>
+                        </div>
+                        <div if:true={isShowCreditPrice} class="slds-p-top_x-small slds-m-right_x-small">
+                            <label class="slds-m-right_x-small" for="creditPrice">{creditPriceLabel}</label>
+                            <strong><lightning-formatted-number value={price.unitPrice} maximum-fraction-digits="2" format-style="currency" currency-code={price.currency}></lightning-formatted-number></strong>
+                        </div>
+                        <div if:true={isShowDealerPrice} class="slds-p-top_x-small slds-m-right_x-small">
+                            <label class="slds-m-right_x-small" for="dealerPrice">{dealerPriceLabel}</label>
+                            <strong><lightning-formatted-number value={price.unitPrice} maximum-fraction-digits="2" format-style="currency" currency-code={price.currency}></lightning-formatted-number></strong>
+                        </div>
+                        <div class="slds-var-p-top_x-small">{inventoryLabel} <strong>{inventoryStatus}</strong></div>
+                    </template>
+
+                    <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_medium slds-p-top_x-small"> 
+                        <label class="slds-m-right_x-small" for="backorder">{backorderLabel}</label>
+                        <input id="backorder" type="checkbox" onchange={handleBackorderChange} checked={backorder} disabled={isVariationParent}>
+                    </div>
+                    
+                    <!-- Tier Discounts -->
+                    <template if:true={isShowTieredDiscounts} >
+                        <template if:true={formattedPriceAdjustmentTiers.length}>
+                            <div class="slds-var-p-top_x-small">{tieredDiscountsLabel}</div>
+                            <div class="slds-grid">
+                                <lightning-layout class="slds-box slds-box_x-small slds-scrollable_x" style="border-color: black; border-radius: 0;">
+                                    <lightning-layout-item flexibility="no-shrink" class="slds-var-m-right_medium ">
+                                        <p><strong>{label.quantity}</strong></p>
+                                        <p><strong>{label.discountPerUnit}</strong></p> 
+                                    </lightning-layout-item>
+                                    <template iterator:it={formattedPriceAdjustmentTiers}>
+                                        <lightning-layout-item
+                                            key={it.value.id}
+                                            class="slds-text-align_center slds-var-p-horizontal_medium slds-border_left"
+                                            data-is-last={it.last}
+                                            flexibility="no-shrink">
+                                            <p>{it.value.range}</p>
+                                            <p>{it.value.adjustmentValue}</p>
+                                        </lightning-layout-item>
+                                    </template>
+                                </lightning-layout>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+
+                <!-- Quantity, Add To Cart and Add To List -->
+                <div class="slds-grid quantity-container-actions">
+                    <div class="slds-grid slds-shrink-none slds-m-right_small slds-grid_align-center slds-grid_align-center cart-container-actions">
+                        <div class="slds-grid slds-grid_align-center slds-var-m-right_small slds-var-m-top_small">
+                            <c-fan-quantity-handler
+                                class="slds-grid slds-grid_vertical-align-center"
+                                label={quantityLabel}
+                                max="100000000"
+                                min="1"
+                                value={_quantityFieldValue}
+                                onquantitychange={handleQuantityChange}
+                                disabled={isVariationParent}
+                            ></c-fan-quantity-handler>
+                        </div>
+                        <button class="slds-button slds-button_brand slds-m-top_small"
+                                style="border-radius: 0px"
+                                onclick={notifyAddToCart} disabled={disableAddToCartBtn}>{addToCartLabel}</button>
+                    </div>
+                    <div class="slds-grid slds-shrink-none slds-m-top_small">
+                        <button
+                            class="slds-button slds-button_brand slds-grow"
+                            style="border-radius: 0px"
+                            onclick={openModalWishlist} disabled={isVariationParent}>{addToListLabel}</button>
+                    </div>
+                </div>
+            </div>
+       </div> 
+    </div>
+
+   <!-- modal start -->      
+    <template if:true={modalGalleryCarousel}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+           <div class="slds-modal__container">
+            <!-- modal header start -->
+              <header class="slds-modal__header slds-modal__header_empty">
+                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+                    <lightning-icon icon-name="utility:close"
+                       alternative-text="close"
+                       variant="inverse"
+                       size="small" ></lightning-icon>
+                    <span class="slds-assistive-text">{label.close}</span>
+                 </button>
+              </header>
+              <!-- Modal to display image with zoom and carousels  -->
+              <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-grid slds-grid_align-center carousel-container-in-modal">
+                    <!-- Left carousel for small screen size or greater  -->
+                    <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center slds-show_small slds-p-around_medium">
+                        <lightning-button-icon icon-name="utility:chevronup" variant="container" data-name="previousPage" onclick={changeCarouselPage} disabled={disablePreviousPageBtn}></lightning-button-icon>
+                        <ul>
+                            <template for:each={carouselImages} for:item="image">
+                                <li if:true={image.show}  key={image.id} class="slds-p-around_xx-small">
+                                    <button if:true={image.active} class="slds-button slds-box slds-box_x-small product-image-button-carousel active-carousel-image" data-id={image.id} onclick={changeProductImage}>
+                                        <img src={image.url} data-id={image.id}/>
+                                    </button>
+                                    <button if:false={image.active} class="slds-button slds-box slds-box_x-small product-image-button-carousel" data-id={image.id} onclick={changeProductImage}>
+                                        <img src={image.url} data-id={image.id}/>
+                                    </button>
+                                </li>
+                            </template>
+                        </ul>
+                        <lightning-button-icon icon-name="utility:chevrondown" variant="container" data-name="nextPage" onclick={changeCarouselPage} disabled={disableNextPageBtn}></lightning-button-icon>
+                    </div>
+                    <div class="slds-grid slds-grid_vertical slds-grid_align-center slds-grid_vertical-align-center slds-grow">
+                        <!-- Product image -->
+                        <img class="max-height" src={image.url} alt={image.alternativeText}/>
+                        <!-- below carousel for x-small size screen or greater -->
+                        <div class="slds-hide_small slds-p-vertical_medium">
+                            <ul class="slds-grid slds-grid_align-center slds-wrap">
+                                <template for:each={carouselImages} for:item="image">
+                                    <li key={image.id} class="slds-p-around_xx-small">
+                                        <button if:true={image.active} class="slds-button slds-box slds-box_x-small product-image-button-carousel active-carousel-image" data-id={image.id} onclick={changeProductImage} style="height: 40px; width: 40px">
+                                            <img src={image.url} data-id={image.id}/>
+                                        </button>
+                                        <button if:false={image.active} class="slds-button slds-box slds-box_x-small product-image-button-carousel" data-id={image.id} onclick={changeProductImage} style="height: 40px; width: 40px">
+                                            <img src={image.url} data-id={image.id}/>
+                                        </button>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+              </div>
+           </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- Add to wishlist modal -->    
+    <template if:true={modalAddToWishlist}>
+      <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open"
+        aria-labelledby="modal-wishlist-heading" aria-modal="true" aria-describedby="modal-wishlist-content">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <h2 id="modal-wishlist-heading" class="slds-modal__title slds-hyphenate"> {label.addToWishlist} </h2>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-wishlist-content" style="overflow: initial;">
+            <div if:true={wishlistImage} class="slds-grid slds-show_small">
+                <div class="slds-p-vertical_small">
+                    <img style="max-width: 100px; max-height: 50px; min-width: 50px;" src={wishlistImage.url}/>
+                </div>
+                <div class="slds-p-vertical_small">
+                    <h3>{name}</h3>
+                </div>
+            </div>
+            <div>
+              <input type="radio" id="create-list" name="wishlist" onclick={validateSelect} value="create" data-id="create-list-btn" checked>
+              <label for="create-list"> {label.createWishlist} </label>
+              <div class="slds-m-around_medium">
+                <div class="slds-form-element__control">
+                    <lightning-input
+                    type="text"
+                    data-id="create-list-input" 
+                    name="wishlist-name" 
+                    id="create-list-input"
+                    value={lastCategoryPath.name}
+                    label={label.wishlistName}
+                    message-when-value-missing={wishlistNameValueMising}
+                    onchange={handleWishlistNameChange}
+                    required>
+                    </lightning-input>
+                </div>
+              </div>
+            </div>
+            <div if:false={isEmptyWishlists}>
+              <input type="radio" id="add-to-list" name="wishlist" onclick={validateSelect} value="select" data-id="select-list-btn">
+              <label for="add-to-list"> {label.addToExistingWishlist} </label>
+              <div class="slds-m-around_medium">
+                <div class="slds-form-element__control">
+                    <lightning-combobox
+                                data-id="select-wishlist" 
+                                name="select-wishlist"
+                                label={label.selectWishlist}
+                                placeholder={label.selectWishlistPlaceholder}
+                                options={wishlists}
+                                onchange={handleWishlistChange}
+                                disabled>
+                    </lightning-combobox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={closeModalWishlist}> {label.cancel} </button>
+            <button class="slds-button slds-button_brand" onclick={notifySaveToWishlist} disabled={cannotSaveToWishlist}> {label.save} </button>
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

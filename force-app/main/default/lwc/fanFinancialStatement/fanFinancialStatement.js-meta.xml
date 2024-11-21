@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <masterLabel>Extracto de Movimientos</masterLabel>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="effectiveAccountId"
+                type="String"
+                label="Effective Account Id"
+                description="Effective Account Id"
+                default="{!CurrentUser.effectiveAccountId}"/>
+            <property
+                name="startDate"
+                type="String"
+                label="Fecha Inicio"
+                description="Fecha inicial para la consulta. Formato aceptado yyyy-MM-dd."/>
+            <property
+                name="endDate"
+                type="String"
+                label="Fecha final"
+                description="Fecha final para la consulta. Formato aceptado yyyy-MM-dd."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

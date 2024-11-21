@@ -1,0 +1,35 @@
+<template>
+    <lightning-spinner
+        if:true={isLoading}
+        alternative-text="Loading..."
+        size="large">
+    </lightning-spinner>
+
+    <form data-id="payzen-form" method="POST" action="https://secure.payzen.lat/vads-payment/">
+        <input type="hidden" name="vads_action_mode" value="INTERACTIVE" />
+        <input type="hidden" name="vads_amount" value={amount} />	
+        <input type="hidden" name="vads_capture_delay" value="1" />	
+        <input type="hidden" name="vads_ctx_mode" value={payzenConfig.ctxMode} />
+        <input type="hidden" name="vads_currency" value="170" />
+        <input type="hidden" name="vads_order_id" value={orderId} />
+        <input type="hidden" name="vads_page_action" value="PAYMENT" />
+        <input type="hidden" name="vads_payment_cards" value={paymentCards} />
+        <input type="hidden" name="vads_payment_config" value="SINGLE" />
+        <input type="hidden" name="vads_redirect_error_timeout" value={payzenConfig.redirectErrorTimeout} />
+        <input type="hidden" name="vads_redirect_success_timeout" value={payzenConfig.redirectSuccessTimeout} />
+        <input type="hidden" name="vads_return_mode" value="GET" />
+        <input type="hidden" name="vads_site_id" value={payzenConfig.siteId} />
+        <input type="hidden" name="vads_trans_date" />
+        <input type="hidden" name="vads_trans_id" value={transactionId} />
+        <input type="hidden" name="vads_url_return" value={urlReturn} />
+        <input type="hidden" name="vads_version" value="V2" />
+
+        <input type="hidden" name="vads_order_info" value={payzenConfig.operationCenter} />
+        <input type="hidden" name="vads_cust_id" value={payzenConfig.accountNumber} />
+        <input type="hidden" name="vads_order_info2" value={documentNumber} />
+        <input type="hidden" name="vads_order_info3" value={documentType} />
+
+        <!-- <input type="hidden" name="vads_url_check" value={payzenConfig.urlCheck}/> -->
+        <input type="hidden" name="signature" />
+    </form>
+</template>

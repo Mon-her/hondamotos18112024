@@ -1,0 +1,10 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+      <aura:attribute name="sTitle" type="string"/>
+   	  <aura:attribute name="sScore" type="Integer" default="0"/>  
+      <div >  <!-- class="slds-card__body slds-card__body_inner"-->
+          <div class="titleScore">{!v.sTitle}</div>
+          <div class="colorNumber">{!v.sScore}</div>
+      </div>     
+  
+</aura:component>

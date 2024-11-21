@@ -1,0 +1,17 @@
+<apex:page showHeader="false">
+<style>
+    .myBodyStyle { background-color: #DDE4E9; }
+</style>
+<body class="myBodyStyle">
+
+    <h1>PDF no disponible</h1>
+
+    <p>Por favor asegúrese de lo siguiente:</p>
+    <ol>
+        <li>El descuento de la cotización ha sido aprobado.</li>
+        <apex:outputPanel rendered="{!$CurrentPage.parameters.isMotoQuote}">
+            <li>La consulta de precios y descuentos ha sido realizada.</li>
+        </apex:outputPanel>
+    </ol>
+</body>
+</apex:page>

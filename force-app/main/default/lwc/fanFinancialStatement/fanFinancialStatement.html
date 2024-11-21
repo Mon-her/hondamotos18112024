@@ -1,0 +1,41 @@
+<template>
+    <div class="slds-var-m-vertical_medium">
+    	<span class="slds-text-heading_large slds-text-color_default bold-text">{label.financialStatementHeader}</span>
+    </div>
+
+	<div class="slds-is-relative">
+		<lightning-spinner
+			if:true={isDownloading}
+			variant="brand"
+		></lightning-spinner>
+    	<div class="slds-grid slds-grid_align-space slds-grid_vertical-align-end slds-box">
+        	<div class="slds-size_1-of-3">
+            	<h6 class="slds-text-color_weak">{label.initDate}</h6>
+            	<lightning-input
+					type="date"
+					data-name="startDate"
+					value={startDate}
+					variant="label-hidden"
+					onchange={handleDateChange}
+				></lightning-input>
+        	</div>
+        	<div class="slds-size_1-of-3">
+            	<h5 class="slds-text-color_weak">{label.endDate}</h5>
+            	<lightning-input
+					type="date"
+					data-name="endDate"
+					value={endDate}
+					variant="label-hidden"
+					onchange={handleDateChange}
+				></lightning-input>
+        	</div>
+        	<div>
+            	<lightning-button
+					label={label.download}
+					onclick={handleDownload}
+					disabled={isDownloadButtonDisabled} 
+				></lightning-button>
+        	</div>
+    	</div>
+	</div>
+</template>

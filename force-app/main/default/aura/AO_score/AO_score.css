@@ -1,0 +1,13 @@
+.THIS {
+   
+}
+.THIS .colorNumber {
+    color: red;
+    font-size: 550%;  
+    text-align: center;
+}
+.THIS .titleScore{
+    text-align: center;
+    font-size: 100%;
+    font-weight: bold;
+}

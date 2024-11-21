@@ -1,0 +1,21 @@
+<template>
+	<div class="slds-grid slds-grid_align-end slds-var-m-bottom_small">
+		<lightning-button 
+		  label={labels.addRow}
+		  onclick={handleAddRow} 
+		  variant="brand"
+		  title={labels.addRowDescription}
+		  disabled={isAddRowDisabled}
+		></lightning-button>
+	</div>
+
+	<lightning-datatable
+		key-field="rowId"
+		data={rows}
+		columns={columns}
+		draft-values={draftValues}
+		hide-checkbox-column
+		onrowaction={handelRowAction}
+		onsave={handleSave}
+	></lightning-datatable>
+</template>

@@ -1,0 +1,105 @@
+<template>
+    <div class="slds-grid slds-grid_align-center slds-var-m-bottom_small">
+        <div class="slds-grid slds-grid_vertical-align-center">
+            <div class="slds-text-color_default slds-var-m-right_small">{label.branchStore}</div>
+            <lightning-combobox
+                placeholder={label.selectPlaceHolder}
+                value={selectedBranch}
+                options={branches}
+                variant="label-hidden"
+                onchange={handleBranchChange}
+            ></lightning-combobox>
+        </div>
+    </div>
+
+    <nav class="slds-var-m-bottom_large" role="navigation" aria-label="Breadcrumbs">
+        <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+            <template for:each={categoryPath} for:item="category">
+                <li
+                    key={category.id}
+                    if:true={category.isNavigable}
+                    class="slds-breadcrumb__item">
+                    <a data-id={category.id} onclick={handleBreadcrumbClick}>{category.name}</a>
+                </li>
+                <li
+                    key={category.id}
+                    if:false={category.isNavigable}
+                    class="slds-breadcrumb__item slds-var-p-left_x-small">
+                    <p data-id={category.id}>{category.name}</p>
+                </li>
+            </template>
+        </ol>
+    </nav>
+
+    <div class="slds-var-m-bottom_x-large slds-border_bottom">
+        <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-end slds-wrap slds-var-m-bottom_medium ">
+            <header>
+                <p class="slds-truncate slds-text-heading_large">{headerText}</p>
+            </header>
+
+            <div class="slds-grid slds-grid_vertical-align-center slds-shrink-none">
+                <div class="slds-text-color_default slds-var-m-right_small">{label.sortBy}</div>
+                <lightning-combobox
+                    placeholder={label.selectPlaceHolder}
+                    value={selectedSortRuleId}
+                    options={sortRules}
+                    variant="label-hidden"
+                    onchange={handleSortRuleChange}
+                ></lightning-combobox>
+            </div>
+        </div>
+    </div>
+    <article class="slds-var-p-top_large layout-contiainer">
+        <lightning-spinner
+            if:true={isLoading}
+            class="slds-is-absolute slds-align_absolute-center"
+            size="medium"
+            variant="brand"
+        >
+        </lightning-spinner>
+        <aside class="aside-section">
+            <div class="slds-var-p-bottom_medium filters-header">
+                <p class="slds-truncate slds-text-heading_medium">{label.filters}</p>
+                <lightning-button
+                    class="clear-all-button slds-text-heading_small"
+                    variant="base"
+                    label={label.clearAll}
+                    onclick={handleClearAll}
+                >
+                </lightning-button>
+            </div>
+            <c-fan-search-category
+                class="slds-border_top slds-var-p-bottom_small"
+                display-data={displayData.categoriesData}
+                oncategoryupdate={handleCategoryUpdate}
+            >
+            </c-fan-search-category>
+            <c-fan-search-filter
+                display-data={displayData.facetsData}
+                class="slds-var-p-bottom_medium"
+                onfacetvalueupdate={handleFacetValueUpdate}
+            >
+            </c-fan-search-filter>
+        </aside>
+        <section class="main-section">
+            <c-fan-search-layout
+                is-add-to-cart-disabled={isAddToCartDisabled}
+                branch={selectedBranch}
+                display-data={displayData.layoutData}
+                config={config.layoutConfig}
+                oncalltoaction={handleAction}
+                onshowdetail={handleShowDetail}
+            >
+            </c-fan-search-layout>
+            <c-fan-search-paginator
+                if:true={hasMorePages}
+                page-number={pageNumber}
+                page-size={displayData.pageSize}
+                total-item-count={displayData.total}
+                onprevious={handlePreviousPage}
+                onnext={handleNextPage}
+            >
+            </c-fan-search-paginator>
+        </section>
+    </article>
+</template>

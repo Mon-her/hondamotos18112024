@@ -1,0 +1,61 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+lightning-breadcrumbs {
+    display: block;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.max-height {
+    max-height: 100%;
+}
+.product-image-container {
+    width: 400px;
+    height: 400px;
+}
+
+.product-images-carousel-gallery {
+    width: 400px;
+}
+
+.product-image-button-carousel {
+    width: 60px;
+    height: 60px;
+    border-radius: 0;
+}
+
+.active-carousel-image {
+    border-color: black;
+}
+
+.carousel-container-in-modal {
+    height: 70vh;
+}
+
+/* Price adjustment tier rows */
+lightning-layout-item[data-is-last=true] {
+    padding-right: 0;
+}
+
+@media only screen and (max-width: 479px) {
+    .gallery-container {
+        flex-grow: 1;
+    }
+}
+
+@media only screen and (max-width: 845px) {
+    .quantity-container-actions {
+        flex-direction: column;
+    }
+
+    .cart-container-actions {
+        flex-direction: column;
+        margin-right: 0px;
+    }
+}

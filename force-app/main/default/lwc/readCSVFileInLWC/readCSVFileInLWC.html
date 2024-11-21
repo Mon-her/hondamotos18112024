@@ -1,0 +1,31 @@
+<template>
+    <template if:true={showLoadingSpinner}>
+        <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+    </template>
+    <lightning-card icon-name="custom:custom19" title={label.title}>
+        <div style="margin-left: 3%">
+            <lightning-file-upload accept={acceptedFormats} 
+                                   label={label.subtitle} 
+                                   multiple="multiple" 
+                                   onuploadfinished={handleUploadFinished} 
+                                   record-id={recordId}></lightning-file-upload>
+        </div>
+
+
+        <div if:true={error}>
+            {error}
+        </div><br/>
+
+        <div if:true={data}>
+            <lightning-datatable columns={columns} 
+                                 data={data} 
+                                 hide-checkbox-column="true" 
+                                 key-field="id"></lightning-datatable>
+        </div>
+        <lightning-button label={label.boton} title="Non-primary action" onclick={handleUpdateRecords} class="slds-m-left_x-small"></lightning-button>        
+       
+        
+        
+        
+    </lightning-card>
+</template>

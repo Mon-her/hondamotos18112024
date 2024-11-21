@@ -1,0 +1,56 @@
+<aura:component controller="AutosCrearPedidoEnSF" implements="force:hasRecordId,force:lightningQuickActionWithoutHeader,forceCommunity:availableForAllPageTypes">
+	<aura:attribute name="recordId" type="Id" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="mensaje" type="String" />
+    <!--Esto es para saber si fue creado el registro o no, obtiene el registro de la oportunidad -->
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="simpleRecord" type="Object"/>
+    <aura:attribute name="recordError" type="String"/>
+    <force:recordData aura:id="recordLoader"
+      fields="Tipo_de_Oportunidad__c, Bodega_Usados__c, Vitrina__c, Realizo_Best_Drive__c, RecordType.DeveloperName"                                                                                                                                                                                                                                                                            
+      recordId="{!v.recordId}"
+      targetFields="{!v.simpleRecord}"
+      targetError="{!v.recordError}"
+      recordUpdated="{!c.handleRecordUpdated}"
+      mode="VIEW"
+      />
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }       
+        .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+    </aura:html>
+    <!--Modal Header-->  
+    <div class="modal-header slds-modal__header slds-size_1-of-1">
+        <h4 class="title slds-text-heading--medium">Crear Nuevo Pedido</h4>
+    </div>
+    <!--End Modal Header-->  
+     
+    <!--Modal Body-->   
+    <div class="slds-modal__content slds-p-around--x-small slds-align_absolute-center slds-size_1-of-1 slds-is-relative">
+        <form class="slds-form--stacked">
+            {!v.mensaje}
+        </form> 
+    </div>
+    <!--End of Modal Body--> 
+     
+    <!--Modal Footer-->
+    <div class="modal-footer slds-modal__footer slds-size_1-of-1">
+        <!--lightning:button aura:id="btnSubmit" disabled="true" variant="Brand" class="slds-button" label="Enviar" onclick="{!c.enviarWS}"/-->
+        <lightning:button  variant="Neutral" class="slds-button" label="Cerrar" onclick="{!c.handleClose}"/>
+    </div>
+    <!--End of Modal Footer-->
+    
+    <!-- Display Lightning Data Service errors, if any -->
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+        <div class="recordError">
+                {!v.recordError}</div>
+    </aura:if>
+</aura:component>

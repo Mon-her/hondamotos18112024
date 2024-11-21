@@ -1,0 +1,16 @@
+.inline-block {
+	display: inline-block;
+}
+
+.bold-text {
+	font-weight: var(--lwc-fontWeightBold);
+}
+
+.border-transparent {
+	border-color: transparent;
+}
+
+.thead-style > thead > tr > th {
+	color: black;
+	background-color: #D9D9D9;
+}

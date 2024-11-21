@@ -1,0 +1,397 @@
+<apex:page controller="OrderPDFController"
+  standardStylesheets="false"
+  renderAs="pdf"
+  showHeader="false"
+  applyHtmlTag="false"
+  applyBodyTag="false"
+  sidebar="false"
+  docType="html-5.0"
+>
+  <apex:stylesheet value="{!URLFOR($Resource.invoiceRequestMotoTemplate,'style.css')}"
+  />
+  <link
+    href="../staticresources/invoiceRequestMotoTemplate/style.css"
+    rel="stylesheet"
+  />
+
+  <html lang="es">
+    <body>
+      <div class="section section1">
+        <table>
+          <tr class="row1">
+            <td class="col1">
+              <img
+                src="{!URLFOR($Resource.invoiceRequestMotoTemplate,'logo.png')}"
+                id="logo"
+              />
+            </td>
+            <td class="col2">Solicitud de Facturación de Motocicletas</td>
+          </tr>
+          <tr class="row2">
+            <td class="col1">
+              {!miembroDeConcesionario.Concesionario__r.Name}
+            </td>
+            <td class="col2"></td>
+          </tr>
+          <tr class="row3">
+            <td class="col1">NIT:</td>
+            <td class="col2"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section section2">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                Solicitud de pedido - oferta:
+                <span class="line">{!order.Solicitud_de_pedido__c}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                No. Pedido:
+                <span class="line">{!order.ID_de_pedido_ERP__c}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section3">
+        <table>
+          <thead>
+            <tr>
+              <th class="col1">Fecha</th>
+              <th class="col2">Nombre Asesor Comercial</th>
+              <th class="col3">Motocicleta o Producto</th>
+              <th class="col4">Color</th>
+              <th class="col5">Modelo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col1">
+                <apex:outputText value="{0, date, dd/MM/yyyy}">
+                  <apex:param value="{!order.CreatedDate}" />
+                </apex:outputText>
+              </td>
+              <td class="col2">{!owner.Name}</td>
+              <td class="col3">{!opportunityLineItem.Product2.Name}</td>
+              <td class="col4">{!opportunityLineItem.Colorx__c}</td>
+              <td class="col5">{!opportunityLineItem.Modelox__c}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section4">
+        <table>
+          <thead>
+            <tr>
+              <th class="col1">Nombres y apellidos</th>
+              <th class="col2">Número de Identidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col1">
+                <div class="text">Comprador:</div>
+                <div class="text">{!nombreCompletoComprador}</div>
+              </td>
+              <td class="col2">
+                <div class="nit">
+                  {!order.Opportunity.Account.AM_Numero_de_documento__c}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="col1">
+                <div class="text">Pagador:</div>
+                <div class="text">{!nombreCompletoPagador}</div>
+              </td>
+              <td class="col2">
+                <div class="nit">
+                  {!order.Opportunity.Pagador__r.AM_Numero_de_documento__c}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="col1">
+                <div class="text">Titular en tarjeta de propiedad:</div>
+                <div class="text">{!nombreCompletoTitularPrendario}</div>
+              </td>
+              <td class="col2">
+                <div class="nit">
+                  {!order.Opportunity.Titular_prendario__r.AM_Numero_de_documento__c}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section5">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="2" class="col1">Detalle Facturación Motocicleta</th>
+              <th colspan="2" class="col2">Liquidación Negocio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1">
+              <td class="col1">Valor:</td>
+              <td class="col2">
+                <span class="currency">$</span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!opportunityLineItem.Precio_de_lista_antes_de_impuesto__c}"
+                    />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+              <td class="col3">Tipo de pago</td>
+              <td class="col4">
+                <span class="currency"></span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">{!tipoDePago}</span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row2">
+              <td class="col1">Descuento en precio:</td>
+              <td class="col2">
+                <span class="currency">$</span>
+                <span class="parentesis1">(</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!descuentoEnPrecio}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">)</span>
+              </td>
+              <td class="col3">Entidad Financiera</td>
+              <td class="col4">
+                <span class="currency"></span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line"
+                  >{!order.Opportunity.Entidad_Financiera__c}</span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row3">
+              <td class="col1">Subtotal:</td>
+              <td class="col2">
+                <span class="currency">$</span>
+                <span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!subtotal}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+              <td class="col3">Valor Total Moto:</td>
+              <td class="col4">
+                <span class="currency">$</span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!valorTotal}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row4">
+              <td class="col1">IVA:</td>
+              <td class="col2">
+                <span class="currency">$</span>
+                <span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!iva}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+              <td class="col3">Seguro de Moto:</td>
+              <td class="col4">
+                <span class="currency">$</span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!opportunityLineItem.Valor_seguro_robo__c}"
+                    />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row5">
+              <td class="col1">Impuesto al consumo:</td>
+              <td class="col2">
+                <span class="currency">$</span>
+                <span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!impoconsumo}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+              <td class="col3">Accesorios:</td>
+              <td class="col4">
+                <span class="currency">$</span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!opportunityLineItem.Accesorios__c}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row6">
+              <td class="col1">Valor total:</td>
+              <td class="col2">
+                <span class="currency">$</span>
+                <span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!valorTotal}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+              <td class="col3">Casco:</td>
+              <td class="col4">
+                <span class="currency">$</span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!opportunityLineItem.Casco__c}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row7">
+              <td class="col1"></td>
+              <td class="col2"></td>
+              <td class="col3">Matrícula:</td>
+              <td class="col4">
+                <span class="currency">$</span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!opportunityLineItem.Valor_matrcula__c}"
+                    />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row8">
+              <td class="col1"></td>
+              <td class="col2"></td>
+              <td class="col3">Soat:</td>
+              <td class="col4">
+                <span class="currency">$</span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!opportunityLineItem.Soat__c}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row9">
+              <td class="col2" colspan="2">
+                <span class="line"></span
+                ><span class="text">Vo. Bo. GERENCIA / LIDER DE PUNTO</span>
+              </td>
+              <td class="col3">Total Negocio</td>
+              <td class="col4">
+                <span class="currency">$</span
+                ><span class="parentesis1">&nbsp;</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!valorTotalNegocio}" />
+                  </apex:outputText> </span
+                ><span class="parentesis2">&nbsp;</span>
+              </td>
+            </tr>
+            <tr class="row10">
+              <td class="col1"></td>
+              <td class="col2"></td>
+              <td class="col3">Cuota Inicial</td>
+              <td class="col4">
+                <span class="currency"></span><span class="parentesis1">(</span
+                ><span class="line">
+                  <apex:outputText value="{0, number, 0,000.00}">
+                    <apex:param value="{!opportunityLineItem.Cuota_Inicial__c}"
+                    />
+                  </apex:outputText> </span
+                ><span class="parentesis2">)</span>
+              </td>
+            </tr>
+            <tr class="row11">
+              <td class="col1"></td>
+              <td class="col2"></td>
+              <td class="col3"></td>
+              <td class="col4"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section6">
+        <div class="text">{!order.Opportunity.Observaciones__c}</div>
+        <table>
+          <tbody>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section7">
+        <table>
+          <thead>
+            <tr>
+              <th class="col1">CLIENTE</th>
+              <th class="col2">
+                ASESOR COMERCIAL CONCESIONARIOS MOTOCICLETAS HONDA
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col1"><span class="text">FIRMA Y C.C</span></td>
+              <td class="col1"><span class="text">FIRMA Y C.C</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </body>
+  </html>
+</apex:page>

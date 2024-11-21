@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Cart Summary</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="recordId" type="String" label="Id del carrito" description="Automatically bind the page's record id to the component variable" default="{!recordId}" />
+            <property name="cartTotalLabel" label="Etiqueta para el encabezado" type="String" default="Total de carrito" />
+            <property name="grossLabel" label="Etiqueta para el valor bruto" type="String" default="VALOR BRUTO" />
+            <property name="discountsLabel" label="Etiqueta para el valor escuentos" type="String" default="VALOR DESCUENTOS" />
+            <property name="subtotalLabel" label="Etiqueta para el valor subtotal" type="String" default="VALOR SUBTOTAL" />
+            <property name="freightLabel" label="Etiqueta para el valor flete" type="String" default="VALOR FLETE" />
+            <property name="IVALabel" label="Etiqueta para el valor IVA" type="String" default="VALOR IVA" />
+            <property name="valueToFinanceLabel" label="Etiqueta para el valor a financiar" type="String" default="VALOR A FINANCIAR" />
+            <property name="showValueToFinance" label="Mostrar valor a financiar" type="Boolean" default="False" />
+            <property name="totalToPayLabel" label="Etiqueta de total a pagar" type="String" default="TOTAL A PAGAR" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

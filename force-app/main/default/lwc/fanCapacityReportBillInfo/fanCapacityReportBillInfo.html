@@ -1,0 +1,279 @@
+<template>
+
+    <lightning-layout multiple-rows>
+
+        <lightning-layout-item size="12" padding="around-small">
+            <div class="bold-text brand-dark">
+                {label.bills}
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="3" padding="around-small">
+            <div class="bold-text">
+                {label.totalAmountBills}:
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="2" padding="around-small">
+            <div>
+                <lightning-formatted-number
+                    value={invoicesTotals.invoicesTotal}
+                    format-style="currency"
+                    currency-code="COP"
+                    maximum-fraction-digits="0"
+                ></lightning-formatted-number>
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="7" padding="around-small">
+            <!-- EMPTY SPACE -->
+        </lightning-layout-item>
+
+        <lightning-layout-item size="3" padding="around-small">
+            <div class="bold-text">
+                {label.totalAmountExpiredBills}:
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="2" padding="around-small">
+            <div>
+                <lightning-formatted-number
+                    value={invoicesTotals.expiredInvoicesTotal}
+                    format-style="currency"
+                    currency-code="COP"
+                    maximum-fraction-digits="0"
+                ></lightning-formatted-number>
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="7" padding="around-small">
+            <!-- EMPTY SPACE -->
+        </lightning-layout-item>
+
+        <!-- TABLE FOR INVOICES -->
+        <lightning-layout-item size="12" padding="around-small">
+            <div class="slds-box_border background-color-gray scroll-table">
+                <table class="slds-table slds-table_cell-buffer slds-table_striped slds-var-m-top_large table-background-header">
+                    <thead class="slds-border_bottom fixed-header">
+                        <tr>
+                            <th>
+                                <a class="slds-text-link_reset" onclick={onHandleSort} role="button">
+                                    <span title="document" class="bold-text slds-text-color_default">
+                                        {label.bill}
+                                    </span>
+                                    <span hidden={currentSortBy.sortByBill}>
+                                        <lightning-icon icon-name={arrowDirection} size="xx-small"
+                                            alternative-text={label.sortBy} title="billName"
+                                            class="slds-input__icon slds-input__icon_left slds-icon-text-default" ></lightning-icon>
+                                    </span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="slds-text-link_reset" onclick={onHandleSort} role="button">
+                                    <span title="expirationDate" class="bold-text slds-text-color_default">
+                                        {label.expirationDate}
+                                    </span>
+                                    <span hidden={currentSortBy.sortByExpirationDate}>
+                                        <lightning-icon icon-name={arrowDirection} size="xx-small"
+                                            alternative-text={label.sortBy} title="expirationDate"
+                                            class="slds-input__icon slds-input__icon_left slds-icon-text-default"></lightning-icon>
+                                    </span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="slds-text-link_reset" onclick={onHandleSort} role="button">
+                                    <span title="code" class="bold-text slds-text-color_default">
+                                        {label.orderTypeBillInfo}
+                                    </span>
+                                    <span hidden={currentSortBy.sortByOrderType}>
+                                        <lightning-icon icon-name={arrowDirection} size="xx-small"
+                                            alternative-text={label.sortBy} title="orderType"
+                                            class="slds-input__icon slds-input__icon_left slds-icon-text-default"></lightning-icon>
+                                    </span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="slds-text-link_reset" onclick={onHandleSort} role="button">
+                                    <span title="docuExpired" class="bold-text slds-text-color_default">
+                                        {label.expiredDays}
+                                    </span>
+                                    <span hidden={currentSortBy.sortByExpiredDays}>
+                                        <lightning-icon icon-name={arrowDirection} size="xx-small"
+                                            alternative-text={label.sortBy} title="docuExpired"
+                                            class="slds-input__icon slds-input__icon_left slds-icon-text-default"></lightning-icon>
+                                    </span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="slds-text-link_reset" onclick={onHandleSort} role="button">
+                                    <span title="total" class="bold-text slds-text-color_default">
+                                        {label.billValue}
+                                    </span>
+                                    <span hidden={currentSortBy.sortByBillValue}>
+                                        <lightning-icon icon-name={arrowDirection} size="xx-small"
+                                            alternative-text={label.sortBy} title="billValue"
+                                            class="slds-input__icon slds-input__icon_left slds-icon-text-default"></lightning-icon>
+                                    </span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="slds-text-link_reset" onclick={onHandleSort} role="button">
+                                    <span title="total" class="bold-text slds-text-color_default">
+                                        {label.expiredBillValue}
+                                    </span>
+                                    <span hidden={currentSortBy.sortByExpiredBillValue}>
+                                        <lightning-icon icon-name={arrowDirection} size="xx-small"
+                                            alternative-text={label.sortBy} title="expiredBillValue"
+                                            class="slds-input__icon slds-input__icon_left slds-icon-text-default"></lightning-icon>
+                                    </span>
+                                </a>
+                            </th>
+                        </tr>
+
+                        <!-- START INPUT FILTERS -->
+                        
+                        <tr class="inputFilters bold-text slds-text-color_default">
+                            <th>
+                                <span
+                                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                                    title={label.searchFilter}>
+                                    <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                        aria-hidden="true">
+                                    </svg>
+                                    <span class="slds-assistive-text">{label.searchFilter}</span>
+                                    <lightning-icon icon-name="utility:filterList" size="xx-small"
+                                        alternative-text={label.searchFilter} title={label.searchFilter}
+                                        class="slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                    </lightning-icon>
+                                    <input type="text" title="document" placeholder={label.filterHere} class="slds-input" onchange={onHandleFilter} />
+                                </span>
+                            </th>
+                            <th>
+                                <span
+                                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                                    title={label.searchFilter}>
+                                    <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                        aria-hidden="true">
+                                    </svg>
+                                    <span class="slds-assistive-text">{label.searchFilter}</span>
+                                    <lightning-icon icon-name="utility:filterList" size="xx-small"
+                                        alternative-text={label.searchFilter} title={label.searchFilter}
+                                        class="slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                    </lightning-icon>
+                                    <input type="text" title="expirationDate" placeholder={label.filterHere} class="slds-input" onchange={onHandleFilter}  />
+                                </span>
+                            </th>
+                            <th>
+                                <span
+                                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                                    title={label.searchFilter}>
+                                    <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                        aria-hidden="true">
+                                    </svg>
+                                    <span class="slds-assistive-text">{label.searchFilter}</span>
+                                    <lightning-icon icon-name="utility:filterList" size="xx-small"
+                                        alternative-text={label.searchFilter} title={label.searchFilter}
+                                        class="slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                    </lightning-icon>
+                                    <input type="text" title="code" placeholder={label.filterHere} class="slds-input" onchange={onHandleFilter}  />
+                                </span>
+                            </th>
+                            <th>
+                                <span
+                                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                                    title={label.searchFilter}>
+                                    <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                        aria-hidden="true">
+                                    </svg>
+                                    <span class="slds-assistive-text">{label.searchFilter}</span>
+                                    <lightning-icon icon-name="utility:filterList" size="xx-small"
+                                        alternative-text={label.searchFilter} title={label.searchFilter}
+                                        class="slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                    </lightning-icon>
+                                    <input type="text" title="docuExpired" placeholder={label.filterHere} class="slds-input" onchange={onHandleFilter}  />
+                                </span>
+                            </th>
+                            <th>
+                                <span
+                                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                                    title={label.searchFilter}>
+                                    <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                        aria-hidden="true">
+                                    </svg>
+                                    <span class="slds-assistive-text">{label.searchFilter}</span>
+                                    <lightning-icon icon-name="utility:filterList" size="xx-small"
+                                        alternative-text={label.searchFilter} title={label.searchFilter}
+                                        class="slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                    </lightning-icon>
+                                    <input type="text" title="total" placeholder={label.filterHere} class="slds-input" onchange={onHandleFilter}  />
+                                </span>
+                            </th>
+                            <th>
+                                <span
+                                    class="slds-form-element__control slds-icon_container slds-icon-standard-user slds-input-has-icon slds-input-has-icon_left"
+                                    title={label.searchFilter}>
+                                    <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                        aria-hidden="true">
+                                    </svg>
+                                    <span class="slds-assistive-text">{label.searchFilter}</span>
+                                    <lightning-icon icon-name="utility:filterList" size="xx-small"
+                                        alternative-text={label.searchFilter} title={label.searchFilter}
+                                        class="slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                    </lightning-icon>
+                                    <input type="text" title="total" placeholder={label.filterHere} class="slds-input" onchange={onHandleFilter}  />
+                                </span>
+                            </th>
+                        </tr>
+
+                        <!-- END INPUT FILTERS -->
+
+                    </thead>
+
+                    <tbody>
+                        <template for:each={accountData} for:item="accountInfo">
+                            <tr key={accountInfo.document}>
+                                <td> {accountInfo.document} </td>
+                                <td> {accountInfo.expirationDate} </td>
+                                <td> {accountInfo.code} </td>
+                                <td class="slds-text-align_right"> {accountInfo.docuExpired} </td>
+                                <td class="slds-text-align_right">
+                                    <template if:false={accountInfo.expiredInvoice}>
+                                        <lightning-formatted-number
+                                            value={accountInfo.total}
+                                            format-style="currency"
+                                            currency-code="COP"
+                                            maximum-fraction-digits="0"
+                                        ></lightning-formatted-number>
+                                    </template>
+                                </td>
+                                <td class="slds-text-align_right">
+                                    <template if:true={accountInfo.expiredInvoice}>
+                                        <lightning-formatted-number
+                                            value={accountInfo.total}
+                                            format-style="currency"
+                                            currency-code="COP"
+                                            maximum-fraction-digits="0"
+                                        ></lightning-formatted-number>
+                                    </template>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-layout-item>
+
+        <!-- Export File Button -->
+        <lightning-layout-item class="slds-var-p-top_xx-small slds-var-p-right_small slds-var-p-bottom_small" alignment-bump="left">
+            <lightning-button
+                variant="brand"
+                label={label.exportLabel}
+                icon-name="utility:download"
+                onclick={notifyFileExport}
+                disabled={isExportFileDisabled}>
+            </lightning-button>
+        </lightning-layout-item>
+
+    </lightning-layout>
+
+</template>

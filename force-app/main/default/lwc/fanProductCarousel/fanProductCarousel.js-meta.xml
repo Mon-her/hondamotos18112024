@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Carrusel de Productos</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+
+    <targetConfigs>  
+        <targetConfig targets="lightningCommunity__Default">
+
+            <property name="componentType" type="String" default="Productos destacados" datasource="Productos destacados,Productos Relacionados"  label="Tipo de componente"/>
+            <property name="skuReferences" type="String" default="000000000100001309;000000000100001309" label="Referencias"/>
+            <property name="recordId" type="String" default="" label="Id del producto"/>
+
+            <property name="relationType" type="String" default="CrossSell" datasource="CrossSell,UpSell,Similar" label="Tipo de Relación"></property>
+
+            <property name="showPrice" type="Boolean" default="false" label="Mostrar precio"/>
+            <property name="showAddToCart" type="Boolean" default="false" label="Mostrar agregar a carrito"/>
+            <property name="showViewOptions" type="Boolean" default="false" label="Mostrar ver opciones"/>
+            <property name="showProductName" type="Boolean" default="false" label="Mostrar nombre de producto"/>
+            <property name="showSkuProduct" type="Boolean" default="false" label="Mostrar referencia de producto"/>
+            <property name="showYearModel" type="Boolean" default="false" label="Mostrar año modelo"/>
+            <property name="maxProductShow" type="String" default="4" datasource="2,3,4,5,6" label="Maximo Productos a Mostrar"/>
+
+            <property name="effectiveAccountId" type="String" label="Effective Account Id" description="The ID of the account under which the user is acting (BETA)" default="{!CurrentUser.effectiveAccountId}"/>
+            <property name="addToCartLabel" type="String" label="Etiqueta para el botón agregar al carrito"  default="ADD TO CART"/>
+            <property name="viewOptionsLabel" type="String" label="Etiqueta para el botón de ver opciones"  default="SHOW OPTIONS"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

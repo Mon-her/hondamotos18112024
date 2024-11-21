@@ -1,0 +1,87 @@
+<template>
+	<div class="inline-block">
+		<div
+			class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-box_xx-small border-transparent slds-var-m-bottom_small"
+			style={backgroundColor}>
+			<div class="slds-var-m-left_xx-small">Su pedido est&aacute; <strong>pendiente de pago</strong></div>
+			<div>
+				<c-fan-payzen-form
+					if:true={cartId}
+					cart-id={cartId}
+					is-loading={isLoading}
+					payment-method={paymentMethod}
+					url-return={urlReturn}
+				></c-fan-payzen-form>
+				<lightning-button variant="brand" label="IR A INSTRUCCIONES DEL PAGO" onclick={handlePayClick}></lightning-button>
+			</div>
+		</div>
+
+		<div class="slds-var-m-bottom_x-large">
+			<div class="slds-var-m-bottom_small">No cierre la ventana, en un momento ser&aacute; dirigido a las instrucciones del pago, sino es dirigido autom&aacute;ticamente dar clic en el bot&oacute;n <strong>IR A INSTRUCCIONES DEL PAGO</strong></div>
+
+			<div class="slds-var-m-bottom_small">Posteriormente debe seguir estos pasos:</div>
+
+			<ol class="slds-list_ordered slds-var-m-bottom_small">
+				<li>Descargar e imprimir el PDF con los datos del pago.</li>
+				<li>Dirigirse a un corresponsal del convenio:</li>
+			</ol>
+
+			<div>
+				<a href="https://www.grupoaval.com/BuscadordePuntosAval/">https://www.grupoaval.com/BuscadordePuntosAval/</a>
+			</div>
+		</div>
+
+		<table class="slds-var-m-bottom_x-small slds-table slds-no-row-hover thead-style" border="1">
+			<thead>
+				<tr>
+					<th class="slds-text-align_center">Convenios</th>
+					<th class="slds-text-align_center">Monto m&aacute;ximo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Efecty</td>
+					<td>
+						<div class="slds-grid slds-grid_align-spread slds-var-m-right_medium">
+							<span>$</span>
+							<span>1.000.000</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Gane</td>
+					<td>
+						<div class="slds-grid slds-grid_align-spread slds-var-m-right_medium">
+							<span>$</span>
+							<span>1.000.000</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Corresponsales Red Aval</td>
+					<td>
+						<div class="slds-grid slds-grid_align-spread slds-var-m-right_medium">
+							<span>$</span>
+							<span>1.000.000</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Banco de Bogot&aacute;</td>
+					<td class="slds-text-align_center">Sin l&iacute;mite</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="slds-grid slds-box_x-small border-transparent" style={backgroundColor}>
+			<lightning-icon
+				class="slds-var-m-right_xx-small"
+				icon-name="utility:warning"
+				alternative-text="Advertencia"
+				variant="error"
+				size="x-small"
+			></lightning-icon>
+			<span class="bold-text">Su pedido será cancelado si no se ha realizado el pago antes del {paymentDate} a las {paymentTime}</span>
+		</div>
+	</div>
+</template>

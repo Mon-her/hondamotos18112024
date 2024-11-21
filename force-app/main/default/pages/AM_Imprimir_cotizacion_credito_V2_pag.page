@@ -1,0 +1,1779 @@
+<apex:page renderAs="PDF" standardController="AM_Oportunidad__c" title="Cotización Honda {!AM_Oportunidad__c.AM_Modelo_de_interes__r.Name}">
+    <!--<apex:stylesheet value="{!$Resource.AM_PDFDocumentStyleWithOutMarginsV2}" />-->
+    <apex:stylesheet value="{!$Resource.AM_TamanoLetrasCotizacionesPDF}" />
+    <html>
+        
+        <body>
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td>
+                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td align="left" width="80%">
+                                    <apex:image id="imgLogoHonda" value="{!$Resource.Logo_Prueba}"/>
+                                </td>
+                                 <td align="left" width="80%">
+                                    <apex:image id="imgLogoMR" value="{!$Resource.LogoMR}"/>
+                                </td>
+                                <td align="right" width="20%">
+                                    <apex:outputText value="Cotización # {!AM_Oportunidad__c.Name}" styleClass="soloInformacion"/>
+                                </td>
+                            </tr>
+                        </table>                            
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <hr color="red" size="5"/>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                       <!-- <apex:outputText value="{!CASE(AM_Oportunidad__c.AM_Usuario_motocicleta__r.AM_Genero__pc, 'Femenino', 'Señora:', 'Masculino', 'Señor:', 'Señor (a):')}"/>-->
+                        <br/>
+                        <apex:outputText styleClass="textoImportante" value="{!AM_Oportunidad__c.AM_Usuario_motocicleta__r.Name}"/>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <p>
+                            Fue un placer atenderlo en nuestra sucursal
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.AM_Agencia_propietario__c} "/>
+                            el pasado 
+                            <apex:outputText styleClass="textoImportante" value=" {0, date, dd/MM/yyyy}. "> 
+                                <apex:param value="{!AM_Oportunidad__c.CreatedDate}"/>
+                            </apex:outputText>
+                            Enviamos la cotización de la motocicleta de su interés.
+                            <br/>
+                        </p>
+                    </td>
+                </tr>
+                
+                <!-- ************************* MODELO PRINCIPAL ********************************************** -->
+                <apex:outputPanel >
+                    <tr style="height:100px;">
+                        <td>
+                            <table border="1" cellspacing="0" cellpadding="0" width="100%">
+                                <tr style="background-color:white">
+                                    <td align="center" colspan="3" width="100%">
+                                        <apex:outputText styleClass="textoImportante" value="{0} {1}" >
+                                            <apex:param value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.Name}"/>
+                                            <apex:param value="{!AM_Oportunidad__c.AM_Color__c}"/>
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="30%">
+                                        <apex:image value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_URL_foto__c}"/>
+                                        <br/>
+                                        <apex:outputText styleClass="soloInformacion" value="* La imagen es de referencia"/>
+                                    </td>
+                                    <td width="40%">
+                                        <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Motor:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Motor__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Cilindraje:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Cilindraje__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Arranque:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Arranque__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Dimensiones (L x An x AI):
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Dimensiones__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Peso en seco:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Peso_en_seco__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Certificación:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Certificacion__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Potencia máxima:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Potencia_maxima__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Transmisión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Transmision__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Relación de compresión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Relacion_de_compresion__c}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="30%">
+                                        <table align="left" valign="top" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td width="40%">
+                                                    Precio unitario:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Precio_de_lista__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    Cantidad:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value=" {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Cantidad__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Matrícula:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_matricula__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    SOAT:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_SOAT__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Descuento:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_descuento__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Cuota inicial:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_cuota_inicial__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Seguro contra robo:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_seguro_robo__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Valor a financiar:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Saldo_a_financiar_Pagare__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>0,AM_Oportunidad__c.AM_Plazo__c<12),true,false)}" id="panel1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==12,true,false)}" id="panel2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td><b>12 Meses</b></td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>12,AM_Oportunidad__c.AM_Plazo__c<24),true,false)}" id="panel3">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==24,true,false)}" id="panel4">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td><b>24 Meses</b></td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>24,AM_Oportunidad__c.AM_Plazo__c<36),true,false)}" id="panel5">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==36,true,false)}" id="panel6">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td><b>36 Meses</b></td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>36,AM_Oportunidad__c.AM_Plazo__c<48),true,false)}" id="panel7">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==48,true,false)}" id="panel8">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td><b>48 Meses</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c>48,true,false)}" id="panel9">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                        </td>
+                    </tr>
+                </apex:outputPanel>                 
+                
+                <!-- ******************************* MODELO SUGERIDO 1 ********************************************* -->
+                
+                
+                <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Modelo_sugerido_1__c == null, false, true)}">
+                    <tr>
+                        <td>
+                            <table border="1" cellspacing="0" cellpadding="0" width="100%">
+                                
+                                <tr style="background-color:white">
+                                    <td align="center" colspan="3" width="100%">
+                                        <apex:outputText styleClass="textoImportante" value="{0}">
+                                            <apex:param value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.Name}"/>
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="30%">
+                                        <apex:image value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_URL_foto__c}"/>
+                                        <br/>
+                                        <apex:outputText styleClass="soloInformacion" value="* La imagen es de referencia"/>
+                                    </td>
+                                    <td width="40%">
+                                        <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Motor:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Motor__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Cilindraje:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Cilindraje__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Arranque:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Arranque__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Dimensiones (L x An x AI):
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Dimensiones__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Peso en seco:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Peso_en_seco__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Certificación:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Certificacion__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Potencia máxima:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Potencia_maxima__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Transmisión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Transmision__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Relación de compresión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Relacion_de_compresion__c}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="30%">
+                                        <table align="left" valign="top" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td width="40%">
+                                                    Precio unitario:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Precio_de_lista_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    Cantidad:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value=" {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Cantidad__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Matrícula:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_matricula_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    SOAT:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_SOAT_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Descuento:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_descuento__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Cuota inicial:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_cuota_inicial__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Seguro contra robo:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_seguro_robo_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Valor a financiar:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Saldo_a_financiar_pagare_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>0,AM_Oportunidad__c.AM_Plazo__c<12),true,false)}" id="panel1S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} Meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==12,true,false)}" id="panel2S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td><b>12 Meses</b></td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>12,AM_Oportunidad__c.AM_Plazo__c<24),true,false)}" id="panel3S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==24,true,false)}" id="panel4S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td><b>24 Meses</b></td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>24,AM_Oportunidad__c.AM_Plazo__c<36),true,false)}" id="panel5S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==36,true,false)}" id="panel6S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td><b>36 Meses</b></td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>36,AM_Oportunidad__c.AM_Plazo__c<48),true,false)}" id="panel7S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==48,true,false)}" id="panel8S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td><b>48 Meses</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c>48,true,false)}" id="panel9S1">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_12_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S1__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_S1__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <br/>
+                        </td>
+                    </tr>
+                </apex:outputPanel>
+
+
+                <!-- ******************************* MODELO SUGERIDO 2 ********************************************* -->
+
+                <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Modelo_sugerido_2__c == null, false, true)}" >
+                    <tr>
+                        <td>
+                            <table border="1" cellspacing="0" cellpadding="0" width="100%">
+                                
+                                <tr style="background-color:white">
+                                    <td align="center" colspan="3" width="100%">
+                                        <apex:outputText styleClass="textoImportante" value="{0}">
+                                            <apex:param value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.Name}"/>
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="30%">
+                                        <apex:image value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_URL_foto__c}"/>
+                                        <br/>
+                                        <apex:outputText styleClass="soloInformacion" value="* La imagen es de referencia"/>
+                                    </td>
+                                    <td width="40%">
+                                        <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Motor:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Motor__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Cilindraje:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Cilindraje__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Arranque:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Arranque__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Dimensiones (L x An x AI):
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Dimensiones__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Peso en seco:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Peso_en_seco__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Certificación:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Certificacion__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Potencia máxima:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Potencia_maxima__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Transmisión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Transmision__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Relación de compresión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Relacion_de_compresion__c}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="30%">
+                                        <table align="left" valign="top" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td width="40%">
+                                                    Precio unitario:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Precio_de_lista_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    Cantidad:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value=" {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Cantidad__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Matrícula:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_valor_matricula_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    SOAT:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_valor_SOAT_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Descuento:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_descuento__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Cuota inicial:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_cuota_inicial__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Seguro contra robo:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_valor_seguro_robo_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Valor a financiar:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Saldo_a_financiar_pagare_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>0,AM_Oportunidad__c.AM_Plazo__c<12),true,false)}" id="panel1S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} Meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==12,true,false)}" id="panel2S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td><b>12 Meses</b></td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>12,AM_Oportunidad__c.AM_Plazo__c<24),true,false)}" id="panel3S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==24,true,false)}" id="panel4S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td><b>24 Meses</b></td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>24,AM_Oportunidad__c.AM_Plazo__c<36),true,false)}" id="panel5S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==36,true,false)}" id="panel6S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td><b>36 Meses</b></td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AND(AM_Oportunidad__c.AM_Plazo__c>36,AM_Oportunidad__c.AM_Plazo__c<48),true,false)}" id="panel7S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>48 Meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c==48,true,false)}" id="panel8S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td><b>48 Meses</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td><b>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Plazo__c>48,true,false)}" id="panel9S2">
+                                <table align="left" border="1" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>Plazo:</td>
+                                        <td>12 Meses</td>
+                                        <td>24 Meses</td>
+                                        <td>36 Meses</td>
+                                        <td>48 Meses</td>
+                                        <td>
+                                            <b><apex:outputText value="{0, number, 0} meses">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Plazo__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuota mensual (Aprox):</td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_12_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_24_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_36_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_Valor_cuota_mensual_48_S2__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <b><apex:outputText value="$ {0, number, #,##0}">
+                                                <apex:param value="{!AM_Oportunidad__c.AM_valor_cuota_mensual_S2__c}"/>
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <br/>
+                            <br/>
+                        </td>
+                    </tr>
+                </apex:outputPanel>
+                    
+                <tr>
+                    <td>
+                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td align="left" style="font-size: 13px;" colspan="2" width="100%">
+                                    <p>
+                                        <!-- CAMPO CREADO 21/04/2017 SEGUN SOLICITUD -->
+                                        <!--El crédito está sujeto a  estudio, de acuerdo a las condiciones financieras del cliente -->
+                                        El crédito está sujeto a estudio, de acuerdo a la entidad financiera ProgreSER y las condiciones financieras del cliente.
+                                        <br/>
+                                        La cuota mensual incluye: Intereses  / Seguro de desempleo e incapacidad / Seguro de accidentes / Seguro de deuda.
+                                        <br/>
+                                        * Seguro de robo: Seguro de responsabilidad civil y contra robo (Opcional).
+                                    </p>
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td align="left" width="100%" style="font-size: 13px;">
+                                   Para financiar su motocicleta debe traer los siguientes documentos:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" width="100%" style="font-size: 13px;">
+                                   
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size: 13px;" width="100%">
+                                  <!--  <apex:outputText dir="LTR" escape="false" rendered="{!AND(NOT(ISBLANK(AM_Oportunidad__c.AM_Usuario_motocicleta__c)), ISBLANK(AM_Oportunidad__c.AM_Propietario_motocicleta__c))}" value="{!CASE(AM_Oportunidad__c.AM_Usuario_motocicleta__r.AM_Ocupacion__pc, 'Comerciante', $Label.AM_Documentos_credito_Comerciante, 'Empleado', $Label.AM_Documentos_credito_Empleado, 'Arrendatario', $Label.AM_Documentos_credito_Independiente,'Empresario', $Label.AM_Documentos_credito_Independiente, 'Miembro fuerzas armadas', $Label.AM_Documentos_credito_Empleado, 'Ganadero/Agricultor', $Label.AM_Documentos_credito_Agricultor_Ganadero, 'Independiente', $Label.AM_Documentos_credito_Independiente, 'Jubilado/Pensionado', $Label.AM_Documentos_credito_Jubilado_Pensionado, 'Rentista Capital', $Label.AM_Documentos_credito_Rentista_capital, 'Transportador', $Label.AM_Documentos_credito_Transportador, $Label.AM_Documentos_credito_Independiente)}"/>-->
+                                  <!--  <apex:outputText dir="LTR" escape="false" rendered="{!AND(NOT(ISBLANK(AM_Oportunidad__c.AM_Usuario_motocicleta__c)), NOT(ISBLANK(AM_Oportunidad__c.AM_Propietario_motocicleta__c)))}" value="{!CASE(AM_Oportunidad__c.AM_Propietario_motocicleta__r.AM_Ocupacion__pc, 'Comerciante', $Label.AM_Documentos_credito_Comerciante, 'Empleado', $Label.AM_Documentos_credito_Empleado, 'Arrendatario', $Label.AM_Documentos_credito_Independiente, 'Empresario', $Label.AM_Documentos_credito_Independiente, 'Miembro fuerzas armadas', $Label.AM_Documentos_credito_Empleado, 'Ganadero/Agricultor', $Label.AM_Documentos_credito_Agricultor_Ganadero, 'Independiente', $Label.AM_Documentos_credito_Independiente, 'Jubilado/Pensionado', $Label.AM_Documentos_credito_Jubilado_Pensionado, 'Rentista Capital', $Label.AM_Documentos_credito_Rentista_capital, 'Transportador', $Label.AM_Documentos_credito_Transportador, $Label.AM_Documentos_credito_Independiente)}"/>-->
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <hr color="red" size="5"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 13px;">
+                        <p>
+                            Nuestro asesor
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.Owner.Name} "/>
+                            estará atento a resolver sus inquietudes. 
+                            <br/>
+                            Telefóno:
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.Owner.Phone}"/>
+                            Móvil:
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.AM_Movil_propietario__c}"/>
+                            Dirección:
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.AM_Direccion_propietario__c}"/>
+                            <br/>
+                            Cotización valida hasta 
+                            <apex:outputText styleClass="textoImportante" value=" {0, date, dd/MM/yyyy}. ">
+                                <apex:param value="{!AM_Oportunidad__c.AM_Fecha_de_vigencia__c}"/>
+                            </apex:outputText>
+                            Aplican condiciones y restricciones.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="justify" style="font-size: 13px;" width="100%">
+                        <p>
+                            {!$Label.AM_Autorizacion_manejo_datos_personales}
+                        </p>
+                    </td>
+                </tr>
+                <!-- CAMPO CREADO 21/04/2017 SEGUN SOLICITUD />-->
+                <tr>
+                    <td align="justify" style="font-size: 13px;" width="100%">
+                        <p>
+                            {!$Label.AM_Nota_Aclaratoria_Cotizacion_Credito}
+                        </p>
+                    </td>
+                </tr>
+                
+            </table>
+        </body>
+    </html>
+</apex:page>

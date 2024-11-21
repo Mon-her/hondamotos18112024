@@ -1,0 +1,63 @@
+<template>
+    <!-- <lightning-spinner
+        if:false={hasProduct}
+        class="slds-is-relative slds-align_absolute-center slds-m-around_large"
+        alternative-text="Loading product information..."
+        size="medium"
+        variant="brand"
+    >
+    </lightning-spinner> -->
+    <c-fan-product-details-display
+        if:true={hasProduct}
+        color-options={colorOptions}
+        effective-account-id={effectiveAccountId}
+        selected-color-option={selectedColorOption}
+        selected-address-code={selectedAddressCode}
+        branches={branches}
+        branch-options={branchOptions}
+        product-name={productName}
+        is-variation-parent={isVariationParent}
+        is-simple-product={isSimpleProduct}
+        record-id={recordId}
+        cart-locked={_isCartLocked}
+        category-path={displayableProduct.categoryPath}
+        custom-fields={displayableProduct.customFields}
+        description={displayableProduct.description}
+        image={displayableProduct.image}
+        name={displayableProduct.name}
+        price={displayableProduct.price}
+        sku-label={skuLabel}
+        reference={displayableProduct.reference}
+        sku={displayableProduct.sku}
+        year-model={displayableProduct.yearModel}
+        product-media-images={displayableProduct.productMediaImages}
+        branch-picker-label={branchPickerLabel}
+        is-show-branch-picker={isShowBranchPicker}
+        color-picker-label={colorPickerLabel}
+        is-show-color-picker={isShowColorPicker}
+        public-price-label={publicPriceLabel}
+        is-show-spot-price={isShowSpotPrice}
+        spot-price-label={spotPriceLabel}
+        is-show-credit-price={isShowCreditPrice}
+        credit-price-label={creditPriceLabel}
+        is-show-dealer-price={isShowDealerPrice}
+        dealer-price-label={dealerPriceLabel}
+        inventory-label={inventoryLabel}
+        backorder={backorder}
+        backorder-label={backorderLabel}
+        tiered-discounts-label={tieredDiscountsLabel}
+        is-show-tiered-discounts={isShowTieredDiscounts}
+        price-adjustment-tiers={priceAdjustmentTiers}
+        quantity-label={quantityLabel}
+        add-to-cart-label={addToCartLabel}
+        add-to-list-label={addToListLabel}
+        wishlists={wishlists}
+        onaddtocart={addToCart}
+        onaddtowishlist={addToWishlist}
+        onupdateproduct={handleVariantProductUpdate}
+        quantity-available-label={quantityAvailableLabel}
+    >
+    </c-fan-product-details-display>
+</template>
+
+<!---->

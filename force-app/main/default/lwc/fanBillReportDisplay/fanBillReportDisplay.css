@@ -1,0 +1,81 @@
+:host {
+  --background-color-gray: #f3f3f3;
+}
+
+.scroll-table {
+  overflow-x: auto;
+  max-height: 550px;
+}
+
+.fixed-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Just common table stuff. Really. */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  padding: 8px 16px;
+  flex-grow: 1;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.buttons-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: end;
+}
+
+.dates-div {
+  display: flex;
+  justify-content: space-around;
+}
+
+.background-color-gray {
+  background-color: var(--background-color-gray);
+}
+
+.table-background-header th {
+  background-color: var(--background-color-gray);
+}
+
+.filter-container  {
+  width: 200px;
+}
+
+td {
+  max-width: 200px;
+}
+
+.text-right {
+  padding-right: 20px;
+  text-align: right;
+}
+
+td div {
+  white-space: break-spaces;
+}
+
+.scrollBarContainer {
+  max-height: 500px;
+  overflow: auto;
+}
+
+.slds-modal__container {
+  max-width: 47rem;
+}
+
+@media only screen and (min-width: 1024px) {
+  .button-pay-option {
+      max-width: 300px;
+  }
+}

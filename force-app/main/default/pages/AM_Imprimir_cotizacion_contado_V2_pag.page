@@ -1,0 +1,623 @@
+<apex:page renderAs="pdf" standardController="AM_Oportunidad__c" title="Cotización Honda {!AM_Oportunidad__c.AM_Modelo_de_interes__r.Name}">
+    <apex:stylesheet value="{!$Resource.AM_TamanoLetrasCotizacionesPDF}" />
+    <html>
+        <body>
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td>
+                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                            <tr>
+                                <td align="left" width="80%">
+                                    <apex:image id="imgLogoHonda" value="{!$Resource.Logo_Prueba}"/>
+                                </td>
+                                 <td align="left" width="80%">
+                                   <!-- <apex:image id="imgLogoMR" value="{!$Resource.LogoMR}"/>-->
+                                </td>
+                                <td align="right" width="20%">
+                                    <apex:outputText styleClass="textoImportante" value="Cotización # {!AM_Oportunidad__c.Name}"/>
+                                </td>
+                            </tr>
+                        </table>                            
+                        <br/>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <hr color="red" size="5"/>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                       <apex:outputText value="{!CASE(AM_Oportunidad__c.AM_Usuario_motocicleta__r.AM_Genero__pc, 'Femenino', 'Señora:', 'Masculino', 'Señor:', 'Señor (a):')}"/>
+                        <br/>
+                        <apex:outputText styleClass="textoImportante" value="{!AM_Oportunidad__c.AM_Usuario_motocicleta__r.Name}"/>
+                        <br/>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <p>
+                            Fue un placer atenderlo en nuestra sucursal
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.AM_Agencia_propietario__c} "/>
+                            el pasado 
+                            <apex:outputText styleClass="textoImportante" value=" {0, date, dd/MM/yyyy}. "> 
+                                <apex:param value="{!AM_Oportunidad__c.CreatedDate}"/>
+                            </apex:outputText>
+                            Enviamos la cotización del vehiculo de su interés.
+                            <br/>
+                            <br/>
+                        </p>
+                    </td>
+                </tr>
+
+<!-- ************************ MODELO PRINCIPAL **************************************** -->                
+                
+                <apex:outputPanel >
+                    <tr>
+                        <td>
+                            <table border="1" cellspacing="0" cellpadding="0" width="100%">
+                                <tr style="background-color:white">
+                                    <td align="center" colspan="3" width="100%">
+                                        <apex:outputText styleClass="textoImportante" value="{0} {1}">
+                                            <apex:param value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.Name}"/>
+                                            <apex:param value="{!AM_Oportunidad__c.AM_Color__c}"/>
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="30%">
+                                        <apex:image value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_URL_foto__c}"/>
+                                        <br/>
+                                        <apex:outputText styleClass="soloInformacion" value="* La imagen es de referencia"/>
+                                    </td>
+                                    <td width="40%">
+                                        <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Motor:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Motor__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Cilindraje
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Cilindraje__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Encendido 
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Arranque__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Otras especificaciones
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Dimensiones__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                               <!-- <td class="soloInformacion" width="50%">
+                                                    Peso en seco:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Peso_en_seco__c}"/>
+                                                </td>-->
+                                            </tr>
+                                            <tr>
+                                               <!-- <td class="soloInformacion" width="50%">
+                                                    Certificación:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Certificacion__c}"/>
+                                                </td>-->
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Potencia máxima
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Potencia_maxima__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Transmisión
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Transmision__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                               <!--<td class="soloInformacion" width="50%">
+                                                    Relación de compresión:
+                                                </td>-->
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_de_interes__r.AM_Relacion_de_compresion__c}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="30%">
+                                        <table align="left" valign="top" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td width="40%">
+                                                    Precio unitario:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Precio_de_lista__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    Cantidad:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value=" {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Cantidad__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Matrícula:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_matricula__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    SOAT:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_SOAT__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Descuento:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_descuento__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Seguro contra robo:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_seguro_robo__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Total:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Total_cotizacion__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </apex:outputPanel>
+                
+<!-- ************************ MODELO SUGERIDO 1 **************************************** -->
+
+                <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Modelo_sugerido_1__c == null, false, true)}">
+                    <tr>
+                        <td>
+                            <table border="1" cellspacing="0" cellpadding="0" width="100%">
+                                <tr style="background-color:white">
+                                    <td align="center" colspan="3" width="100%">
+                                        <apex:outputText styleClass="textoImportante" value="{0}">
+                                            <apex:param value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.Name}"/>
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="30%">
+                                        <apex:image value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_URL_foto__c}"/>
+                                        <br/>
+                                        <apex:outputText styleClass="soloInformacion" value="* La imagen es de referencia"/>
+                                    </td>
+                                    <td width="40%">
+                                        <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Motor:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Motor__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Cilindraje:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Cilindraje__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Arranque:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Arranque__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Dimensiones (L x An x AI):
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Dimensiones__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Peso en seco:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Peso_en_seco__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Certificación:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Certificacion__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Potencia máxima:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Potencia_maxima__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Transmisión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Transmision__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Relación de compresión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_1__r.AM_Relacion_de_compresion__c}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="30%">
+                                        <table align="left" valign="top" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td width="40%">
+                                                    Precio unitario:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Precio_de_lista_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    Cantidad:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value=" {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Cantidad__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Matrícula:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_matricula_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    SOAT:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_SOAT_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Descuento:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_descuento__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Seguro contra robo:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_seguro_robo_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Total:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Total_cotizacion_S1__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </apex:outputPanel>
+                
+<!-- ************************ MODELO SUGERIDO 2 **************************************** -->
+
+
+                <apex:outputPanel rendered="{!IF(AM_Oportunidad__c.AM_Modelo_sugerido_2__c == null, false, true)}">
+                    <tr>
+                        <td>
+                            <table border="1" cellspacing="0" cellpadding="0" width="100%">
+                                <tr style="background-color:white">
+                                    <td align="center" colspan="3" width="100%">
+                                        <apex:outputText styleClass="textoImportante" value="{0}">
+                                            <apex:param value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.Name}"/>
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="30%">
+                                        <apex:image value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_URL_foto__c}"/>
+                                        <br/>
+                                        <apex:outputText styleClass="soloInformacion" value="* La imagen es de referencia"/>
+                                    </td>
+                                    <td width="40%">
+                                        <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Motor:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Motor__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Cilindraje:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Cilindraje__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Arranque:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Arranque__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Dimensiones (L x An x AI):
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Dimensiones__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Peso en seco:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Peso_en_seco__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Certificación:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Certificacion__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Potencia máxima:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Potencia_maxima__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Transmisión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Transmision__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="soloInformacion" width="50%">
+                                                    Relación de compresión:
+                                                </td>
+                                                <td class="soloInformacion" width="50%">
+                                                    <apex:outputText value="{!AM_Oportunidad__c.AM_Modelo_sugerido_2__r.AM_Relacion_de_compresion__c}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="30%">
+                                        <table align="left" valign="top" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td width="40%">
+                                                    Precio unitario:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Precio_de_lista_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    Cantidad:
+                                                </td>
+                                                <td align="right" width="60%">
+                                                    <apex:outputText styleClass="textoImportante" value=" {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Cantidad__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Matrícula:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_valor_matricula_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    SOAT:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_valor_SOAT_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Descuento:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Valor_descuento__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Seguro contra robo:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_valor_seguro_robo_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">
+                                                    Total:
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    <apex:outputText styleClass="textoImportante" value="$ {0, number, #,##0}">
+                                                        <apex:param value="{!BLANKVALUE(AM_Oportunidad__c.AM_Total_cotizacion_S2__c, 0)}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </apex:outputPanel>
+                <tr>
+                    <td align="left" class="soloInformacion" width="100%">
+                        <hr color="red" size="5"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            Nuestro asesor
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.Owner.Name} "/>
+                            estará atento a resolver sus inquietudes.
+                            <br/>
+                            Telefóno:
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.Owner.Phone}"/>
+                            <br/>
+                            Móvil:
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.AM_Movil_propietario__c}"/>
+                            <br/>
+                            Dirección:
+                            <apex:outputText styleClass="textoImportante" value=" {!AM_Oportunidad__c.AM_Direccion_propietario__c}"/>
+                            <br/>
+                            <br/>
+                            Cotización valida hasta 
+                            <apex:outputText styleClass="textoImportante" value=" {0, date, dd/MM/yyyy}. ">
+                                <apex:param value="{!AM_Oportunidad__c.AM_Fecha_de_vigencia__c}"/>
+                            </apex:outputText>
+                            Aplican condiciones y restricciones.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p align="justify" class="soloInformacion">
+                            {!$Label.AM_Autorizacion_manejo_datos_personales}
+                        </p>
+                    </td>
+                </tr>
+                
+            </table>
+        </body>
+    </html>
+</apex:page>

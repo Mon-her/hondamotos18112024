@@ -1,0 +1,59 @@
+<template>
+  <div class="slds-m-bottom_small">
+    <h2 class="slds-p-around_x-small slds-text-color_weak">{label.deliveriesGenerated}</h2>
+    <lightning-accordion
+      allow-multiple-sections-open
+      active-section-name={activeAccordionSections}
+      class="shipping-addresses-details slds-box slds-p-around_none"
+    >
+      <template for:each={cartDeliveryGroups} for:item="cartDeliveryGroup">
+        <lightning-accordion-section
+          key={cartDeliveryGroup.Id}
+          name={cartDeliveryGroup.Id}
+          label={cartDeliveryGroup.Name}
+        >
+          <table class="totals-table slds-m-left_x-large slds-m-bottom_medium">
+            <tbody>
+              <tr>
+                <td>{label.subtotal}</td>
+                <td class="slds-text-align_right">
+                  <lightning-formatted-number
+                    value={cartDeliveryGroup.TotalProductAmount}
+                    format-style="currency"
+                  ></lightning-formatted-number>
+                </td>
+              </tr>
+              <tr>
+                <td>{label.shipping}</td>
+                <td class="slds-text-align_right">
+                  <lightning-formatted-number
+                    value={cartDeliveryGroup.TotalChargeAmount}
+                    format-style="currency"
+                  ></lightning-formatted-number>
+                </td>
+              </tr>
+              <tr>
+                <td>{label.taxes}</td>
+                <td class="slds-text-align_right">
+                  <lightning-formatted-number
+                    value={cartDeliveryGroup.TotalTaxAmount}
+                    format-style="currency"
+                  ></lightning-formatted-number>
+                </td>
+              </tr>
+              <tr>
+                <td>{label.total}</td>
+                <td class="slds-text-align_right">
+                  <lightning-formatted-number
+                    value={cartDeliveryGroup.GrandTotalAmount}
+                    format-style="currency"
+                  ></lightning-formatted-number>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </lightning-accordion-section>
+      </template>
+    </lightning-accordion>
+  </div>
+</template>

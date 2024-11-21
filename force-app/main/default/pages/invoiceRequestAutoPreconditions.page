@@ -1,0 +1,29 @@
+<apex:page showHeader="false">
+<style>
+    .myBodyStyle { background-color: #DDE4E9; }
+</style>
+<body class="myBodyStyle">
+
+    <h1>PDF no disponible</h1>
+
+    <p>Por favor asegúrese de lo siguiente:</p>
+    <ol>
+        <apex:outputPanel rendered="{!$CurrentPage.parameters.Documentos_completos_pedido__c}">
+            <li>La casilla documentos completo pedido debe estar seleccionada.</li>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!$CurrentPage.parameters.isActividadEconomicaOk}">
+            <li>El campo actividad económica ha sido dilingenciado.</li>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!$CurrentPage.parameters.isBestDriveOk}">
+            <li>El campo best drive ha sido dilingenciado.</li>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!$CurrentPage.parameters.areRetomaRequirementsMet}">
+            <li>Los campos de retoma si aplica han sido dilingenciados.</li>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!$CurrentPage.parameters.isOcupacionOk}">
+            <li>El campo ocupación ha sido dilingenciado.</li>
+        </apex:outputPanel>
+
+    </ol>
+</body>
+</apex:page>

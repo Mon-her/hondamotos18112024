@@ -1,0 +1,15 @@
+<template>
+    <lightning-spinner
+        if:true={_isLoadingData}
+        class="slds-align_absolute-center slds-m-around_large"
+        variant="brand">
+    </lightning-spinner>
+    <c-fan-account-state-display 
+        account-state-data={filteredAccountStateData} 
+        net-total={footTableData.netTotal} 
+        onsortupdate={handleSortUpdate} 
+        is-export-file-disabled={isExportFileDisabled}
+        onexportfile={handleExportFile} 
+        onapplyfilter={handleApplyFilter}>
+    </c-fan-account-state-display>
+</template>

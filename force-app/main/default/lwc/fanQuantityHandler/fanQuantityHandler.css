@@ -1,0 +1,24 @@
+.full-height {
+    height: 100%;
+}
+
+.quantity-input {
+	border-style: solid;
+    border-width: 0 1px 0 1px;
+    border-color: var(--lwc-colorBorder);
+    min-width: 64px;
+    max-width: 64px;
+}
+
+.quantity-input::-webkit-inner-spin-button, 
+.quantity-input::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+}
+
+.quantity-input:focus {
+    outline-color: var(--lwc-colorBorderInputActive);
+    outline-offset: 0;
+    outline-style: auto;
+}

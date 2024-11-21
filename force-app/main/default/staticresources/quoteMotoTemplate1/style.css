@@ -1,0 +1,464 @@
+@page { 
+	size: letter portrait;
+	
+	margin-top: 0px;
+	margin-bottom: 0px;	
+	margin-left: 0px; 
+	margin-right: 0px;
+}
+
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    font-family: sans-serif;
+    position: relative;
+}
+
+.bodies1{
+    
+}
+.bodies2{
+    height: 2090px;
+}
+
+.dbody1{
+    position: relative;
+}
+.dbody2{
+    position: relative;
+    top: 1056px;
+}
+
+.id-cotiz_motosAsset1-wrap img{
+width: 300px;
+right: 60px;
+position: absolute;
+z-index: 0;
+top: 10px;
+}
+
+.id-cotiz_motosAsset2 {
+    position: absolute;
+    top: 267px;
+    width: 383px;
+    right: 37px;
+    z-index: 1;
+}
+
+.id-cotiz_motosAsset3{
+    position: absolute;
+    top: 743px;
+    width: 199px;
+    left: 60px;
+}
+
+.id-cotiz_motosAsset4 {
+width: 250px;
+position: absolute;
+top: 30px;
+z-index: 3;
+}
+
+.id-cotiz_motosAsset5 {
+width: 250px;
+position: absolute;
+top: 50px;
+left: 260px;
+z-index: 2;
+}
+
+.id-cotiz_motosAsset6 {
+width: 10%;
+position: absolute;
+top: 0px;
+right: 5%;
+z-index: 2;
+}
+
+.id-cotiz_motosAsset8 {
+position: absolute;
+top: 110px;
+width: 400px;
+height: 30px;
+z-index: 2;
+}
+
+.id-cotiz_motosAsset9 {
+    height: 305px;
+    width: 460px;
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.id-cotiz_motosAsset10wrap{
+    position: absolute;
+    top: 310px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.id-cotiz_motosAsset10{
+    width: 90%;
+    height: 40px;
+}
+
+.id-cotiz_motosAsset10wrap .text{
+    color: white;
+    position: relative;
+    top: -42px;
+    font-size: 20pt;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+}
+
+.datenum,
+.datesep {
+font-weight: bold;
+font-variant: all-small-caps;
+font-size: 12pt;
+}
+
+.datenum {
+color: black;
+}
+
+.datesep {
+color: red;
+}
+
+.id-fechaqnum {
+    z-index: 2;
+position: absolute;
+top: 115px;
+left: 5%;
+}
+
+.id-qnum {
+margin-left: 15px;
+}
+.id-qnum .datenum {
+    /* font-size: 10pt; */
+}
+
+.id-dearblock{
+    z-index: 2;
+    position: absolute;
+    top: 160px;
+    left: 5%;
+}
+.id-dear {
+font-weight: bold;
+font-size: 18pt;
+}
+
+.id-dearn {
+font-size: 16pt;
+position: relative;
+top: -5px;
+}
+
+.id-dearm {
+width: 350px;
+font-size: 11pt;
+}
+
+.spec-columns-wrap{
+    width: 100%;
+    position: absolute;
+}
+.spec-columns{
+    margin: auto;
+    width: 90%;
+}
+.spec-columns .title{
+    font-weight: bold;
+    font-size: 14pt;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.spec-columns .subtitle{
+    font-weight: bold;
+    font-size: 10pt;
+    text-align: center;
+}
+
+.spec-columns .body{
+    
+}
+
+.spec-columns table{
+    width: 100%;
+}
+
+
+.spec-columns .body .item {
+    
+}
+
+.spec-columns .col{
+    padding: 0px;
+    margin: 0px;
+    vertical-align: top;
+}
+
+.spec-columns .col1 table {
+    width: 85%;
+    margin: auto;
+    padding-bottom: 15px;
+}
+.spec-columns .col1 table .icon {
+    display: inline;
+    margin-right: 10px;
+}
+.spec-columns .col1 table img {
+    width: 30px;
+}
+.spec-columns .col1 table td{
+    padding-bottom: 15px;
+}
+.spec-columns .col1 table .text {
+    display: inline-block;
+    font-size: 11pt;
+    width: 165px;
+}
+
+
+/***/
+
+.spec-columns .col2 table {
+    width: 85%;
+    margin: auto;
+    font-size: 10pt;
+    margin-left: auto;
+    margin-right: auto;
+}
+.spec-columns .col2 table .key {
+    color: #da3437;
+    font-size: 9pt;
+    min-width: 80px;
+    width: 80px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    line-height: 0.96rem;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+}
+.spec-columns .col2 table .text {
+    font-size: 9pt;
+    letter-spacing: -0.5px;
+    /* display: inline-block; */
+    /* width: 130px; */
+    padding: 0px;
+    padding-left: 6px;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+/***/
+
+.spec-columns .col3 table {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 9pt;
+    margin-bottom: 8px;
+    line-height: 0.95rem;
+}
+.spec-columns .col3 table .key {
+    margin-right: 8pt;
+    color: #da3437;
+    font-size: 10pt;
+    min-width: 120px;
+    width: 120px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+}
+.spec-columns .col3 table .text {
+    font-size: 9pt;
+    letter-spacing: -0.5px;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+
+    text-align: right;
+    display: inline-block;
+    width: 100%;
+}
+
+/**/
+
+.id-especificaciones-footer{
+    font-size: 7pt;
+    padding: 0px;
+    margin: 0px;
+    letter-spacing: -0.5px;
+    line-height: 0.6rem;
+}
+
+.oferta-footer{
+    padding: 0px;
+    margin: 0px;
+    font-size: 7pt;
+    letter-spacing: -0.5px;
+    line-height: 0.6rem;
+}
+
+/**/
+
+
+.id-block2 .spec-columns .col2{
+    background: white;
+}
+
+.id-block2 .spec-column .col3 .title{
+    padding-bottom: 5px;
+}
+
+
+.id-block2{
+    top: 348px;
+}
+.id-block3{
+    top: 700px;
+}
+
+.id-block3 table td.col{
+    background: white;
+}
+
+
+.id-block2 .col{
+    height: 350px;
+    background: #e4e4e3;
+}
+
+.spec-columns table .col{
+    width: 33%;
+    background: #e4e4e3;
+}
+
+.spec-columns table .col2{
+    background: white;
+}
+
+.id-asesor-footer, .id-observaciones-wrap, .id-se-entrega-con{
+    position: absolute;
+    left: 35%;
+}
+.id-asesor-footer{
+    top: 724px;
+    font-size: 8pt;
+    font-weight: bold;
+}
+.id-observaciones-wrap {
+    top: 745px;
+    border: 3px solid red;
+    width: 60%;
+    height: 80px;
+}
+.id-observaciones-wrap .text {
+    margin-left: 5px;
+    margin-top: 1px;
+    font-size: 9pt;
+}
+.id-se-entrega-con {
+    top: 835px;
+    font-size: 9pt;
+    line-height: 0.8rem;
+}
+.id-se-entrega-con .title{
+    font-weight: bold;
+}
+
+.id-honda-sueno-wrap{
+    position: absolute;
+    top: 889px;
+    font-size: 9pt;
+    background: #da3437;
+    text-align: center;
+    width: 95%;
+    left: 5%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.id-honda-sueno{
+    color: white;
+    font-weight: bold;
+    width: 80%;
+    margin: auto;
+}
+
+.id-contactanos-wrap{
+    position: absolute;
+    top: 927px;
+    left: 5%;
+    width: 90%;
+    background: #e4e4e3;
+    padding-bottom: 5px;
+}
+
+.id-contactanos-wrap .title {
+    font-size: 17pt;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.id-contactanos-wrap .title img{
+    height: 25px;
+    vertical-align: middle;
+}
+
+.id-contactanos-table {
+    padding-left: 10px;
+    letter-spacing: -1px;
+}
+
+.id-contactanos-table table td {
+    padding: 0px;
+}
+
+.id-contactanos-table .col1 {
+    width: 60%;
+    display: inline-block;
+}
+
+.id-contactanos-table .col2 {
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 10px;
+    display: inline-block;
+    width: 30%;
+    font-size: 9pt;
+}
+
+.id-contactanos-table .key {
+    width: 100px;
+    text-align: right;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+    font-size: 9pt;
+    padding-right: 5px;
+}
+
+.id-contactanos-table .text {
+    padding: 0px;
+    margin: 0px;
+    font-size: 9pt;
+}

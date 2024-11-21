@@ -1,0 +1,72 @@
+<apex:page standardcontroller="MC_Contactos__c" extensions="AR_Convertir_Contacto_a_Cuenta_cls" lightningStylesheets="true" standardStylesheets="false" docType="html-5.0" showHeader="true" showQuickActionVfHeader="false">
+ <apex:sectionHeader title="Conversión de Contacto a Cuenta"/>
+    <apex:form >
+    <apex:pageblock >    
+        <apex:pageblockSection rendered="{!INPUT==true}">
+            <apex:outputPanel >
+            <table>
+             <tr>
+             <td><apex:outputlabel value="Estado:" /></td>
+               <td>
+                <apex:selectList value="{!selEstado}" size="1" required="true">
+                <apex:selectOptions value="{!getCmbEstado}" ></apex:selectOptions>
+                </apex:selectList>
+               </td>
+             </tr>
+             <tr>
+             <td><apex:outputlabel value="Tipo de documento:" /></td>
+               <td>
+                <apex:selectList value="{!selTipoDeDocumento}" size="1" required="true">
+                <apex:selectOptions value="{!getCmbTipoDeDocumento}" ></apex:selectOptions>
+                </apex:selectList>
+               </td>
+             </tr>
+              <tr>
+              <td><apex:outputlabel value="Número de documento:" /></td>
+              <td>
+              <apex:input type="text" value="{!txtNoDeDocumento}" required="true" />
+              </td>
+             </tr>
+             <tr>
+             <td><apex:outputlabel value="Tipo de Cliente:" /></td>
+               <td>
+                <apex:selectList value="{!selTipoDeCliente}" size="1" required="true">
+                <apex:selectOptions value="{!getCmbTipoDeCliente}" ></apex:selectOptions>
+                </apex:selectList>
+               </td>
+             </tr>
+              <tr>
+              <td><apex:outputlabel value="Correo electrónico:" /></td>
+              <td>
+              <apex:input type="text" value="{!txtCorreoElectronico}"  />
+              </td>
+             </tr>
+             <tr>
+             <td><apex:outputlabel value="En caso de no autorización o no existencia de correo electrónico marcar:" /></td>  
+             <td><apex:inputCheckbox value="{!chkNotCorreo}" /> </td>
+             </tr>
+              <tr>
+              <td><apex:outputlabel value="Ocupación:" /></td>
+               <td>
+                <apex:selectList value="{!selOcupacion}" size="1" required="true">
+                <apex:selectOptions value="{!getCmbOcupacion}" ></apex:selectOptions>
+                </apex:selectList>
+               </td>
+             </tr>
+            </table>
+            <center>
+            <apex:commandbutton value="Guardar" action="{!save}" />
+            </center>
+            </apex:outputPanel>    
+        </apex:pageblockSection> 
+        <apex:pageblockSection rendered="{!INPUT==false}">
+            <apex:outputPanel >
+             <center>
+             <apex:outputText >{!sMsg}</apex:outputText>
+             </center>
+            </apex:outputPanel>    
+        </apex:pageblockSection> 
+        
+    </apex:pageblock>   
+  </apex:form>
+</apex:page>

@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-var-p-bottom_small">
+        <label for="shippingAddresses" class="slds-text-title_caps">{label.sendTo}</label>
+        <lightning-checkbox-group 
+            name="shippingAddresses"
+            options={shippingAddresses}
+            value={shippingAddressIds}
+            disabled>
+        </lightning-checkbox-group>
+    </div>
+</template>

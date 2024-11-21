@@ -1,0 +1,26 @@
+<apex:page standardController="AM_Oportunidad__c" extensions="AM_Inventario_VerificacionDisponibilidad" showHeader="false" showChat="false">
+
+
+   <apex:pageBlock title="Disponibilidad">
+
+        <apex:pageBlockTable value="{!invs}" var="item">
+
+            <apex:column headerValue="Bodega" value="{!item.bodega}"/> 
+            <apex:column headerValue="Descripción Bodega" value="{!item.descripcion_bodega}"/> 
+            <apex:column headerValue="Color" value="{!item.color}"/> 
+            <apex:column headerValue="Plan" value="{!item.plan}"/> 
+            <apex:column headerValue="Modelo" value="{!item.modelo}"/>            
+            <apex:column headerValue="Disponible" value="{!item.disponible}"/> 
+            <apex:column headerValue="Año" value="{!item.a_omodelo}"/> 
+            
+        </apex:pageBlockTable> 
+
+    </apex:pageBlock> 
+    
+    <!-- <apex:outputText >"error:{!errorWS}"</apex:outputText> <br/>
+    <apex:outputText >"results:{!resultsWS}"</apex:outputText> <br/> --> 
+    
+    <!-- <apex:outputText >"request:{!request}"</apex:outputText> <br/> -->
+    <!-- <apex:outputText >"result:{!result}"</apex:outputText> -->
+
+</apex:page>

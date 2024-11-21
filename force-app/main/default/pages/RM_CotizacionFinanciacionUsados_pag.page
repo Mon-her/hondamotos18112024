@@ -1,0 +1,517 @@
+<apex:page renderAs="PDF" standardController="AM_Oportunidad__c" extensions="RM_CotizacionFinanciacion_ctr" applyHtmlTag="false" applyBodyTag="false" showHeader="false" standardStylesheets="false">
+    <apex:stylesheet value="{!$Resource.RM_CotizacionPDFStyleSheet}" />
+    <html>        
+        <body>
+            <div id="page_1">    
+                <div id="p1dimg2">
+                    <apex:image id="imgLogoMR" value="{!$Resource.RM_Logo2019}"/>  
+                </div>              
+                <div id="p1dimg1">
+                    <apex:image id="imgTextCot" value="{!$Resource.RM_Cotizacion}"/>                            
+                </div>       
+                <table cellpadding="0" cellspacing="0" class="t0">
+                    <tr>
+                        <td class="tr1 td0">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr0 td1">
+                            <p class="p1 ft1"> &nbsp; Fecha:</p>
+                        </td>
+                        <td class="tr0 td2">
+                            <p class="p2 ft1">Cot. No.</p>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td class="tr1 td0">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr1 td1">
+                            <p class="p1 ft3"> &nbsp; 
+                                <apex:outputText value="{0, date, dd/MM/yyyy}">
+                                    <apex:param value="{!objOp.AM_Fecha_de_creacion__c}" /> 
+                                </apex:outputText>
+                            </p>
+                        </td>
+                        <td class="tr1 td2">
+                            <p class="p2 ft3">{!objOp.Name}</p>
+                        </td>                        
+                    </tr>
+                </table>
+                
+                
+                <P class="p3 ft4">Estimado (a):</P>
+                <P class="p4 ft5">{!objOp.AM_Usuario_motocicleta__r.Name}</P>
+                <P class="p5 ft6">{!$Label.RM_AgradecimientoCotizacionLBL}</P>                
+                <table cellpadding="0" cellspacing="0" class="t1">
+                    <tr>
+                        <td class="tr2 td3">
+                            <p class="p6 ft7"><apex:image id="imgDatosCliente" value="{!$Resource.RM_DatosCliente}"/> &nbsp;</p>
+                        </td>
+                        <td class="tr3 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr2 td3">
+                            <p class="p6 ft7"><apex:image id="imgDatosFac" value="{!$Resource.RM_InformacionAsesor}"/> </p>
+                        </td>
+                        <td class="tr2 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tr3 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">C.C.: </SPAN>{!objOp.AM_Usuario_motocicleta__r.AM_Numero_de_documento__c}</p>
+                        </td>
+                        <td class="tr3 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr3 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Nombre: </SPAN>{!objOp.Owner.Name}</p>
+                        </td>
+                        <td class="tr3 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="tr4 td3">
+                            <p class="p0 ft8">Teléfono: <SPAN class="ft9">{!objOp.AM_Usuario_motocicleta__r.Phone}</SPAN></p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr4 td5">
+                            <p class="p0 ft8">Teléfono fijo / Celular: <SPAN class="ft9">{!objOp.AM_Movil_propietario__c}</SPAN></p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tr4 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">Otro telefono: </SPAN>{!objOp.AM_Usuario_motocicleta__r.PersonOtherPhone}</p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr4 td5">
+                            <p class="p0 ft8">Correo: <SPAN class="ft9">{!objOp.Owner.Email}</SPAN></p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tr4 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">Dirección: </SPAN>{!objOp.AM_Usuario_motocicleta__r.AM_Direccion__c}</p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr4 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Agencia: </SPAN>{!objOp.AM_Agencia_propietario__c} - {!objOp.AM_Direccion_propietario__c}</p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tr4 td3">
+                            <p class="p0 ft9"><NOBR><SPAN class="ft8">E-mail:</SPAN></NOBR><SPAN class="ft8"> </SPAN>{!objOp.AM_Usuario_motocicleta__r.PersonEmail}</p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr4 td5">
+                            <p class="p0 ft9"><SPAN class="ft8"> </SPAN></p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                      <!--  <td colspan="2" class="tr4 td7">
+                            <p class="p0 ft8">Como se enteró del vehículo: <SPAN class="ft9">{!objOp.AM_Canal_de_atencion__c}</SPAN></p>
+                        </td>-->
+                        <td class="tr4 td5">
+                            <p class="p0 ft9"><NOBR><SPAN class="ft8"></SPAN></NOBR><SPAN class="ft8"></SPAN></p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="tr5 td7">
+                            <p class="p6 ft7"><apex:image id="imgVehiculoCot1" value="{!$Resource.RM_VehiculoCotizar1}"/></p>
+                        </td>
+                        <td colspan="2" class="tr5 td8">
+                            <apex:outputPanel rendered="{!AND(objOp.AM_Modelo_sugerido_1__c != null)}">
+                                <p class="p6 ft7"><apex:image id="imgVehiculoCot2" value="{!$Resource.RM_VehiculoCotizar2}"/></p>
+                            </apex:outputPanel>    
+                        </td>
+                    </tr>
+                </table>
+                <table cellpadding="0" cellspacing="0" class="t1">
+                    <tr>                        
+                        <td width="25%">
+                            <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                <tr>
+                                    <td class="tr6 td4">
+                                        <p class="p0 ft8">Marca: <SPAN class="ft9">{!objOp.Marca_usado__c}</SPAN></p>
+                                    </td>                                   
+                                </tr>
+                                <tr>
+                                    <td class="tr6 td4">
+                                        <p class="p0 ft8">Línea: <SPAN class="ft9">{!objOp.Linea_usado__c}</SPAN></p>
+                                    </td>                                   
+                                </tr>
+                                <tr>
+                                    <TD class="tr7 td4"><P class="p0 ft8">Versión: <SPAN class="ft9">{!objOp.Version_usado__c}</SPAN></P></TD>                                  
+                                </tr>
+                                <tr>
+                                    <TD class="tr7 td4"><P class="p0 ft8">C.C: <SPAN class="ft9">{!objOp.Cilindraje_usados__c}</SPAN></P></TD>                                  
+                                </tr>
+                                <tr>
+                                    <TD class="tr8 td4"><P class="p0 ft8">Caja: <SPAN class="ft9">{!objOp.Caja_Usado__c}</SPAN></P></TD>                                 
+                                </tr>
+                                <tr>
+                                    <TD class="tr8 td4"><P class="p0 ft8">Placa:<SPAN class="ft9">{!objOp.Placa_usado__c}</SPAN></P></TD>                                  
+                                </tr> 
+                                <tr>
+                                    <TD class="tr8 td4"><P class="p0 ft8">Ciudad Placa:<SPAN class="ft9">{!objOp.Ciudad_de_placa__r.Name}</SPAN></P></TD>                                  
+                                </tr> 
+                                 <tr>
+                                    <TD class="tr8 td4"><P class="p0 ft8">Kilometraje:<SPAN class="ft9">{!objOp.Kilometraje_usado__c}</SPAN></P></TD>                                  
+                                </tr> 
+                                <tr>
+                                    <TD class="tr8 td4"><P class="p0 ft8">Año modelo:<SPAN class="ft9">{!objOp.Ano_modelo_usado__c}</SPAN></P></TD>                                  
+                                </tr>
+                                <tr>
+                                    <TD class="tr8 td4"><P class="p0 ft8">Color: <SPAN class="ft9">{!objOp.Color_usado__c}</SPAN></P></TD>                                  
+                                </tr>
+                                <tr>
+                                    <TD class="tr9 td4"><P class="p0 ft8">Precio de Vehículo (IVA incluido)</P></TD>                                   
+                                </tr>                                
+                                <tr>
+                                    <td class="tr12 td4">
+                                        <p class="p0 ft9">
+                                        <apex:outputText value="$ {0, number, ###,###.##}">
+                                            <apex:param value="{!objOp.Precio_venta_usado__c}"/>
+                                        </apex:outputText>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="center" width="3%">
+                            
+                        </td>
+                        <td width="25%">
+                            <apex:outputPanel rendered="{!AND(objOp.AM_Modelo_sugerido_1__c != null)}">
+                            <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                <tr>
+                                    <td class="tr6 td4">
+                                        <p class="p0 ft8">Línea: <SPAN class="ft9">{!objOp.AM_Modelo_sugerido_1__r.AM_Linea__c}</SPAN></p>
+                                    </td>                                   
+                                </tr>
+                                <tr>
+                                    <td class="tr7 td4">
+                                        <p class="p0 ft8">Versión: <SPAN class="ft9">{!objOp.AM_Modelo_sugerido_1__r.AM_Version__c}</SPAN></p>
+                                    </td>                                  
+                                </tr>
+                                <tr>
+                                    <td class="tr7 td4">
+                                        <p class="p0 ft8">C.C: <SPAN class="ft9">{!objOp.AM_Modelo_sugerido_1__r.AM_Cilindraje__c}</SPAN></p>
+                                    </td>                                  
+                                </tr>
+                                <tr>
+                                    <td class="tr8 td4">
+                                        <p class="p0 ft8">Caja: <SPAN class="ft9">{!objOp.AM_Modelo_sugerido_1__r.AM_Caja__c}</SPAN></p>
+                                    </td>                                 
+                                </tr>
+                                <tr>
+                                    <td class="tr8 td4">
+                                        <p class="p0 ft8">Placa:<SPAN class="ft9">{!objOp.AM_Otro_Placa__c}</SPAN></p>
+                                    </td>                                  
+                                </tr>
+                                <tr>
+                                    <td class="tr6 td4">
+                                        <p class="p0 ft8">Año modelo: <SPAN class="ft9">{!objOp.AM_Ano_modelo_sugerido__c}</SPAN></p>
+                                    </td>                                   
+                                </tr>
+                                <tr>
+                                    <td class="tr8 td4">
+                                        <p class="p0 ft8">Color:<SPAN class="ft9">{!objOp.Color_sugerido__c}</SPAN></p>
+                                    </td>                                  
+                                </tr>
+                                <tr>
+                                    <td class="tr9 td4">
+                                        <p class="p0 ft8">Precio de Vehículo (IVA incluido)</p>
+                                    </td>                                   
+                                </tr>                                
+                                <tr>
+                                    <td class="tr12 td4">
+                                        <p class="p0 ft9">
+                                            <apex:outputText value="$ {0, number, ###,###.##}">
+                                                <apex:param value="{!objOp.AM_Modelo_sugerido_1__r.AM_Precio_de_lista__c}"/>
+                                            </apex:outputText>                                          
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            </apex:outputPanel>    
+                        </td>
+                    </tr>                       
+               </table>
+               <table cellpadding="0" cellspacing="0" class="t11">
+                   <tr>
+                       <td>
+                           <apex:image id="imgLogoGaran" value="{!$Resource.RM_LogoGarantiaUsados}"/>
+                       </td>
+                       <td class="td61">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                       <td>
+                            <P class="p14 ft16u">{!$Label.RM_GarantiaHondaUsadosLBL}</P>
+                       </td>
+                   </tr>
+               </table>
+                <apex:outputPanel rendered="{!AND(objOp.AM_Financiera_Simulacion1__c != null)}">
+               <table cellpadding="0" cellspacing="0" class="t1">
+                    <tr>
+                        <td colspan="6" class="tr5 td7">
+                            <p class="p6 ft7"><apex:image id="imgPlan1" value="{!$Resource.RM_PlanFinanciar1}"/></p>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="tr3 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">Simulación 1 </SPAN></p>
+                        </td>
+                        <td class="tr3 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td colspan="2" class="tr3 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Simulación 2 </SPAN></p>
+                        </td>
+                        <td class="tr3 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2" class="tr4 td3">
+                            <p class="p0 ft8">Financiera: <SPAN class="ft9">{!objOp.AM_Financiera_Simulacion1__c}</SPAN></p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td colspan="2" class="tr4 td5">
+                            <p class="p0 ft8">Financiera: <SPAN class="ft9">{!objOp.AM_Financiera_Simulacion2__c}</SPAN></p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="tr4 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">Valor: </SPAN>
+                                <apex:outputText value="$ {0, number, ###,###.##}">
+                                    <apex:param value="{!objOp.AM_Valor_Simulacion1__c}"/>
+                                </apex:outputText>
+                            </p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td colspan="2" class="tr4 td5">
+                            <p class="p0 ft8">Valor: <SPAN class="ft9">
+                                <apex:outputText value="$ {0, number, ###,###.##}">
+                                    <apex:param value="{!objOp.AM_Valor_Simulacion2__c}"/>
+                                </apex:outputText>
+                            </SPAN></p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="tr4 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">Cuota Inicial: </SPAN>
+                                <apex:outputText value="${0, number, ###,###.##}">
+                                    <apex:param value="{!objOp.AM_Cuota_Inicial_Simulacion1__c}"/>
+                                </apex:outputText>
+                            </p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td colspan="2" class="tr4 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Cuota Inicial: </SPAN>
+                                <apex:outputText value="${0, number, ###,###.##}">
+                                    <apex:param value="{!objOp.AM_Cuota_Inicial_Simulacion2__c}"/>
+                                </apex:outputText>
+                            </p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td colspan="2" class="tr4 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">Saldo Financiar: </SPAN>
+                                <apex:outputText value="${0, number, ###,###.##}">
+                                    <apex:param value="{!objOp.AM_Saldo_a_financiar_Simulacion1__c}"/>
+                                </apex:outputText>
+                            </p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td colspan="2" class="tr4 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Saldo Financiar: </SPAN>
+                                <apex:outputText value="${0, number, ###,###.##}">
+                                    <apex:param value="{!objOp.AM_Saldo_a_financiar_Simulacion2__c}"/>
+                                </apex:outputText>
+                            </p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td colspan="2" class="tr4 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">Plazo: </SPAN>{!objOp.AM_Plazo_Simulacion1__c}</p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td colspan="2" class="tr4 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Plazo: </SPAN>{!objOp.AM_Plazo_Simulacion2__c}</p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2" class="tr4 td3">
+                            <p class="p0 ft9"><SPAN class="ft8">Cuota mensual: </SPAN>
+                                <apex:outputText value="${0, number, ###,###.##}">
+                                    <apex:param value="{!objOp.AM_Cuota_Mensual_Simulacion1__c}"/>
+                                </apex:outputText>
+                            </p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td colspan="2" class="tr4 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Cuota mensual: </SPAN>
+                                <apex:outputText value="${0, number, ###,###.##}">
+                                    <apex:param value="{!objOp.AM_Cuota_Mensual_Simulacion2__c}"/>
+                                </apex:outputText>
+                            </p>
+                        </td>
+                        <td class="tr4 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                </table>
+                </apex:outputPanel>
+                <table cellpadding="0" cellspacing="0" class="t1">
+                    <tr>
+                        <td class="tr2 td3">
+                            <p class="p6 ft7"><apex:image id="imgObser" value="{!$Resource.RM_Observaciones}"/> &nbsp;</p>
+                        </td>
+                        <td class="tr3 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td colspan="3" class="tr2 td3">
+                            <p class="p6 ft7"><apex:image id="imgInfoAsesor" value="{!$Resource.RM_DatosFacturacion}"/> </p>
+                        </td>
+                        <td class="tr2 td6">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tr3 td3">
+                            <p class="p0 ft9"><SPAN class="ft8"></SPAN>{!strObservaciones1}&nbsp;&nbsp;</p>
+                        </td>
+                        <td class="tr3 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>                        
+                        <td class="tr3 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Nombre: </SPAN>{!objOp.AM_Propietario_motocicleta__r.Name}</p>
+                            
+                        </td>
+                      <!--  <td class="tr3 td5">
+                            <p class="p0 ft9"><SPAN class="ft8">Otro Telefono: </SPAN>{!objOp.AM_Propietario_motocicleta__r.PersonOtherPhone}</p>
+                        </td>-->
+                    </tr>
+                    
+                    <tr>
+                        <td class="tr4 td3">
+                            <p class="p0 ft8"><SPAN class="ft9">{!strObservaciones2}&nbsp;&nbsp;</SPAN></p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr4 td5">
+                            <p class="p0 ft8">C.C. o NIT: <SPAN class="ft9">{!objOp.AM_Propietario_motocicleta__r.AM_Numero_de_documento__c}</SPAN></p>
+                        </td>
+                        <td class="tr4 td5">
+                            <p class="{!strAddressStyle}">Dirección: <SPAN class="ft9">{!objOp.AM_Propietario_motocicleta__r.AM_Direccion__c}</SPAN></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tr4 td3">
+                            <p class="p0 ft9"><SPAN class="ft8"></SPAN>{!strObservaciones3}&nbsp;&nbsp;</p>
+                        </td>
+                        <td class="tr4 td4">
+                            <p class="p0 ft2">&nbsp;</p>
+                        </td>
+                        <td class="tr4 td5">
+                            <p class="p0 ft8">Teléfono: <SPAN class="ft9">{!objOp.AM_Propietario_motocicleta__r.Phone}</SPAN></p>
+                        </td>
+                        <td class="tr4 td5">
+                            <p class="p0 ft8">E-mail: <SPAN class="ft9">{!objOp.AM_Propietario_motocicleta__r.PersonEmail}</SPAN></p>
+                        </td>
+                    </tr>                                    
+                </table>
+                <table cellpadding="0" cellspacing="0" class="t1">
+                    <tr>
+                        <td width="85%">
+                            <p class="p14 ft166">{!$Label.RM_AutorizaDatosLBL}</p>
+                            <p class="p14 ft166">{!$Label.RM_AutorizaDatos2LBL}</p>
+                        </td>
+                        <td width="5%" >
+                            &nbsp;
+                        </td>
+                        <td width="10%">
+                            <apex:image id="imgYesNoCheckBox" value="{!$Resource.RM_SiNoCheckBox}"/>
+                            <p class="p14 ft166">&nbsp;</p>
+                            <p class="p14 ft166">&nbsp;</p>
+                            <apex:image id="imgClientSignature" value="{!$Resource.RM_FirmaCliente}"/>
+                        </td>
+                    </tr>
+                </table>
+                <table cellpadding="0" cellspacing="0" class="t1">
+                    <tr>
+                        <td width="25%" valign="center" align="center">
+                            <apex:image id="imgEcoImage" value="{!$Resource.RM_LogoEcoDreams}"/>
+                        </td>
+                        <td width="25%" valign="center" align="center">
+                            <apex:image id="imgHondaURL" value="{!$Resource.RM_LogoHondaURL}"/>
+                        </td>
+                        <td width="25%" valign="center" align="center">
+                            <apex:image id="imgHondaUsed" value="{!$Resource.RM_LogoUsados}"/>
+                        </td>
+                        <td width="25%" valign="center" align="center">
+                            <apex:image id="imgHondaRenting" value="{!$Resource.RM_LogoHondaRenting}"/>
+                        </td>
+                    </tr>
+                </table>
+                <p class="p29 ft27">{!$Label.RM_UltimoTextoCotizacionUsadosLBL}</p>
+            </div>            
+            
+        </body>
+    </html>
+</apex:page>

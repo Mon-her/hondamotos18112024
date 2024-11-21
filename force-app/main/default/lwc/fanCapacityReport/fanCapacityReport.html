@@ -1,0 +1,20 @@
+<template>
+  <c-fan-capacity-report-detail details={details}>
+  </c-fan-capacity-report-detail>
+
+  <div class="slds-var-m-around_large"></div>
+
+  <lightning-spinner
+    if:true={_isLoadingData}
+    class="slds-align_absolute-center slds-m-around_large"
+    variant="brand">
+  </lightning-spinner>
+  <c-fan-capacity-report-bill-info
+    account-data={filteredAccountStateData}
+    onsortupdate={handleSortUpdate}
+    onfilterupdate={handleFilterUpdate}
+    is-export-file-disabled={isExportFileDisabled}
+    onexportfile={handleExportFile}
+    invoices-totals={formattedInvoicesTotals}>
+  </c-fan-capacity-report-bill-info>
+</template>

@@ -1,0 +1,38 @@
+<template>
+    <div if:true={label} class="slds-var-m-right_x-small">
+        <span>{label}</span>
+    </div>
+    <div class="full-height slds-grid slds-grow slds-box_border">
+        <lightning-button-icon
+            name="decrease"
+            class="slds-align-middle"
+            icon-name="utility:dash"
+            size="small"
+            variant="container"
+            onclick={handleQuantityDecrease}
+            onblur={handleQuantityDecreased}
+            disabled={disableQuantityDecrease}>
+        </lightning-button-icon>
+        <input
+            name="quantityInput"
+            class="quantity-input slds-text-align_center slds-var-p-vertical_x-small"
+            type="number"
+            min={min}
+            max={max}
+            value={value}
+            onbeforeinput={handleForbiddenCharacters}
+            oninput={handleQuanityInput}
+            onblur={handleInputBlur}
+            disabled={disabled}/>
+        <lightning-button-icon
+            name="increase"
+            class="slds-align-middle"
+            icon-name="utility:add"
+            size="small"
+            variant="container"
+            onclick={handleQuantityIncrease}
+            onblur={handleQuantityIncreased}
+            disabled={disableQuantityIncrease}>
+        </lightning-button-icon>
+    </div>
+</template>

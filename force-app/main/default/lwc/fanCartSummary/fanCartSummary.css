@@ -1,0 +1,34 @@
+:host {
+	--cart-summary-background-color: #F1F1F1;
+	--cart-summary-font-color: #111111;
+	--cart-summary-header-font-size: 24px;
+	--cart-summary-total-to-pay-label-font-size: 20px;
+	--cart-summary-total-to-pay-value-font-size: 28px;
+}
+
+.summary-panel {
+	background-color: var(--cart-summary-background-color);
+	color: var(--cart-summary-font-color);
+	font-weight: bold;
+}
+
+.summary-header {
+	font-size: var(--cart-summary-header-font-size);
+}
+
+.summary-table td {
+	width: 100%;
+	white-space: nowrap;
+}
+
+.summary-table td+td {
+	text-align: right;
+}
+
+.total-to-pay-label {
+	font-size: var(--cart-summary-total-to-pay-label-font-size);
+}
+
+.total-to-pay-value {
+	font-size: var(--cart-summary-total-to-pay-value-font-size);
+}

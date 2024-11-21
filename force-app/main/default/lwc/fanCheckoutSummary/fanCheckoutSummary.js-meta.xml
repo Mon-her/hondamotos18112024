@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Resumen de Pedido</masterLabel>
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Id del carrito" role="inputOnly" />
+            <property name="titleHeader" type="String" label="Título del resumen de pedido" role="inputOnly" />
+            <property name="shippingHeader" type="String" label="Etiqueta del envío estimado" role="inputOnly" />
+            <property name="subtotalHeader" type="String" label="Etiqueta del subtotal" role="inputOnly" />
+            <property name="taxHeader" type="String" label="Etiqueta de los impuestos estimados" role="inputOnly" />
+            <property name="totalHeader" type="String" label="Etiqueta del total" role="inputOnly" />
+            <property name="currentState" type="String" label="state" />
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="recordId" type="String" label="Id del resumen de pedido" default="{!recordId}" />
+            <property name="titleHeader" type="String" label="Título del resumen de pedido" default="RESUMEN DE PEDIDO" />
+            <property name="shippingHeader" type="String" label="Etiqueta del envío estimado" default="Flete:" />
+            <property name="subtotalHeader" type="String" label="Etiqueta del subtotal" default="Subtotal:" />
+            <property name="taxHeader" type="String" label="Etiqueta de los impuestos estimados" default="Impuestos estimados:" />
+            <property name="totalHeader" type="String" label="Etiqueta del total" default="Total:" />
+            <property name="currentState" type="String" label="state" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

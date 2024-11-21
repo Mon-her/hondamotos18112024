@@ -1,0 +1,43 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="cContactos" type="Integer" default="0"/>
+    <aura:attribute name="cCuentas" type="Integer" default="0"/>
+    <aura:attribute name="cRenting" type="Integer" default="0"/>
+    <aura:attribute name="cNuevos" type="Integer" default="0"/>
+    <aura:attribute name="cUsados" type="Integer" default="0"/>
+    <aura:attribute name="startDate" type="date"  />
+    <aura:attribute name="finalDate" type="date" />
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
+    
+    <div class="slds-grid slds-wrap">
+       <div class="slds-col slds-size_2-of-12">
+        <span> <c:AO_score sTitle="Referidos Contactos" sScore="{!v.cContactos}"/> </span>
+      </div>
+      <div class="slds-col slds-size_3-of-12">
+        <span>  <c:AO_score sTitle="Referidos Cuentas" sScore="{!v.cCuentas}"/> </span>
+      </div>
+       <div class="slds-col slds-size_2-of-12">
+        <span><c:AO_score  sTitle="Cotizaciones Renting" sScore="{!v.cRenting}"/> </span>
+      </div>
+      <div class="slds-col slds-size_3-of-12">
+        <span><c:AO_score sTitle="Cotizaciones Nuevos" sScore="{!v.cNuevos}"/> </span>
+      </div>
+         <div class="slds-col slds-size_2-of-12">
+        <span>  <c:AO_score sTitle="Cotizaciones Usados"  sScore="{!v.cUsados}"/> </span>
+      </div>
+     <!-- <div class="slds-col slds-size_3-of-12">
+        <span>  <lightning:input type="date" name="input4" label="Fecha inicio " value="{!v.startDate}" placeholder="type here..."/></span>
+      </div>
+      <div class="slds-col slds-size_1-of-12">
+        <span>  </span>
+      </div>
+      <div class="slds-col slds-size_3-of-12">
+        <span>  <lightning:input type="date" name="input4" label="Fecha fin" value="{!v.finalDate}" placeholder="type here..."/></span>
+      </div>
+         <div class="slds-col slds-size_1-of-12">
+        <span>  </span>
+      </div>
+   		
+              </div>-->
+    </div>
+          
+</aura:component>
